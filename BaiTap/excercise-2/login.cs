@@ -45,7 +45,7 @@ namespace excercise_2
         {
             string username = textBox1.Text;
             string password = Passdecode(textBox2.Text);
-            string ServerIp = "192.168.1.10";
+            string ServerIp = "127.0.0.1";
             int port = 11000;
 
             Socket Client =  new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -62,17 +62,19 @@ namespace excercise_2
             int bytesRead = Client.Receive(buffer);
             string response = Encoding.ASCII.GetString(buffer, 0, bytesRead);
             string[] parts = response.Split(':');
-            if (parts.Length >= 3)
+            if (parts.Length >= 1)
             {
                 string ReturnResponse = parts[0];
-                string ReturnUsername = parts[1];
-                string ReturnEmail = parts[2];
-
                 if (ReturnResponse == "LoginSuccessful")
                 {
-                    infor log = new infor(ReturnUsername,ReturnEmail);
-                    log.Show();
-                    this.Hide();
+                    if (parts.Length >= 3)
+                    {
+                        string ReturnUsername = parts[1];
+                        string ReturnEmail = parts[2];
+                        infor log = new infor(ReturnUsername, ReturnEmail);
+                        log.Show();
+                        this.Hide();
+                    }
                 }
                 else if (ReturnResponse == "LoginFailed")
                 {

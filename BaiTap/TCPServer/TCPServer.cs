@@ -35,14 +35,14 @@ namespace TCPServer
         {
             try
             {
-                IPAddress ipAddress = IPAddress.Parse("192.168.1.10");
+                IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
                 int port = 11000;
                 listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 IPEndPoint endPoint = new IPEndPoint(ipAddress, port);
                 textBox1.Text = endPoint.ToString();
                 listener.Bind(endPoint);
                 listener.Listen(10);
-                LogMessage("Server đang lắng nghe trên cổng " + port + "...");
+                LogMessage("Server đang chạy trên port " + port + "...");
                 running = true;
                 Thread listenerThread = new Thread(ListenForClients);
                 listenerThread.IsBackground = true;
@@ -90,29 +90,22 @@ namespace TCPServer
                 LogMessage("Đã nhận từ client: " + message);
                 string[] parts = message.Split(':');
 
-                if (parts.Length == 2) // Xử lý đăng nhập
+                if (parts.Length == 2) 
                 {
                     username = parts[0];
                     password = parts[1];
-
+                    UserInfo userInfo = GetInfo(username);
                     if (Login(username, password))
                     {
-                        UserInfo userInfo = GetInfo(username);
-                        if (userInfo != null)
-                        {
-                            response = $"LoginSuccessful:{userInfo.Username}:{userInfo.Email}";
-                        }
-                        else
-                        {
-                            response = "UserNotFound";
-                        }
+                        
+                        response = $"LoginSuccessful:{userInfo.Username}:{userInfo.Email}";
                     }
                     else
                     {
                         response = "LoginFailed";
                     }
                 }
-                else if (parts.Length == 4) // Xử lý đăng ký
+                else if (parts.Length == 4) 
                 {
                     username = parts[0];
                     password = parts[1];
@@ -120,7 +113,7 @@ namespace TCPServer
                     string confirm = parts[3];
                     if (Signup(username))
                     {
-                        response = "UsernameAlreadyExists";
+                        response = "SignupFailedName";
                     }
                     else
                     {
