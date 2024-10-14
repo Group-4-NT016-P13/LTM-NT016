@@ -1,0 +1,57 @@
+C:\Users\ADMIN\source\repos\excercise-2\excercise-2\bin\Debug\excercise-2.exe.config
+C:\Users\ADMIN\source\repos\excercise-2\excercise-2\bin\Debug\excercise-2.exe
+C:\Users\ADMIN\source\repos\excercise-2\excercise-2\bin\Debug\excercise-2.pdb
+C:\Users\ADMIN\source\repos\excercise-2\excercise-2\obj\Debug\excercise-2.csproj.AssemblyReference.cache
+C:\Users\ADMIN\source\repos\excercise-2\excercise-2\obj\Debug\excercise_2.login.resources
+C:\Users\ADMIN\source\repos\excercise-2\excercise-2\obj\Debug\excercise_2.Properties.Resources.resources
+C:\Users\ADMIN\source\repos\excercise-2\excercise-2\obj\Debug\excercise_2.signup.resources
+C:\Users\ADMIN\source\repos\excercise-2\excercise-2\obj\Debug\excercise-2.csproj.GenerateResource.cache
+C:\Users\ADMIN\source\repos\excercise-2\excercise-2\obj\Debug\excercise-2.csproj.CoreCompileInputs.cache
+C:\Users\ADMIN\source\repos\excercise-2\excercise-2\obj\Debug\excercise-2.exe
+C:\Users\ADMIN\source\repos\excercise-2\excercise-2\obj\Debug\excercise-2.pdb
+C:\Users\ADMIN\source\repos\excercise-2\excercise-2\obj\Debug\excercise_2.infor.resources
+C:\Users\ADMIN\source\repos\excercise-2\excercise-2\bin\Debug\System.Data.SqlClient.dll
+C:\Users\ADMIN\source\repos\excercise-2\excercise-2\bin\Debug\System.Data.SqlClient.xml
+C:\Users\ADMIN\source\repos\excercise-2\excercise-2\obj\Debug\excercis.F1D5CEF5.Up2Date
+C:\Users\ADMIN\source\repos\excercise-2\excercise-2\bin\Debug\excercise-2.exe.manifest
+C:\Users\ADMIN\source\repos\excercise-2\excercise-2\bin\Debug\excercise-2.application
+C:\Users\ADMIN\source\repos\excercise-2\excercise-2\obj\Debug\excercise-2.exe.manifest
+C:\Users\ADMIN\source\repos\excercise-2\excercise-2\obj\Debug\excercise-2.application
+D:\Dai Hoc\LTMCB\Chess-game-homework\Chess-game-homework\excercise-2\bin\Debug\excercise-2.exe.config
+D:\Dai Hoc\LTMCB\Chess-game-homework\Chess-game-homework\excercise-2\bin\Debug\excercise-2.exe.manifest
+D:\Dai Hoc\LTMCB\Chess-game-homework\Chess-game-homework\excercise-2\bin\Debug\excercise-2.application
+D:\Dai Hoc\LTMCB\Chess-game-homework\Chess-game-homework\excercise-2\bin\Debug\excercise-2.exe
+D:\Dai Hoc\LTMCB\Chess-game-homework\Chess-game-homework\excercise-2\bin\Debug\excercise-2.pdb
+D:\Dai Hoc\LTMCB\Chess-game-homework\Chess-game-homework\excercise-2\bin\Debug\System.Data.SqlClient.dll
+D:\Dai Hoc\LTMCB\Chess-game-homework\Chess-game-homework\excercise-2\bin\Debug\System.Data.SqlClient.xml
+D:\Dai Hoc\LTMCB\Chess-game-homework\Chess-game-homework\excercise-2\obj\Debug\excercise-2.csproj.AssemblyReference.cache
+D:\Dai Hoc\LTMCB\Chess-game-homework\Chess-game-homework\excercise-2\obj\Debug\excercise_2.infor.resources
+D:\Dai Hoc\LTMCB\Chess-game-homework\Chess-game-homework\excercise-2\obj\Debug\excercise_2.login.resources
+D:\Dai Hoc\LTMCB\Chess-game-homework\Chess-game-homework\excercise-2\obj\Debug\excercise_2.Properties.Resources.resources
+D:\Dai Hoc\LTMCB\Chess-game-homework\Chess-game-homework\excercise-2\obj\Debug\excercise_2.signup.resources
+D:\Dai Hoc\LTMCB\Chess-game-homework\Chess-game-homework\excercise-2\obj\Debug\excercise-2.csproj.GenerateResource.cache
+D:\Dai Hoc\LTMCB\Chess-game-homework\Chess-game-homework\excercise-2\obj\Debug\excercise-2.csproj.CoreCompileInputs.cache
+D:\Dai Hoc\LTMCB\Chess-game-homework\Chess-game-homework\excercise-2\obj\Debug\excercise-2.exe.manifest
+D:\Dai Hoc\LTMCB\Chess-game-homework\Chess-game-homework\excercise-2\obj\Debug\excercise-2.application
+D:\Dai Hoc\LTMCB\Chess-game-homework\Chess-game-homework\excercise-2\obj\Debug\excercis.F1D5CEF5.Up2Date
+D:\Dai Hoc\LTMCB\Chess-game-homework\Chess-game-homework\excercise-2\obj\Debug\excercise-2.exe
+D:\Dai Hoc\LTMCB\Chess-game-homework\Chess-game-homework\excercise-2\obj\Debug\excercise-2.pdb
+D:\Dai Hoc\LTMCB\course\Chess-game-homework\Chess-game-homework\excercise-2\bin\Debug\excercise-2.exe.config
+D:\Dai Hoc\LTMCB\course\Chess-game-homework\Chess-game-homework\excercise-2\bin\Debug\excercise-2.exe.manifest
+D:\Dai Hoc\LTMCB\course\Chess-game-homework\Chess-game-homework\excercise-2\bin\Debug\excercise-2.application
+D:\Dai Hoc\LTMCB\course\Chess-game-homework\Chess-game-homework\excercise-2\bin\Debug\excercise-2.exe
+D:\Dai Hoc\LTMCB\course\Chess-game-homework\Chess-game-homework\excercise-2\bin\Debug\excercise-2.pdb
+D:\Dai Hoc\LTMCB\course\Chess-game-homework\Chess-game-homework\excercise-2\bin\Debug\System.Data.SqlClient.dll
+D:\Dai Hoc\LTMCB\course\Chess-game-homework\Chess-game-homework\excercise-2\bin\Debug\System.Data.SqlClient.xml
+D:\Dai Hoc\LTMCB\course\Chess-game-homework\Chess-game-homework\excercise-2\obj\Debug\excercise-2.csproj.AssemblyReference.cache
+D:\Dai Hoc\LTMCB\course\Chess-game-homework\Chess-game-homework\excercise-2\obj\Debug\excercise_2.infor.resources
+D:\Dai Hoc\LTMCB\course\Chess-game-homework\Chess-game-homework\excercise-2\obj\Debug\excercise_2.login.resources
+D:\Dai Hoc\LTMCB\course\Chess-game-homework\Chess-game-homework\excercise-2\obj\Debug\excercise_2.Properties.Resources.resources
+D:\Dai Hoc\LTMCB\course\Chess-game-homework\Chess-game-homework\excercise-2\obj\Debug\excercise_2.signup.resources
+D:\Dai Hoc\LTMCB\course\Chess-game-homework\Chess-game-homework\excercise-2\obj\Debug\excercise-2.csproj.GenerateResource.cache
+D:\Dai Hoc\LTMCB\course\Chess-game-homework\Chess-game-homework\excercise-2\obj\Debug\excercise-2.csproj.CoreCompileInputs.cache
+D:\Dai Hoc\LTMCB\course\Chess-game-homework\Chess-game-homework\excercise-2\obj\Debug\excercise-2.exe.manifest
+D:\Dai Hoc\LTMCB\course\Chess-game-homework\Chess-game-homework\excercise-2\obj\Debug\excercise-2.application
+D:\Dai Hoc\LTMCB\course\Chess-game-homework\Chess-game-homework\excercise-2\obj\Debug\excercis.F1D5CEF5.Up2Date
+D:\Dai Hoc\LTMCB\course\Chess-game-homework\Chess-game-homework\excercise-2\obj\Debug\excercise-2.exe
+D:\Dai Hoc\LTMCB\course\Chess-game-homework\Chess-game-homework\excercise-2\obj\Debug\excercise-2.pdb
