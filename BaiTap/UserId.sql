@@ -1,0 +1,18 @@
+CREATE DATABASE USERID_DB
+USE USERID_DB
+
+CREATE TABLE Users
+(
+	UserId int IDENTITY(1,1) NOT NULL,
+	Username nvarchar(40),
+	Password nvarchar(64),
+	Email nvarchar(50),
+)
+
+ALTER TABLE Users ADD CONSTRAINT PK_Users PRIMARY KEY (UserId)
+
+ALTER TABLE Users ADD CONSTRAINT UQ_Username UNIQUE (Username)
+ALTER TABLE Users ADD CONSTRAINT UQ_Enail UNIQUE (Email)
+
+
+DELETE FROM Users;
