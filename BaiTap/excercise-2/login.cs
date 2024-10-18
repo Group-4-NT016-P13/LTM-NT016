@@ -38,7 +38,7 @@ namespace excercise_2
         {
             signup log = new signup();
             log.ShowDialog();
-            this.Hide();
+            this.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -54,13 +54,13 @@ namespace excercise_2
 
 
             string message = username + ":" + password;
-            byte[] messageBytes = Encoding.ASCII.GetBytes(message);
+            byte[] messageBytes = Encoding.UTF8.GetBytes(message);
             Client.Send(messageBytes);
 
 
             byte[] buffer = new byte[256];
             int bytesRead = Client.Receive(buffer);
-            string response = Encoding.ASCII.GetString(buffer, 0, bytesRead);
+            string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
             string[] parts = response.Split(':');
             if (parts.Length >= 1)
             {
@@ -71,7 +71,9 @@ namespace excercise_2
                     {
                         string ReturnUsername = parts[1];
                         string ReturnEmail = parts[2];
-                        infor log = new infor(ReturnUsername, ReturnEmail);
+                        string ReturnName = parts[3];
+                        string ReturnDate = parts[4];
+                        infor log = new infor(ReturnUsername, ReturnEmail, ReturnName, ReturnDate);
                         log.Show();
                         this.Hide();
                     }

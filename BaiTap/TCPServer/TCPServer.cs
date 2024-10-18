@@ -25,6 +25,8 @@ namespace TCPServer
         {
             public string Username { get; set; }
             public string Email { get; set; }
+            public string Name { get; set; }
+            public string Date { get; set; }
         }
         public TCPServer()
         {
@@ -86,7 +88,7 @@ namespace TCPServer
                 string email;
                 byte[] buffer = new byte[256];
                 int bytesRead = clientSocket.Receive(buffer);
-                string message = Encoding.ASCII.GetString(buffer, 0, bytesRead);
+                string message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
                 LogMessage("Đã nhận từ client: " + message);
                 string[] parts = message.Split(':');
 
@@ -98,26 +100,32 @@ namespace TCPServer
                     if (Login(username, password))
                     {
                         
-                        response = $"LoginSuccessful:{userInfo.Username}:{userInfo.Email}";
+                        response = $"LoginSuccessful:{userInfo.Username}:{userInfo.Email}:{userInfo.Name}:{userInfo.Date}";
                     }
                     else
                     {
                         response = "LoginFailed";
                     }
                 }
-                else if (parts.Length == 4) 
+                else if (parts.Length == 6) 
                 {
                     username = parts[0];
                     password = parts[1];
                     email = parts[2];
                     string confirm = parts[3];
-                    if (Signup(username))
+                    string name = parts[4];
+                    string date = parts[5];
+                    if (SignupUsername(username))
                     {
                         response = "SignupFailedName";
                     }
+                    if(SignupEmail(email))
+                    {
+                        response = "SignupFailedEmail";
+                    }    
                     else
                     {
-                        string query = "INSERT INTO Users (Username, Password, Email) VALUES (@Username, @Password, @Email)";
+                        string query = "INSERT INTO Users (Username, Password, Email, HOTEN, NGAYSINH) VALUES (@Username, @Password, @Email, @Name, @BirthDay)";
                         using (SqlConnection connection = new SqlConnection(connectionString))
                         {
                             try
@@ -127,10 +135,12 @@ namespace TCPServer
                                 cmd.Parameters.AddWithValue("@Username", username);
                                 cmd.Parameters.AddWithValue("@Password", password);
                                 cmd.Parameters.AddWithValue("@Email", email);
+                                cmd.Parameters.AddWithValue("@Name",name );
+                                cmd.Parameters.AddWithValue("@BirthDay", date);
                                 int row = cmd.ExecuteNonQuery();
                                 if (row > 0)
                                 {
-                                    response = $"SignupSuccessful:{username}:{email}";
+                                    response = "SignupSuccessful";
                                 }
                                 else
                                 {
@@ -146,7 +156,7 @@ namespace TCPServer
                     }
                 }
 
-                byte[] responseData = Encoding.ASCII.GetBytes(response);
+                byte[] responseData = Encoding.UTF8.GetBytes(response);
                 clientSocket.Send(responseData);
 
                 clientSocket.Shutdown(SocketShutdown.Both);
@@ -194,7 +204,7 @@ namespace TCPServer
                 return count > 0;
             }
         }
-        private bool Signup(string username)
+        private bool SignupUsername(string username)
         {
 
             string query = "SELECT COUNT(*) FROM Users WHERE Username = @Username ";
@@ -207,10 +217,23 @@ namespace TCPServer
                 return count > 0;
             }
         }
+        private bool SignupEmail(string email)
+        {
+
+            string query = "SELECT COUNT(*) FROM Users WHERE Email = @Email ";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@Email", email);
+                connection.Open();
+                int count = (int)cmd.ExecuteScalar();
+                return count > 0;
+            }
+        }
         private UserInfo GetInfo(string username)
         {
             UserInfo userInfo = null;
-            string query = "SELECT UserId, Username, Email FROM Users WHERE Username = @Username";
+            string query = "SELECT UserId, Username, Email, HOTEN, NGAYSINH FROM Users WHERE Username = @Username";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -225,11 +248,18 @@ namespace TCPServer
                     userInfo = new UserInfo
                     {
                         Username = reader.GetString(1),
-                        Email = reader.GetString(2)
+                        Email = reader.GetString(2),
+                        Name = reader.GetString(3),
+                        Date = reader.GetString(4)
                     };
                 }
             }
             return userInfo;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

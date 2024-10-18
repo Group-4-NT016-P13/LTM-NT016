@@ -1,4 +1,4 @@
-CREATE DATABASE USERID_DB
+﻿CREATE DATABASE USERID_DB
 USE USERID_DB
 
 CREATE TABLE Users
@@ -8,11 +8,17 @@ CREATE TABLE Users
 	Password nvarchar(64),
 	Email nvarchar(50),
 )
-
+--khóa chính--
 ALTER TABLE Users ADD CONSTRAINT PK_Users PRIMARY KEY (UserId)
 
+--khóa ngoại--
 ALTER TABLE Users ADD CONSTRAINT UQ_Username UNIQUE (Username)
 ALTER TABLE Users ADD CONSTRAINT UQ_Enail UNIQUE (Email)
 
+--thêm cột tên và ngày sinh--
+ALTER TABLE Users ADD HOTEN varchar(40)
+ALTER TABLE Users ADD NGAYSINH nvarchar(20)
+ALTER TABLE Users ALTER COLUMN NGAYSINH nvarchar(20)
 
+SET DATEFORMAT dmy
 DELETE FROM Users;
