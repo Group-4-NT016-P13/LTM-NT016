@@ -54,7 +54,6 @@
             this.Email_txt.Font = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Email_txt.Location = new System.Drawing.Point(24, 275);
             this.Email_txt.Name = "Email_txt";
-            this.Email_txt.PasswordChar = '*';
             this.Email_txt.Size = new System.Drawing.Size(338, 39);
             this.Email_txt.TabIndex = 13;
             // 
@@ -88,6 +87,7 @@
             this.Return_btn.TabIndex = 30;
             this.Return_btn.Text = "Quay Lại";
             this.Return_btn.UseVisualStyleBackColor = false;
+            this.Return_btn.Click += new System.EventHandler(this.Return_btn_Click);
             // 
             // Fix_btn
             // 

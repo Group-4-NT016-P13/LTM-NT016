@@ -9,6 +9,11 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Xml.Linq;
+using System.Net.Sockets;
+using System.Net;
 
 namespace Chess
 {
@@ -91,7 +96,7 @@ namespace Chess
             if (string.IsNullOrWhiteSpace(Comfirm_txt.Text))
             {
 
-               Comfirm_lb.Visible = true;
+                Comfirm_lb.Visible = true;
             }
             else
             {
@@ -150,7 +155,75 @@ namespace Chess
 
         private void Signup_btn_Click(object sender, EventArgs e)
         {
+            string Username = Username_txt.Text;
+            string Nickname = Nickname_txt.Text;
+            string Email = Email_txt.Text;
+            string Password = Passdecode(Password_txt.Text);
+            string Comfirm = Passdecode(Comfirm_txt.Text);
+            string ServerIp = "127.0.0.1";
+            int port = 11000;
+            if (string.IsNullOrEmpty(Username) || string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(Comfirm) || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Nickname))
+            {
+                MessageBox.Show("Vui lòng điền đầy đủ thông tin");
+                return;
+            }
+            if (Password.Length < 5)
+            {
+                MessageBox.Show("Mật Khẩu Yếu!");
+                return;
+            }
+            if (Password != Comfirm)
+            {
+                MessageBox.Show("Lỗi Mật Khẩu!");
+                return;
+            }
+            if (!checkmail(Email))
+            {
+                MessageBox.Show("Email không đúng định dạng , Nhập lại.");
+                return;
+            }
 
+            Socket Client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ServerIp), port);
+            Client.Connect(endPoint);
+
+            var Signuppacket = new Packet("SignupRequest","", Username, Nickname, Password, Email);
+            string packetString = Signuppacket.ToPacketString();
+
+
+            byte[] messageBytes = Encoding.UTF8.GetBytes(packetString);
+            Client.Send(messageBytes);
+
+            byte[] buffer = new byte[512];
+            int bytesRead = Client.Receive(buffer);
+            string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+            Packet receivedPacket = Packet.FromPacketString(response);
+            if (receivedPacket.Request == "SignupResponse")
+            {
+                if (receivedPacket.Message == "SignupSuccessful")
+                {
+                    Menu Newmenu = new Menu(Username,Nickname, Email);
+                    Newmenu.Show();
+                    this.Hide();
+                }
+                else if (receivedPacket.Message == "SignupFailedName")
+                {
+                    MessageBox.Show("Tên đăng nhập đã tồn tại, vui lòng nhập lại.");
+                }
+                else if (receivedPacket.Message == "SignupFailedEmail")
+                {
+                    MessageBox.Show("Email đã tồn tại, vui lòng nhập lại.");
+                }
+                else if (receivedPacket.Message == "SignupFailed")
+                {
+                    MessageBox.Show("Lỗi Đăng ký, vui lòng thử lại.");
+                }
+            }
+            Client.Shutdown(SocketShutdown.Both);
+            Client.Close();
         }
+        
     }
 }
+
+       

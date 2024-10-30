@@ -116,28 +116,27 @@ namespace Chess
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ServerIp), port);
             Client.Connect(endPoint);
 
+            var Loginpacket = new Packet("LoginRequest", "", username, "", password, "");
+            string packetString = Loginpacket.ToPacketString(); 
 
-            string message = "LoginRequest" + ":" + username + ":" + password;
-            byte[] messageBytes = Encoding.UTF8.GetBytes(message);
+           
+            byte[] messageBytes = Encoding.UTF8.GetBytes(packetString);
             Client.Send(messageBytes);
 
 
             byte[] buffer = new byte[256];
             int bytesRead = Client.Receive(buffer);
             string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-            string[] parts = response.Split(':');
-            if (parts.Length >= 1)
+            Packet receivedPacket = Packet.FromPacketString(response);
+            if (receivedPacket.Request == "LoginResponse")
             {
-                string ReturnResponse = parts[0];
-                if (ReturnResponse == "LoginSuccessful")
+                if (receivedPacket.Message == "LoginSuccessful")
                 {
-                    if (parts.Length >= 3)
-                    {
-                        
-
-                    }
+                    Menu Newmenu = new Menu(receivedPacket.Username, receivedPacket.Nickname, receivedPacket.Email);
+                    Newmenu.Show();
+                    this.Hide();
                 }
-                else if (ReturnResponse == "LoginFailed")
+                else if (receivedPacket.Message == "LoginFailed")
                 {
                     MessageBox.Show("Thông tin đăng nhập không đúng, vui lòng nhập lại.");
                 }
@@ -157,7 +156,9 @@ namespace Chess
 
         private void Forgot_lb_Click(object sender, EventArgs e)
         {
-
+            Recovery recovery = new Recovery();
+            recovery.Show();
+            this.Hide();
         }
     }
 }

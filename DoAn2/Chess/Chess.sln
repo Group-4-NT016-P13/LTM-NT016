@@ -5,6 +5,8 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chess", "Chess.csproj", "{FB05F3E0-6B2C-48A3-BF17-8C18BC2FE758}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCPServer", "..\..\BaiTap\TCPServer\TCPServer.csproj", "{64B625C3-B467-4C36-A45A-805A1A419B7B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{FB05F3E0-6B2C-48A3-BF17-8C18BC2FE758}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB05F3E0-6B2C-48A3-BF17-8C18BC2FE758}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB05F3E0-6B2C-48A3-BF17-8C18BC2FE758}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64B625C3-B467-4C36-A45A-805A1A419B7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64B625C3-B467-4C36-A45A-805A1A419B7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64B625C3-B467-4C36-A45A-805A1A419B7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64B625C3-B467-4C36-A45A-805A1A419B7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
