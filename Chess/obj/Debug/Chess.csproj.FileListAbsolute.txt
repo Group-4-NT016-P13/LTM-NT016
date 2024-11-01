@@ -1,0 +1,12 @@
+D:\Dai Hoc\LTMCB\ThucHanh\Chess\obj\Debug\Chess.csproj.AssemblyReference.cache
+D:\Dai Hoc\LTMCB\ThucHanh\Chess\obj\Debug\Chess.Properties.Resources.resources
+D:\Dai Hoc\LTMCB\ThucHanh\Chess\obj\Debug\Chess.csproj.GenerateResource.cache
+D:\Dai Hoc\LTMCB\ThucHanh\Chess\obj\Debug\Chess.csproj.CoreCompileInputs.cache
+D:\Dai Hoc\LTMCB\ThucHanh\Chess\bin\Debug\Chess.exe.config
+D:\Dai Hoc\LTMCB\ThucHanh\Chess\bin\Debug\Chess.exe
+D:\Dai Hoc\LTMCB\ThucHanh\Chess\bin\Debug\Chess.pdb
+D:\Dai Hoc\LTMCB\ThucHanh\Chess\obj\Debug\Chess.exe
+D:\Dai Hoc\LTMCB\ThucHanh\Chess\obj\Debug\Chess.pdb
+D:\Dai Hoc\LTMCB\ThucHanh\Chess\obj\Debug\Chess.Chess.resources
+D:\Dai Hoc\LTMCB\ThucHanh\Chess\obj\Debug\Chess.PieceSelection.resources
+D:\Dai Hoc\LTMCB\ThucHanh\Chess\obj\Debug\Chess.Tile.resources
