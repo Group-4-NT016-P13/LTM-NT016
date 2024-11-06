@@ -115,6 +115,7 @@
             this.Controls.Add(this.Nickname_txt);
             this.Name = "Infor";
             this.Text = "Infor";
+            
             this.ResumeLayout(false);
             this.PerformLayout();
 

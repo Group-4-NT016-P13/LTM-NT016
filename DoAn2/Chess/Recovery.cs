@@ -14,12 +14,15 @@ using System.Text.RegularExpressions;
 using System.Net.Sockets;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Threading;
 
 namespace Chess
 {
     public partial class Recovery : Form
     {
+        private bool Result;
         private string Passcode = GenerateRandomString(5);
+        private Socket Client;
         public Recovery()
         {
             InitializeComponent();
@@ -46,37 +49,63 @@ namespace Chess
             return Regex.IsMatch(email, Pattern);
         }
 
-        private  bool IsMailExsits(string email)
+        private async Task<bool> IsMailExistsAsync(string email)
         {
-            bool Result = false;
-            email = Email_txt.Text;
             string ServerIp = "127.0.0.1";
             int port = 11000;
-            Socket Client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ServerIp), port);
-            Client.Connect(endPoint);
+            Result = false;
 
-            var Signuppacket = new Packet("CheckRequest", "", "", "", "", email);
-            string packetString = Signuppacket.ToPacketString();
-
-            byte[] messageBytes = Encoding.UTF8.GetBytes(packetString);
-            Client.Send(messageBytes);
-
-            byte[] buffer = new byte[512];
-            int bytesRead = Client.Receive(buffer);
-            string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-            Packet receivedPacket = Packet.FromPacketString(response);
-            if(receivedPacket.Request == "CheckResponse")
+            try
             {
-                if(receivedPacket.Message == "Found")
-                {
-                    Result = true;
-                }
-                else if (receivedPacket.Message == "Not Found")
-                {
-                    Result = false;
-                }
-            } 
+                Client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ServerIp), port);
+
+                await Task.Run(() => Client.Connect(endPoint));
+
+                var Signuppacket = new Packet("CheckRequest", "", "", "", "", email);
+                string packetString = Signuppacket.ToPacketString();
+                byte[] messageBytes = Encoding.UTF8.GetBytes(packetString);
+
+                await Task.Run(() => Client.Send(messageBytes));
+
+                Result = await ReceiveDataAsync();
+            }
+            catch (Exception ex)
+            {
+                Invoke(new Action(() => MessageBox.Show("Lỗi kết nối: " + ex.Message)));
+                return false;
+            }
+            finally
+            {
+                Client?.Close();
+            }
+            return Result;
+        }
+
+        private async Task<bool> ReceiveDataAsync()
+        {
+            try
+            {
+               byte[] buffer = new byte[512];
+               int bytesRead = await Task.Run(() => Client.Receive(buffer));
+               string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+               Packet receivedPacket = Packet.FromPacketString(response);
+
+               if (receivedPacket.Request == "CheckResponse" && receivedPacket.Message == "Found")
+               {
+                  Result = true;
+                   
+               }
+               else if (receivedPacket.Message == "Not Found")
+               {
+                  Result = false;
+                  
+               }
+            }
+            catch (Exception ex)
+            {
+                Invoke(new Action(() => MessageBox.Show("Lỗi kết nối: " + ex.Message)));
+            }
             return Result;
         }
 
@@ -112,23 +141,23 @@ namespace Chess
 
         }
 
-        private void Send_btn_Click(object sender, EventArgs e)
+        private async void Send_btn_Click(object sender, EventArgs e)
         {
             if (!checkmail(Email_txt.Text))
             {
-                MessageBox.Show("Email không đúng định dạng vui lòng nhập lại  ");
+                MessageBox.Show("Email không đúng định dạng vui lòng nhập lại");
             }
-            else if (!IsMailExsits(Email_txt.Text))
+            else if (!await IsMailExistsAsync(Email_txt.Text))
             {
-                MessageBox.Show("Email chưa đăng ký tài khoản vui lòng đăng ký  ");
-            }    
-            else
+                MessageBox.Show("Email chưa đăng ký tài khoản vui lòng đăng ký");
+            }
+           
             {
                 try
                 {
                     SmtpClient smtpclient = new SmtpClient("smtp.gmail.com", 587)
                     {
-                        Credentials = new NetworkCredential("23521383@gm.uit.edu.vn","Taicute123"),
+                        Credentials = new NetworkCredential("23521383@gm.uit.edu.vn", "jeof nwcs exlb ssdt"),
                         EnableSsl = true
                     };
                     MailMessage mailMessage = new MailMessage

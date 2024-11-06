@@ -14,11 +14,16 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using System.Xml.Linq;
 using System.Net.Sockets;
 using System.Net;
+using System.Threading;
 
 namespace Chess
 {
     public partial class Signup : Form
     {
+        private string Username;
+        private string Nickname;
+        private string Email;
+        private Socket Client;
         private bool isPasswordVisible = false;
         public static string Passdecode(string password)
         {
@@ -153,11 +158,11 @@ namespace Chess
             this.Hide();
         }
 
-        private void Signup_btn_Click(object sender, EventArgs e)
+        private async void Signup_btn_Click(object sender, EventArgs e)
         {
-            string Username = Username_txt.Text;
-            string Nickname = Nickname_txt.Text;
-            string Email = Email_txt.Text;
+            Username = Username_txt.Text;
+            Nickname = Nickname_txt.Text;
+            Email = Email_txt.Text;
             string Password = Passdecode(Password_txt.Text);
             string Comfirm = Passdecode(Comfirm_txt.Text);
             string ServerIp = "127.0.0.1";
@@ -183,46 +188,61 @@ namespace Chess
                 return;
             }
 
-            Socket Client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            Client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ServerIp), port);
-            Client.Connect(endPoint);
+            await Task.Run(() => Client.Connect(endPoint));
 
             var Signuppacket = new Packet("SignupRequest","", Username, Nickname, Password, Email);
             string packetString = Signuppacket.ToPacketString();
 
 
             byte[] messageBytes = Encoding.UTF8.GetBytes(packetString);
-            Client.Send(messageBytes);
+            await Task.Run(() => Client.Send(messageBytes));
 
-            byte[] buffer = new byte[512];
-            int bytesRead = Client.Receive(buffer);
-            string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-            Packet receivedPacket = Packet.FromPacketString(response);
-            if (receivedPacket.Request == "SignupResponse")
+            await ReceiveDataAsync();
+        }
+        private async Task ReceiveDataAsync()
+        {
+            try
             {
-                if (receivedPacket.Message == "SignupSuccessful")
+                while (Client.Connected)
                 {
-                    Menu Newmenu = new Menu(Username,Nickname, Email);
-                    Newmenu.Show();
-                    this.Hide();
-                }
-                else if (receivedPacket.Message == "SignupFailedName")
-                {
-                    MessageBox.Show("Tên đăng nhập đã tồn tại, vui lòng nhập lại.");
-                }
-                else if (receivedPacket.Message == "SignupFailedEmail")
-                {
-                    MessageBox.Show("Email đã tồn tại, vui lòng nhập lại.");
-                }
-                else if (receivedPacket.Message == "SignupFailed")
-                {
-                    MessageBox.Show("Lỗi Đăng ký, vui lòng thử lại.");
+                    byte[] buffer = new byte[512];
+                    int bytesRead = await Task.Run(() => Client.Receive(buffer));
+
+                    string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                    Packet receivedPacket = Packet.FromPacketString(response);
+
+                    if (receivedPacket.Request == "SignupResponse" && receivedPacket.Message == "SignupSuccessful")
+                    {
+                        Invoke(new Action(() =>
+                        {
+                            Menu Newmenu = new Menu(Client, Username, Nickname, Email);
+                            Newmenu.Show();
+                            this.Hide();
+                        }));
+                    }
+                    else if (receivedPacket.Message == "SignupFailedName")
+                    {
+                        MessageBox.Show("Tên đăng nhập đã tồn tại, vui lòng nhập lại.");
+                    }
+                    else if (receivedPacket.Message == "SignupFailedEmail")
+                    {
+                        MessageBox.Show("Email đã tồn tại, vui lòng nhập lại.");
+                    }
+                    else if (receivedPacket.Message == "SignupFailed")
+                    {
+                        MessageBox.Show("Lỗi Đăng ký, vui lòng thử lại.");
+                    }
                 }
             }
-            Client.Shutdown(SocketShutdown.Both);
-            Client.Close();
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi kết nối: " + ex.Message);
+            }
         }
-        
+
+
     }
 }
 

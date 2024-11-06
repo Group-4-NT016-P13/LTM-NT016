@@ -11,12 +11,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Threading;
 
 namespace Chess
 {
     public partial class Login : Form
     {
         private bool isPasswordVisible = false;
+        private Socket Client;
+        
         public Login()
         {
             InitializeComponent();
@@ -105,46 +109,58 @@ namespace Chess
                 return builder.ToString();
             }
         }
-        private void Login_btn_Click(object sender, EventArgs e)
+        private async void Login_btn_Click(object sender, EventArgs e)
         {
             string username = Username_txt.Text;
             string password = Passdecode(Password_txt.Text);
             string ServerIp = "127.0.0.1";
             int port = 11000;
 
-            Socket Client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            Client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ServerIp), port);
-            Client.Connect(endPoint);
+            await Task.Run(() => Client.Connect(endPoint));
 
             var Loginpacket = new Packet("LoginRequest", "", username, "", password, "");
-            string packetString = Loginpacket.ToPacketString(); 
+            string packetString = Loginpacket.ToPacketString();
 
-           
+
             byte[] messageBytes = Encoding.UTF8.GetBytes(packetString);
-            Client.Send(messageBytes);
+            await Task.Run(() => Client.Send(messageBytes));
 
-
-            byte[] buffer = new byte[256];
-            int bytesRead = Client.Receive(buffer);
-            string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-            Packet receivedPacket = Packet.FromPacketString(response);
-            if (receivedPacket.Request == "LoginResponse")
+            await ReceiveDataAsync();
+        }
+        private async Task ReceiveDataAsync()
+        {
+            try
             {
-                if (receivedPacket.Message == "LoginSuccessful")
+                while (Client.Connected)
                 {
-                    Menu Newmenu = new Menu(receivedPacket.Username, receivedPacket.Nickname, receivedPacket.Email);
-                    Newmenu.Show();
-                    this.Hide();
-                }
-                else if (receivedPacket.Message == "LoginFailed")
-                {
-                    MessageBox.Show("Thông tin đăng nhập không đúng, vui lòng nhập lại.");
+                    byte[] buffer = new byte[512];
+                    int bytesRead = await Task.Run(() => Client.Receive(buffer));
+                    string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                    Packet receivedPacket = Packet.FromPacketString(response);
+
+                    if (receivedPacket.Request == "LoginResponse" && receivedPacket.Message == "LoginSuccessful")
+                    {
+                        Invoke(new Action(() =>
+                        {
+                            Menu Newmenu = new Menu(Client, receivedPacket.Username, receivedPacket.Nickname, receivedPacket.Email);
+                            Newmenu.Show();
+                            this.Hide();
+                        }));
+                    }
+
+                    else if (receivedPacket.Request == "LoginFailed")
+                    {
+
+                        MessageBox.Show("Thông tin đăng nhập không đúng, vui lòng nhập lại.");
+                    }
                 }
             }
-
-            Client.Shutdown(SocketShutdown.Both);
-            Client.Close();
-
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi kết nối: " + ex.Message);
+            }
         }
 
         private void Signup_lb_Click(object sender, EventArgs e)
@@ -160,6 +176,7 @@ namespace Chess
             recovery.Show();
             this.Hide();
         }
+
     }
 }
  

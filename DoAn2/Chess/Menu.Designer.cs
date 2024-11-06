@@ -108,6 +108,7 @@
             this.Close_btn.TabIndex = 10;
             this.Close_btn.Text = "Thoát";
             this.Close_btn.UseVisualStyleBackColor = false;
+            this.Close_btn.Click += new System.EventHandler(this.Close_btn_Click);
             // 
             // UserInfo
             // 

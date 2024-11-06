@@ -117,7 +117,7 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(22, 379);
+            this.label1.Location = new System.Drawing.Point(31, 379);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(120, 21);
             this.label1.TabIndex = 6;
@@ -129,7 +129,7 @@
             this.Signup_lb.BackColor = System.Drawing.Color.Transparent;
             this.Signup_lb.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Signup_lb.ForeColor = System.Drawing.Color.White;
-            this.Signup_lb.Location = new System.Drawing.Point(153, 379);
+            this.Signup_lb.Location = new System.Drawing.Point(169, 379);
             this.Signup_lb.Name = "Signup_lb";
             this.Signup_lb.Size = new System.Drawing.Size(186, 21);
             this.Signup_lb.TabIndex = 7;
@@ -144,7 +144,7 @@
             this.Forgot_lb.BackColor = System.Drawing.Color.Transparent;
             this.Forgot_lb.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Forgot_lb.ForeColor = System.Drawing.Color.White;
-            this.Forgot_lb.Location = new System.Drawing.Point(120, 426);
+            this.Forgot_lb.Location = new System.Drawing.Point(108, 423);
             this.Forgot_lb.Name = "Forgot_lb";
             this.Forgot_lb.Size = new System.Drawing.Size(153, 21);
             this.Forgot_lb.TabIndex = 8;

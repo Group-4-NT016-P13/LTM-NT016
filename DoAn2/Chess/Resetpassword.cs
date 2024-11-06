@@ -75,41 +75,58 @@ namespace Chess
             }
         }
 
-        private void Comfirm_btn_Click(object sender, EventArgs e)
+        private async void Comfirm_btn_Click(object sender, EventArgs e)
         {
-            string password = Passdecode( Password_txt.Text);
+            string password = Passdecode(Password_txt.Text);
             string comfirm = Passdecode(Comfirm_txt.Text);
             string ServerIp = "127.0.0.1";
             int port = 11000;
+
             if (password != comfirm)
             {
-                MessageBox.Show("Xác nhận không khớp vui lòng nhập lại !");
+                MessageBox.Show("Xác nhận không khớp vui lòng nhập lại!");
                 return;
             }
-            Socket Client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ServerIp), port);
-            Client.Connect(endPoint);
 
-            var Signuppacket = new Packet("ChangePasswordRequest", "", "", "",password,Email);
-            string packetString = Signuppacket.ToPacketString();
-
-            byte[] messageBytes = Encoding.UTF8.GetBytes(packetString);
-            Client.Send(messageBytes);
-
-            byte[] buffer = new byte[512];
-            int bytesRead = Client.Receive(buffer);
-            string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-            Packet receivedPacket = Packet.FromPacketString(response);
-            if (receivedPacket.Request == "ChangePasswordResponse")
+            try
             {
-                if (receivedPacket.Message == "ChangeSuccessful")
+                using (Socket Client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
                 {
-                    MessageBox.Show("Thay đổi thành công");
+                    IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ServerIp), port);
+
+                    
+                    await Task.Run(() => Client.Connect(endPoint));
+
+                    var Signuppacket = new Packet("ChangePasswordRequest", "", "", "", password, Email);
+                    string packetString = Signuppacket.ToPacketString();
+                    byte[] messageBytes = Encoding.UTF8.GetBytes(packetString);
+
+                    
+                    await Task.Run(() => Client.Send(messageBytes));
+
+                    byte[] buffer = new byte[512];
+
+                  
+                    int bytesRead = await Task.Run(() => Client.Receive(buffer));
+                    string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+
+                    Packet receivedPacket = Packet.FromPacketString(response);
+                    if (receivedPacket.Request == "ChangePasswordResponse")
+                    {
+                        if (receivedPacket.Message == "ChangeSuccessful")
+                        {
+                            MessageBox.Show("Thay đổi thành công");
+                        }
+                        else if (receivedPacket.Message == "ChangeFailed")
+                        {
+                            MessageBox.Show("Thay đổi thất bại");
+                        }
+                    }
                 }
-                else if (receivedPacket.Message == "ChangeFailed")
-                {
-                    MessageBox.Show("Thay đổi thất bại");
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi kết nối: " + ex.Message);
             }
         }
 
