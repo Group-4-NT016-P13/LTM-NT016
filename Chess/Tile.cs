@@ -23,7 +23,19 @@ namespace Chess
         public byte GetX { get { return location.x; } }
         public bool isOccupied() => piece.piecekind != PieceKind.EMPTY;
         public Tile(byte y, byte x) {
-            InitializeComponent(); location.y = y; location.x = x; Location = new Point(x * Size.Width, y * Size.Height); 
+            InitializeComponent();
+            location.y = y;
+            location.x = x;
+
+            // Tăng kích thước của ô cờ, ví dụ 80x80
+            Size = new Size(64, 65);
+
+            // Cập nhật vị trí để phù hợp với kích thước mới
+            Location = new Point(x * Size.Width, y * Size.Height);
+
+            // Điều chỉnh kích thước của PieceImage bên trong ô cờ
+            PieceImage.Size = new Size(Size.Width, Size.Height); // Giảm kích thước một chút
+            PieceImage.SizeMode = PictureBoxSizeMode.CenterImage; // Căn giữa hình ảnh
         }
         public Tile(byte y, byte x, ChessColor color) : this(y, x) { this.color = color; }
         public Color TileColor() => color != ChessColor.WHITE ? Color.Gray : Color.LightGray;
@@ -31,8 +43,8 @@ namespace Chess
         {
             this.piece = piece;
             PieceImage.BackgroundImage = PieceImages[piece.ImageName()];
-            PieceImage.SizeMode = PictureBoxSizeMode.StretchImage; // Điều chỉnh chế độ hiển thị hình ảnh
-            PieceImage.Size = new Size(Size.Width, Size.Height);
+            PieceImage.SizeMode = PictureBoxSizeMode.CenterImage; // Căn giữa hình ảnh
+            PieceImage.Size = new Size(Size.Width, Size.Height); // Giảm kích thước một chút để hình ảnh không chạm viền ô
         }
         private void Tile_Load(object sender, EventArgs e)
         {

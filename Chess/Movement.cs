@@ -55,22 +55,18 @@ namespace Chess
             // Nếu không có nước đi khả thi, kiểm tra xem có thắng không
             if (!hasValidMove)
             {
-                // Kiểm tra xem có quân vua nào bị tấn công không
-                if (KingAttacked())
-                {
-                    Board.Window.GameState.Text = "CHECK";
-                    Board.Window.GameState.ForeColor = System.Drawing.Color.Red;
-                    Board.Window.StopTimer();
-                    return false; // Không còn nước đi nào và thua
-                }
-                else
-                {
-                    Board.Window.GameState.Text = "WIN";
-                    Board.Window.GameState.ForeColor = System.Drawing.Color.Green;
-                    Board.Window.StopTimer();
-                    return false; // Không còn nước đi nào và thắng
+                // Kiểm tra xem quân vua có bị tấn công không
+                bool kingIsAttacked = KingAttacked();
 
-                }
+                // Cập nhật trạng thái trò chơi dựa trên tình huống
+                Board.Window.GameState.Text = kingIsAttacked ? "LOSE" : "WIN";
+                Board.Window.GameState.ForeColor = kingIsAttacked ? System.Drawing.Color.Red : System.Drawing.Color.Green;
+
+                // Dừng đồng hồ
+                Board.Window.StopTimer();
+
+                // Trả về false, vì không còn nước đi khả thi
+                return false;
             }
 
             return false; // Không thực hiện di chuyển nào
@@ -86,7 +82,11 @@ namespace Chess
                 Board.tiles[(int)availableMoves[i]?.y, (int)availableMoves[i]?.x].PossibleMove(show);
             }
         }
-        public bool KingAttacked() => Board.GetTile(PieceKind.King, Board.CurrentPlayer).tileAttack != ChessColor.NONE;
+        public bool KingAttacked()
+        {
+            var kingTile = Board.GetTile(PieceKind.King, Board.CurrentPlayer);
+            return kingTile != null && kingTile.tileAttack != ChessColor.NONE;
+        }
         public bool CheckMate()
         {
             List<Tile> pieceTiles = Board.GetAllPieceTiles(Board.CurrentPlayer);

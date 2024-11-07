@@ -69,6 +69,12 @@
     <Compile Include="Tile.Designer.cs">
       <DependentUpon>Tile.cs</DependentUpon>
     </Compile>
+    <Compile Include="Victory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Victory.Designer.cs">
+      <DependentUpon>Victory.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="ChessWindow.resx">
       <DependentUpon>ChessWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -87,6 +93,9 @@
     </Compile>
     <EmbeddedResource Include="Tile.resx">
       <DependentUpon>Tile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Victory.resx">
+      <DependentUpon>Victory.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
