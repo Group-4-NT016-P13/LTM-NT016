@@ -15,20 +15,26 @@ namespace Chess
         public bool isAvailableMove(Tile clickedTile)
         {
             MovesInterface(false);
+            bool hasValidMove = false;
+
             for (int move = 0; move < availableMoves.Length; move++)
             {
                 if (availableMoves[move] == null) continue;
+
                 if (availableMoves[move]?.x == clickedTile.location.x && availableMoves[move]?.y == clickedTile.location.y)
                 {
                     if (!CanPerformPieceAction(move, clickedTile)) continue;
+
                     Board.previousMoves.Add(new PreviousBoardState(pieceTile.piece, pieceTile.location, (PieceMove)availableMoves[move], clickedTile.piece, move));
                     pieceTile.piece.firstMove = false;
                     clickedTile.PieceAssign(pieceTile.piece);
                     pieceTile.PieceAssign(new ChessPiece(PieceKind.EMPTY));
+
                     if (!PieceSelection.waiting)
                     {
                         Board.CurrentPlayer = Board.CurrentPlayer == ChessColor.WHITE ? ChessColor.BLACK : ChessColor.WHITE;
                         ChessPiece.UpdateAllAttacks();
+
                         if (KingAttacked())
                         {
                             Board.Window.GameState.Text = "CHECK";
@@ -37,15 +43,35 @@ namespace Chess
                         }
                         else
                         {
-                            Board.Window.GameState.Text = "NORMAL";
-                            Board.Window.GameState.ForeColor = System.Drawing.Color.OliveDrab;
+                            Board.Window.GameState.Text = "PLAYING";
+                            Board.Window.GameState.ForeColor = System.Drawing.Color.Blue;
                         }
                     }
-                    return true;
+                    return true; // Đã thực hiện di chuyển
                 }
+                hasValidMove = true; // Nếu có ít nhất một nước đi khả thi
             }
-            return false;
+
+            // Nếu không có nước đi khả thi, kiểm tra xem có thắng không
+            if (!hasValidMove)
+            {
+                // Kiểm tra xem quân vua có bị tấn công không
+                bool kingIsAttacked = KingAttacked();
+
+                // Cập nhật trạng thái trò chơi dựa trên tình huống
+                Board.Window.GameState.Text = kingIsAttacked ? "LOSE" : "WIN";
+                Board.Window.GameState.ForeColor = kingIsAttacked ? System.Drawing.Color.Red : System.Drawing.Color.Green;
+
+                // Dừng đồng hồ
+                Board.Window.StopTimer();
+
+                // Trả về false, vì không còn nước đi khả thi
+                return false;
+            }
+
+            return false; // Không thực hiện di chuyển nào
         }
+
         public void MovesInterface(bool show)
         {
             for (int i = 0; i < availableMoves.Length; i++)
@@ -56,7 +82,11 @@ namespace Chess
                 Board.tiles[(int)availableMoves[i]?.y, (int)availableMoves[i]?.x].PossibleMove(show);
             }
         }
-        public bool KingAttacked() => Board.GetTile(PieceKind.King, Board.CurrentPlayer).tileAttack != ChessColor.NONE;
+        public bool KingAttacked()
+        {
+            var kingTile = Board.GetTile(PieceKind.King, Board.CurrentPlayer);
+            return kingTile != null && kingTile.tileAttack != ChessColor.NONE;
+        }
         public bool CheckMate()
         {
             List<Tile> pieceTiles = Board.GetAllPieceTiles(Board.CurrentPlayer);
@@ -67,7 +97,7 @@ namespace Chess
                 if (IsKingSafe())
                     return false;
             }
-            Board.Window.GameState.Text = "CHECKMATE";
+            Board.Window.GameState.Text = "CHECK";
             Board.Window.GameState.ForeColor = System.Drawing.Color.Firebrick;
             Board.Window.StopTimer();
             return true;
@@ -248,7 +278,9 @@ namespace Chess
         }
         bool isEnemyColor(int y, int x) => pieceTile.piece.color != EnemyColor(y, x) && EnemyColor(y, x) != ChessColor.NONE;
         ChessColor EnemyColor(int y, int x) => Board.tiles[y, x].piece.color;
+
     }
+
     public struct PieceMove
     {
         public int y, x;

@@ -42,7 +42,7 @@ namespace Chess
         public void PossibleMove(bool show)
         {
             if (!show) PieceImage.Image = null;
-            else PieceImage.Image = Properties.Resources.Possible;
+            else PieceImage.Image = Properties.Resources.PossibleMove;
         }
         private void TileClicked(object sender, EventArgs e)
         {

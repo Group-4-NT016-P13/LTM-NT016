@@ -33,7 +33,6 @@
             this.ChessOnline_tlt = new System.Windows.Forms.Label();
             this.Createroom_btn = new System.Windows.Forms.Button();
             this.Join_btn = new System.Windows.Forms.Button();
-            this.Setting_btn = new System.Windows.Forms.Button();
             this.Matchhis_btn = new System.Windows.Forms.Button();
             this.Close_btn = new System.Windows.Forms.Button();
             this.UserInfo = new System.Windows.Forms.PictureBox();
@@ -63,6 +62,7 @@
             this.Createroom_btn.TabIndex = 6;
             this.Createroom_btn.Text = "Tạo Phòng";
             this.Createroom_btn.UseVisualStyleBackColor = false;
+            this.Createroom_btn.Click += new System.EventHandler(this.Createroom_btn_Click);
             // 
             // Join_btn
             // 
@@ -76,22 +76,11 @@
             this.Join_btn.UseVisualStyleBackColor = false;
             this.Join_btn.Click += new System.EventHandler(this.button1_Click);
             // 
-            // Setting_btn
-            // 
-            this.Setting_btn.BackColor = System.Drawing.Color.White;
-            this.Setting_btn.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Setting_btn.Location = new System.Drawing.Point(103, 259);
-            this.Setting_btn.Name = "Setting_btn";
-            this.Setting_btn.Size = new System.Drawing.Size(273, 39);
-            this.Setting_btn.TabIndex = 8;
-            this.Setting_btn.Text = "Cài Đặt";
-            this.Setting_btn.UseVisualStyleBackColor = false;
-            // 
             // Matchhis_btn
             // 
             this.Matchhis_btn.BackColor = System.Drawing.Color.White;
             this.Matchhis_btn.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Matchhis_btn.Location = new System.Drawing.Point(103, 323);
+            this.Matchhis_btn.Location = new System.Drawing.Point(103, 271);
             this.Matchhis_btn.Name = "Matchhis_btn";
             this.Matchhis_btn.Size = new System.Drawing.Size(273, 39);
             this.Matchhis_btn.TabIndex = 9;
@@ -102,7 +91,7 @@
             // 
             this.Close_btn.BackColor = System.Drawing.Color.White;
             this.Close_btn.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Close_btn.Location = new System.Drawing.Point(103, 396);
+            this.Close_btn.Location = new System.Drawing.Point(103, 351);
             this.Close_btn.Name = "Close_btn";
             this.Close_btn.Size = new System.Drawing.Size(273, 39);
             this.Close_btn.TabIndex = 10;
@@ -130,7 +119,6 @@
             this.Controls.Add(this.UserInfo);
             this.Controls.Add(this.Close_btn);
             this.Controls.Add(this.Matchhis_btn);
-            this.Controls.Add(this.Setting_btn);
             this.Controls.Add(this.Join_btn);
             this.Controls.Add(this.Createroom_btn);
             this.Controls.Add(this.ChessOnline_tlt);
@@ -147,7 +135,6 @@
         private System.Windows.Forms.Label ChessOnline_tlt;
         private System.Windows.Forms.Button Createroom_btn;
         private System.Windows.Forms.Button Join_btn;
-        private System.Windows.Forms.Button Setting_btn;
         private System.Windows.Forms.Button Matchhis_btn;
         private System.Windows.Forms.Button Close_btn;
         private System.Windows.Forms.PictureBox UserInfo;

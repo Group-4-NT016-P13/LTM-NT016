@@ -83,5 +83,12 @@ namespace Chess
                 MessageBox.Show("Lỗi Đóng kết nối: " + ex.Message);
             }
         }
+
+        private void Createroom_btn_Click(object sender, EventArgs e)
+        {
+            Chess newgame = new Chess(ClientSocket,User_Nickname);
+            newgame.Show();
+            this.Hide();
+        }
     }
 }

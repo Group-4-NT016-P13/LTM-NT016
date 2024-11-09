@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Chess
 {
@@ -70,6 +71,5 @@ namespace Chess
             }
             tile.PieceImage.BackgroundImage = Tile.PieceImages[ImageName()];
         }
-
     }
 }

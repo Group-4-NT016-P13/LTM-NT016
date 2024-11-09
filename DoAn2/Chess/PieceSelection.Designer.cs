@@ -30,56 +30,64 @@
         {
             this.RightArrow = new System.Windows.Forms.Button();
             this.ApplyButton = new System.Windows.Forms.Button();
-            this.Preview = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.LeftArrow = new System.Windows.Forms.Button();
+            this.Preview = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.Preview)).BeginInit();
             this.SuspendLayout();
             // 
             // RightArrow
             // 
-            this.RightArrow.Location = new System.Drawing.Point(123, 68);
+            this.RightArrow.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RightArrow.ForeColor = System.Drawing.Color.Blue;
+            this.RightArrow.Location = new System.Drawing.Point(137, 68);
             this.RightArrow.Name = "RightArrow";
-            this.RightArrow.Size = new System.Drawing.Size(33, 23);
+            this.RightArrow.Size = new System.Drawing.Size(34, 29);
             this.RightArrow.TabIndex = 1;
-            this.RightArrow.Text = "->";
+            this.RightArrow.Text = ">";
             this.RightArrow.UseVisualStyleBackColor = true;
             // 
             // ApplyButton
             // 
             this.ApplyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ApplyButton.Location = new System.Drawing.Point(42, 131);
+            this.ApplyButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ApplyButton.Location = new System.Drawing.Point(47, 126);
             this.ApplyButton.Name = "ApplyButton";
-            this.ApplyButton.Size = new System.Drawing.Size(60, 26);
+            this.ApplyButton.Size = new System.Drawing.Size(84, 31);
             this.ApplyButton.TabIndex = 3;
             this.ApplyButton.Text = "Apply";
             this.ApplyButton.UseVisualStyleBackColor = true;
             // 
-            // Preview
-            // 
-            this.Preview.Location = new System.Drawing.Point(38, 50);
-            this.Preview.Name = "Preview";
-            this.Preview.Size = new System.Drawing.Size(79, 62);
-            this.Preview.TabIndex = 0;
-            this.Preview.TabStop = false;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(35, 9);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Blue;
+            this.label1.Location = new System.Drawing.Point(3, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(94, 16);
-            this.label1.TabIndex = 1;
+            this.label1.Size = new System.Drawing.Size(151, 25);
+            this.label1.TabIndex = 4;
             this.label1.Text = "Select a Piece";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // LeftArrow
             // 
-            this.LeftArrow.Location = new System.Drawing.Point(-1, 68);
+            this.LeftArrow.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LeftArrow.ForeColor = System.Drawing.Color.Blue;
+            this.LeftArrow.Location = new System.Drawing.Point(8, 68);
             this.LeftArrow.Name = "LeftArrow";
-            this.LeftArrow.Size = new System.Drawing.Size(33, 23);
+            this.LeftArrow.Size = new System.Drawing.Size(33, 29);
             this.LeftArrow.TabIndex = 5;
-            this.LeftArrow.Text = "<-";
+            this.LeftArrow.Text = "<";
             this.LeftArrow.UseVisualStyleBackColor = true;
+            // 
+            // Preview
+            // 
+            this.Preview.Location = new System.Drawing.Point(47, 39);
+            this.Preview.Name = "Preview";
+            this.Preview.Size = new System.Drawing.Size(84, 70);
+            this.Preview.TabIndex = 2;
+            this.Preview.TabStop = false;
             // 
             // PieceSelection
             // 

@@ -149,10 +149,8 @@ namespace Chess
                             this.Hide();
                         }));
                     }
-
                     else if (receivedPacket.Request == "LoginFailed")
                     {
-
                         MessageBox.Show("Thông tin đăng nhập không đúng, vui lòng nhập lại.");
                     }
                 }

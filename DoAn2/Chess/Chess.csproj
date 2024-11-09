@@ -47,13 +47,37 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Board.cs" />
-    <Compile Include="Chess.cs">
+    <Compile Include="ChessPiece.cs" />
+    <Compile Include="ChessWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Chess.Designer.cs">
-      <DependentUpon>Chess.cs</DependentUpon>
+    <Compile Include="ChessWindow.Designer.cs">
+      <DependentUpon>ChessWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChessPiece.cs" />
+    <Compile Include="Victory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Victory.Designer.cs">
+      <DependentUpon>Victory.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="ChessWindow.resx">
+      <DependentUpon>ChessWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="PieceSelection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PieceSelection.Designer.cs">
+      <DependentUpon>PieceSelection.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="PieceSelection.resx">
+      <DependentUpon>PieceSelection.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="FindRoom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindRoom.Designer.cs">
+      <DependentUpon>FindRoom.cs</DependentUpon>
+    </Compile>
     <Compile Include="Infor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,12 +112,6 @@
     <Compile Include="Resetpassword.Designer.cs">
       <DependentUpon>Resetpassword.cs</DependentUpon>
     </Compile>
-    <Compile Include="Selection.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Selection.Designer.cs">
-      <DependentUpon>Selection.cs</DependentUpon>
-    </Compile>
     <Compile Include="Signup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,8 +124,8 @@
     <Compile Include="Tile.Designer.cs">
       <DependentUpon>Tile.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Chess.resx">
-      <DependentUpon>Chess.cs</DependentUpon>
+    <EmbeddedResource Include="FindRoom.resx">
+      <DependentUpon>FindRoom.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Infor.resx">
       <DependentUpon>Infor.cs</DependentUpon>
@@ -134,11 +152,11 @@
     <EmbeddedResource Include="Resetpassword.resx">
       <DependentUpon>Resetpassword.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Selection.resx">
-      <DependentUpon>Selection.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Signup.resx">
       <DependentUpon>Signup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Victory.resx">
+      <DependentUpon>Victory.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -152,6 +170,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Image1.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\BBishop.png" />
@@ -172,16 +193,16 @@
     <None Include="Resources\BRook.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Board.png" />
+    <None Include="Resources\images.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Possible.png" />
+    <None Include="Resources\PossibleMove.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Redo.png" />
+    <None Include="Resources\redoArrow.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Undo.png" />
+    <None Include="Resources\undoArrrow.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\WBishop.png" />

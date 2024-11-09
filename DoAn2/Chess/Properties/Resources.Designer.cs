@@ -93,16 +93,6 @@ namespace Chess.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Board {
-            get {
-                object obj = ResourceManager.GetObject("Board", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap BPawn {
             get {
                 object obj = ResourceManager.GetObject("BPawn", resourceCulture);
@@ -133,9 +123,9 @@ namespace Chess.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Possible {
+        internal static System.Drawing.Bitmap images {
             get {
-                object obj = ResourceManager.GetObject("Possible", resourceCulture);
+                object obj = ResourceManager.GetObject("images", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,9 +133,9 @@ namespace Chess.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Redo {
+        internal static System.Drawing.Bitmap PossibleMove {
             get {
-                object obj = ResourceManager.GetObject("Redo", resourceCulture);
+                object obj = ResourceManager.GetObject("PossibleMove", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -153,9 +143,19 @@ namespace Chess.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Undo {
+        internal static System.Drawing.Bitmap redoArrow {
             get {
-                object obj = ResourceManager.GetObject("Undo", resourceCulture);
+                object obj = ResourceManager.GetObject("redoArrow", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap undoArrrow {
+            get {
+                object obj = ResourceManager.GetObject("undoArrrow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
