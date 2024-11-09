@@ -66,10 +66,10 @@ namespace Chess
                         if (Board.CurrentPlayer == ChessColor.NONE)
                         {
                             StartTimer();
-                            var Roompacket = new Packet("RoomRequest", "", RoomID_txt.Text, Nickname);
+                            /*Roompacket = new Packet("RoomRequest", "", RoomID_txt.Text, Nickname);
                             string Packetstring = Roompacket.ToPacketRoomString();
                             byte[] messageBytes = Encoding.UTF8.GetBytes(Packetstring);
-                            await Task.Run(() => ClientSocket.Send(messageBytes));
+                            await Task.Run(() => ClientSocket.Send(messageBytes));*/
                         }
                         else
                         {
