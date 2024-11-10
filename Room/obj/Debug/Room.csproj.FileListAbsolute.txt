@@ -1,0 +1,10 @@
+D:\Room\bin\Debug\Room.exe.config
+D:\Room\bin\Debug\Room.exe
+D:\Room\bin\Debug\Room.pdb
+D:\Room\obj\Debug\Room.csproj.AssemblyReference.cache
+D:\Room\obj\Debug\Room.Properties.Resources.resources
+D:\Room\obj\Debug\Room.csproj.GenerateResource.cache
+D:\Room\obj\Debug\Room.csproj.CoreCompileInputs.cache
+D:\Room\obj\Debug\Room.exe
+D:\Room\obj\Debug\Room.pdb
+D:\Room\obj\Debug\Room.CreateRoom.resources
