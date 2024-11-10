@@ -36,13 +36,14 @@ namespace TCPServer
             this.button2 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(232, 12);
+            this.richTextBox1.Location = new System.Drawing.Point(451, 12);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(567, 368);
+            this.richTextBox1.Size = new System.Drawing.Size(348, 368);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
             // 
@@ -68,7 +69,7 @@ namespace TCPServer
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(28, 342);
+            this.textBox1.Location = new System.Drawing.Point(233, 78);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(198, 20);
             this.textBox1.TabIndex = 3;
@@ -83,11 +84,21 @@ namespace TCPServer
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(302, 34);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(57, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Địa Chỉ IP ";
+            // 
             // TCPServer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button2);
@@ -107,6 +118,7 @@ namespace TCPServer
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox textBox1;
         private Button button3;
+        private Label label1;
     }
 
 }

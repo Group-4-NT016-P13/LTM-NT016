@@ -5,13 +5,14 @@ using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Net.Sockets;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace excercise_2
 {
     public partial class login : Form
     {
-       
-           public class UserInfo
+        private Socket Client;
+    public class UserInfo
     {
         public string Username { get; set; }
         public string Email { get; set; }
@@ -41,52 +42,57 @@ namespace excercise_2
             this.Close();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             string username = textBox1.Text;
             string password = Passdecode(textBox2.Text);
             string ServerIp = "127.0.0.1";
             int port = 11000;
 
-            Socket Client =  new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            Client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ServerIp), port);
-            Client.Connect(endPoint);
+            await Task.Run(() => Client.Connect(endPoint));
+
+            var Loginpacket = new Packet("LoginRequest", "", username, "", password, "");
+            string packetString = Loginpacket.ToPacketString();
 
 
-            string message = username + ":" + password;
-            byte[] messageBytes = Encoding.UTF8.GetBytes(message);
-            Client.Send(messageBytes);
+            byte[] messageBytes = Encoding.UTF8.GetBytes(packetString);
+            await Task.Run(() => Client.Send(messageBytes));
 
+            await ReceiveDataAsync();
 
-            byte[] buffer = new byte[256];
-            int bytesRead = Client.Receive(buffer);
-            string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-            string[] parts = response.Split(':');
-            if (parts.Length >= 1)
+        }
+        private async Task ReceiveDataAsync()
+        {
+            try
             {
-                string ReturnResponse = parts[0];
-                if (ReturnResponse == "LoginSuccessful")
+                while (Client.Connected)
                 {
-                    if (parts.Length >= 3)
+                    byte[] buffer = new byte[512];
+                    int bytesRead = await Task.Run(() => Client.Receive(buffer));
+                    string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                    Packet receivedPacket = Packet.FromPacketString(response);
+
+                    if (receivedPacket.Request == "LoginResponse" && receivedPacket.Message == "LoginSuccessful")
                     {
-                        string ReturnUsername = parts[1];
-                        string ReturnEmail = parts[2];
-                        string ReturnName = parts[3];
-                        string ReturnDate = parts[4];
-                        infor log = new infor(ReturnUsername, ReturnEmail, ReturnName, ReturnDate);
-                        log.Show();
-                        this.Hide();
+                        Invoke(new Action(() =>
+                        {
+                           /* FindBook find = new FindBook(receivedPacket.Username,receivedPacket.Email);
+                            find.Show();
+                            this.Hide();*/
+                        }));
+                    }
+                    else if (receivedPacket.Request == "LoginFailed")
+                    {
+                        MessageBox.Show("Thông tin đăng nhập không đúng, vui lòng nhập lại.");
                     }
                 }
-                else if (ReturnResponse == "LoginFailed")
-                {
-                    MessageBox.Show("Thông tin đăng nhập không đúng, vui lòng nhập lại.");
-                }
             }
-
-            Client.Shutdown(SocketShutdown.Both);
-            Client.Close();
-
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi kết nối: " + ex.Message);
+            }
         }
     }
 }

@@ -62,12 +62,28 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Google.Apis, Version=1.68.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.1.68.0\lib\net462\Google.Apis.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Auth, Version=1.68.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Auth.1.68.0\lib\net462\Google.Apis.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Core, Version=1.68.0.0, Culture=neutral, PublicKeyToken=4b01fa6e34db77ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Apis.Core.1.68.0\lib\net462\Google.Apis.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.CodeDom, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.CodeDom.7.0.0\lib\net462\System.CodeDom.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SqlClient, Version=4.6.1.6, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SqlClient.4.8.6\lib\net461\System.Data.SqlClient.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -79,12 +95,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Book.cs" />
+    <Compile Include="BookInfor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BookInfor.Designer.cs">
+      <DependentUpon>BookInfor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BookShelf.cs" />
+    <Compile Include="FindBook.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindBook.Designer.cs">
+      <DependentUpon>FindBook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GoogleBooksResponse.cs" />
     <Compile Include="infor.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="infor.Designer.cs">
       <DependentUpon>infor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Packet.cs" />
     <Compile Include="signup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +131,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="BookInfor.resx">
+      <DependentUpon>BookInfor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindBook.resx">
+      <DependentUpon>FindBook.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="infor.resx">
       <DependentUpon>infor.cs</DependentUpon>
     </EmbeddedResource>
