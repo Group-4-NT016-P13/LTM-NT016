@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Chess
+namespace Program
 {
     public partial class FindRoom : Form
     {

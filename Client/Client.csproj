@@ -52,6 +52,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ChessWindow.Designer.cs" />
+    <Compile Include="Client.cs" />
     <Compile Include="CreateRoom.cs">
       <SubType>Form</SubType>
     </Compile>

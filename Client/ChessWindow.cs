@@ -8,9 +8,9 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 
 namespace Client
 {
-    public partial class Client : Form
+    public partial class ChessWindow : Form
     {
-        public Client()
+        public ChessWindow()
         {
             InitializeComponent();
 

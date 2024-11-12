@@ -6,7 +6,7 @@ namespace Client
     {
         public static Tile[,] tiles = new Tile[8, 8];
         public static ChessColor CurrentPlayer = ChessColor.WHITE;
-        public static Client Window;
+        public static ChessWindow Window;
         public static List<PreviousBoardState> previousMoves = new List<PreviousBoardState>();
         public static ChessPiece GetPiece(int y, int x) => tiles[y, x].piece;
         public static List<Tile> GetAllPieceTiles(ChessColor color)
@@ -28,7 +28,7 @@ namespace Client
                 }
             return null;
         }
-        public Board(Client chess)
+        public Board(ChessWindow chess)
         {
             Window = chess;
             byte rows = 0;

@@ -1,4 +1,4 @@
-﻿namespace Chess
+﻿namespace Program
 {
     partial class FindRoom
     {
