@@ -6,32 +6,32 @@ using System.Windows.Forms;
 
 namespace TCPClient
 {
-    public partial class Form1 : Form
+    public partial class Client : Form
     {
         private TcpClient clientPlayer1, clientPlayer2;
         private NetworkStream streamPlayer1, streamPlayer2;
         private bool isPlayer1Connected = false, isPlayer2Connected = false;
 
-        public Form1()
+        public Client()
         {
             InitializeComponent();
         }
 
-        // Connect Player 1
+        // Connect Player 1 (W)
         private async void buttonConnectPlayer1_Click(object sender, EventArgs e)
         {
             if (!isPlayer1Connected)
             {
-                await ConnectPlayerAsync("Player1", ref clientPlayer1, ref streamPlayer1, ref isPlayer1Connected);
+                await ConnectPlayerAsync("Player1 (W)", ref clientPlayer1, ref streamPlayer1, ref isPlayer1Connected);
             }
         }
 
-        // Connect Player 2
+        // Connect Player 2 (Z)
         private async void buttonConnectPlayer2_Click(object sender, EventArgs e)
         {
             if (!isPlayer2Connected)
             {
-                await ConnectPlayerAsync("Player2", ref clientPlayer2, ref streamPlayer2, ref isPlayer2Connected);
+                await ConnectPlayerAsync("Player2 (Z)", ref clientPlayer2, ref streamPlayer2, ref isPlayer2Connected);
             }
         }
 
@@ -51,16 +51,13 @@ namespace TCPClient
             }
         }
 
+        // Send Request from Player 1 (W) to Server
         private async void buttonSendRequestPlayer1_Click(object sender, EventArgs e)
         {
-            await SendRequestAsync("Player1", clientPlayer1, streamPlayer1, isPlayer1Connected);
+            await SendRequestAsync("Player1 (W)", clientPlayer1, streamPlayer1, isPlayer1Connected);
         }
 
-        private async void buttonSendRequestPlayer2_Click(object sender, EventArgs e)
-        {
-            await SendRequestAsync("Player2", clientPlayer2, streamPlayer2, isPlayer2Connected);
-        }
-
+        // Player 1 sends the login request
         private async Task SendRequestAsync(string player, TcpClient client, NetworkStream stream, bool isConnected)
         {
             if (isConnected)
@@ -69,7 +66,7 @@ namespace TCPClient
                 string packetData = packet.ToPacketString();
                 byte[] data = Encoding.UTF8.GetBytes(packetData);
                 await stream.WriteAsync(data, 0, data.Length);
-                LogMessage($"{player} sent request");
+                LogMessage($"{player} sent login request to server");
             }
             else
             {
@@ -89,6 +86,13 @@ namespace TCPClient
                     {
                         string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
                         LogMessage($"{player} received: {response}");
+
+                        // Additional logic for Player 2 to respond after Player 1 sends a request
+                        if (player == "Player2 (Z)" && response.Contains("Player1LoginRequest"))
+                        {
+                            // Player 2 (Z) responds to Player 1's request
+                            await SendResponseToPlayer1("Player2 (Z)", clientPlayer2, streamPlayer2, isPlayer2Connected);
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -96,6 +100,23 @@ namespace TCPClient
                     LogMessage($"{player} error receiving data: " + ex.Message);
                     isConnected = false;
                 }
+            }
+        }
+
+        // Player 2 responds to Player 1's request
+        private async Task SendResponseToPlayer1(string player, TcpClient client, NetworkStream stream, bool isConnected)
+        {
+            if (isConnected)
+            {
+                Packet responsePacket = new Packet($"{player}Response", "YourUsername", "ResponseMessage", "", "", "");
+                string responsePacketData = responsePacket.ToPacketString();
+                byte[] responseData = Encoding.UTF8.GetBytes(responsePacketData);
+                await stream.WriteAsync(responseData, 0, responseData.Length);
+                LogMessage($"{player} sent response to Player1");
+            }
+            else
+            {
+                LogMessage($"{player} is not connected.");
             }
         }
 
@@ -114,8 +135,8 @@ namespace TCPClient
         // Disconnect both players
         private void buttonDisconnect_Click(object sender, EventArgs e)
         {
-            DisconnectPlayer("Player1", ref clientPlayer1, ref streamPlayer1, ref isPlayer1Connected);
-            DisconnectPlayer("Player2", ref clientPlayer2, ref streamPlayer2, ref isPlayer2Connected);
+            DisconnectPlayer("Player1 (W)", ref clientPlayer1, ref streamPlayer1, ref isPlayer1Connected);
+            DisconnectPlayer("Player2 (Z)", ref clientPlayer2, ref streamPlayer2, ref isPlayer2Connected);
         }
 
         private void DisconnectPlayer(string player, ref TcpClient client, ref NetworkStream stream, ref bool isConnected)
