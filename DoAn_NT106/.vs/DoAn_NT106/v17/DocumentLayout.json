@@ -3,52 +3,22 @@
   "WorkspaceRootPath": "D:\\doan\\DoAn_NT106\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\recovery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\pieceselection.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\menu.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\resetpassword.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\resetpassword.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\recovery.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\recovery.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\login.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\infor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\packetclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\infor.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\createroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\signup.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\signup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\createroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA7071C2-65FC-4452-AF36-DE322A69774B}|..\\Server\\Server.csproj|d:\\doan\\server\\tcpserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BA7071C2-65FC-4452-AF36-DE322A69774B}|..\\Server\\Server.csproj|d:\\doan\\server\\tcpserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
@@ -57,13 +27,7 @@
       "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\createroom.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\createroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\createroom.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -73,231 +37,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 6,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Client.cs",
-              "DocumentMoniker": "D:\\doan\\Client\\Client.cs",
-              "RelativeDocumentMoniker": "..\\Client\\Client.cs",
-              "ToolTip": "D:\\doan\\Client\\Client.cs",
-              "RelativeToolTip": "..\\Client\\Client.cs",
-              "ViewState": "AgIAAD4AAAAAAAAAAAAgwE8AAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-12T10:36:33.62Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Recovery.cs [Design]",
-              "DocumentMoniker": "D:\\doan\\Client\\Recovery.cs",
-              "RelativeDocumentMoniker": "..\\Client\\Recovery.cs",
-              "ToolTip": "D:\\doan\\Client\\Recovery.cs [Design]",
-              "RelativeToolTip": "..\\Client\\Recovery.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-12T10:36:09.965Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PieceSelection.Designer.cs",
-              "DocumentMoniker": "D:\\doan\\Client\\PieceSelection.Designer.cs",
-              "RelativeDocumentMoniker": "..\\Client\\PieceSelection.Designer.cs",
-              "ToolTip": "D:\\doan\\Client\\PieceSelection.Designer.cs",
-              "RelativeToolTip": "..\\Client\\PieceSelection.Designer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-12T10:36:08.991Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Resetpassword.Designer.cs",
-              "DocumentMoniker": "D:\\doan\\Client\\Resetpassword.Designer.cs",
-              "RelativeDocumentMoniker": "..\\Client\\Resetpassword.Designer.cs",
-              "ToolTip": "D:\\doan\\Client\\Resetpassword.Designer.cs",
-              "RelativeToolTip": "..\\Client\\Resetpassword.Designer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-12T10:35:41.055Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Recovery.Designer.cs",
-              "DocumentMoniker": "D:\\doan\\Client\\Recovery.Designer.cs",
-              "RelativeDocumentMoniker": "..\\Client\\Recovery.Designer.cs",
-              "ToolTip": "D:\\doan\\Client\\Recovery.Designer.cs",
-              "RelativeToolTip": "..\\Client\\Recovery.Designer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-12T10:35:00.315Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Login.Designer.cs",
-              "DocumentMoniker": "D:\\doan\\Client\\Login.Designer.cs",
-              "RelativeDocumentMoniker": "..\\Client\\Login.Designer.cs",
-              "ToolTip": "D:\\doan\\Client\\Login.Designer.cs",
-              "RelativeToolTip": "..\\Client\\Login.Designer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-12T10:34:33.286Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Resetpassword.cs",
-              "DocumentMoniker": "D:\\doan\\Client\\Resetpassword.cs",
-              "RelativeDocumentMoniker": "..\\Client\\Resetpassword.cs",
-              "ToolTip": "D:\\doan\\Client\\Resetpassword.cs",
-              "RelativeToolTip": "..\\Client\\Resetpassword.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAswEIAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-12T10:30:23.466Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Recovery.cs",
-              "DocumentMoniker": "D:\\doan\\Client\\Recovery.cs",
-              "RelativeDocumentMoniker": "..\\Client\\Recovery.cs",
-              "ToolTip": "D:\\doan\\Client\\Recovery.cs",
-              "RelativeToolTip": "..\\Client\\Recovery.cs",
-              "ViewState": "AgIAAKsAAAAAAAAAAAAwwLgAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-12T10:29:50.247Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Login.cs",
-              "DocumentMoniker": "D:\\doan\\Client\\Login.cs",
-              "RelativeDocumentMoniker": "..\\Client\\Login.cs",
-              "ToolTip": "D:\\doan\\Client\\Login.cs",
-              "RelativeToolTip": "..\\Client\\Login.cs",
-              "ViewState": "AgIAAKAAAAAAAAAAAAAAwJUAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-12T10:29:35.796Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "PacketClient.cs",
-              "DocumentMoniker": "D:\\doan\\Client\\PacketClient.cs",
-              "RelativeDocumentMoniker": "..\\Client\\PacketClient.cs",
-              "ToolTip": "D:\\doan\\Client\\PacketClient.cs",
-              "RelativeToolTip": "..\\Client\\PacketClient.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-12T10:25:45.844Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{e5c86464-96be-4d7c-9a8b-abcb3bbf5f92}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Menu.cs [Design]",
-              "DocumentMoniker": "D:\\doan\\Client\\Menu.cs",
-              "RelativeDocumentMoniker": "..\\Client\\Menu.cs",
-              "ToolTip": "D:\\doan\\Client\\Menu.cs [Design]",
-              "RelativeToolTip": "..\\Client\\Menu.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-12T10:02:56.549Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Menu.Designer.cs",
-              "DocumentMoniker": "D:\\doan\\Client\\Menu.Designer.cs",
-              "RelativeDocumentMoniker": "..\\Client\\Menu.Designer.cs",
-              "ToolTip": "D:\\doan\\Client\\Menu.Designer.cs",
-              "RelativeToolTip": "..\\Client\\Menu.Designer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-12T09:39:04.035Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "Signup.Designer.cs",
-              "DocumentMoniker": "D:\\doan\\Client\\Signup.Designer.cs",
-              "RelativeDocumentMoniker": "..\\Client\\Signup.Designer.cs",
-              "ToolTip": "D:\\doan\\Client\\Signup.Designer.cs",
-              "RelativeToolTip": "..\\Client\\Signup.Designer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-12T10:33:24.755Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "Signup.cs",
-              "DocumentMoniker": "D:\\doan\\Client\\Signup.cs",
-              "RelativeDocumentMoniker": "..\\Client\\Signup.cs",
-              "ToolTip": "D:\\doan\\Client\\Signup.cs",
-              "RelativeToolTip": "..\\Client\\Signup.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-12T10:30:02.702Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "CreateRoom.Designer.cs",
-              "DocumentMoniker": "D:\\doan\\Client\\CreateRoom.Designer.cs",
-              "RelativeDocumentMoniker": "..\\Client\\CreateRoom.Designer.cs",
-              "ToolTip": "D:\\doan\\Client\\CreateRoom.Designer.cs",
-              "RelativeToolTip": "..\\Client\\CreateRoom.Designer.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAwwJ0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-12T10:25:10.3Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "CreateRoom.cs",
-              "DocumentMoniker": "D:\\doan\\Client\\CreateRoom.cs",
-              "RelativeDocumentMoniker": "..\\Client\\CreateRoom.cs",
-              "ToolTip": "D:\\doan\\Client\\CreateRoom.cs",
-              "RelativeToolTip": "..\\Client\\CreateRoom.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-12T10:25:04.995Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Infor.cs",
-              "DocumentMoniker": "D:\\doan\\Client\\Infor.cs",
-              "RelativeDocumentMoniker": "..\\Client\\Infor.cs",
-              "ToolTip": "D:\\doan\\Client\\Infor.cs",
-              "RelativeToolTip": "..\\Client\\Infor.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAAwwD0AAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-12T10:18:54.363Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
@@ -308,54 +49,111 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "Infor.Designer.cs",
-              "DocumentMoniker": "D:\\doan\\Client\\Infor.Designer.cs",
-              "RelativeDocumentMoniker": "..\\Client\\Infor.Designer.cs",
-              "ToolTip": "D:\\doan\\Client\\Infor.Designer.cs",
-              "RelativeToolTip": "..\\Client\\Infor.Designer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAXAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "CreateRoom.cs",
+              "DocumentMoniker": "D:\\doan\\Client\\CreateRoom.cs",
+              "RelativeDocumentMoniker": "..\\Client\\CreateRoom.cs",
+              "ToolTip": "D:\\doan\\Client\\CreateRoom.cs",
+              "RelativeToolTip": "..\\Client\\CreateRoom.cs",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAuwGUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-12T09:42:57.033Z",
+              "WhenOpened": "2024-11-13T15:01:26.565Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 3,
               "Title": "CreateRoom.cs [Design]",
               "DocumentMoniker": "D:\\doan\\Client\\CreateRoom.cs",
               "RelativeDocumentMoniker": "..\\Client\\CreateRoom.cs",
               "ToolTip": "D:\\doan\\Client\\CreateRoom.cs [Design]",
               "RelativeToolTip": "..\\Client\\CreateRoom.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-12T10:25:02.349Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2024-11-13T15:01:25.295Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 2,
+              "Title": "Client.cs",
+              "DocumentMoniker": "D:\\doan\\Client\\Client.cs",
+              "RelativeDocumentMoniker": "..\\Client\\Client.cs",
+              "ToolTip": "D:\\doan\\Client\\Client.cs",
+              "RelativeToolTip": "..\\Client\\Client.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAADwv3UAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T15:01:04.635Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TCPServer.cs [Design]",
+              "DocumentMoniker": "D:\\doan\\Server\\TCPServer.cs",
+              "RelativeDocumentMoniker": "..\\Server\\TCPServer.cs",
+              "ToolTip": "D:\\doan\\Server\\TCPServer.cs [Design]",
+              "RelativeToolTip": "..\\Server\\TCPServer.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T15:00:28.215Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PacketClient.cs",
+              "DocumentMoniker": "D:\\doan\\Client\\PacketClient.cs",
+              "RelativeDocumentMoniker": "..\\Client\\PacketClient.cs",
+              "ToolTip": "D:\\doan\\Client\\PacketClient.cs",
+              "RelativeToolTip": "..\\Client\\PacketClient.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAUwFwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T14:49:26.768Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "CreateRoom.Designer.cs",
+              "DocumentMoniker": "D:\\doan\\Client\\CreateRoom.Designer.cs",
+              "RelativeDocumentMoniker": "..\\Client\\CreateRoom.Designer.cs",
+              "ToolTip": "D:\\doan\\Client\\CreateRoom.Designer.cs",
+              "RelativeToolTip": "..\\Client\\CreateRoom.Designer.cs",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAYwFYAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T14:34:11.397Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TCPServer.cs",
+              "DocumentMoniker": "D:\\doan\\Server\\TCPServer.cs",
+              "RelativeDocumentMoniker": "..\\Server\\TCPServer.cs",
+              "ToolTip": "D:\\doan\\Server\\TCPServer.cs",
+              "RelativeToolTip": "..\\Server\\TCPServer.cs",
+              "ViewState": "AgIAAIIAAAAAAAAAAAAuwI0AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-13T13:43:33.887Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Menu.cs",
               "DocumentMoniker": "D:\\doan\\Client\\Menu.cs",
               "RelativeDocumentMoniker": "..\\Client\\Menu.cs",
               "ToolTip": "D:\\doan\\Client\\Menu.cs",
               "RelativeToolTip": "..\\Client\\Menu.cs",
-              "ViewState": "AgIAADgAAAAAAAAAAADwv0IAAAAsAAAAAAAAAA==",
+              "ViewState": "AgIAAFEAAAAAAAAAAAAuwFYAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-12T09:37:58.422Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-13T13:34:57.752Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "Program.cs",
-              "DocumentMoniker": "D:\\doan\\Client\\Program.cs",
-              "RelativeDocumentMoniker": "..\\Client\\Program.cs",
-              "ToolTip": "D:\\doan\\Client\\Program.cs",
-              "RelativeToolTip": "..\\Client\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
+              "DocumentIndex": 8,
+              "Title": "Menu.cs [Design]",
+              "DocumentMoniker": "D:\\doan\\Client\\Menu.cs",
+              "RelativeDocumentMoniker": "..\\Client\\Menu.cs",
+              "ToolTip": "D:\\doan\\Client\\Menu.cs [Design]",
+              "RelativeToolTip": "..\\Client\\Menu.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-12T09:41:09.548Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-13T13:34:46.645Z"
             }
           ]
         }

@@ -1,132 +1,117 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Program
 {
     public class Client
     {
-        public static Socket clientSocket;
-        public static Thread recvThread;
+        private Socket clientSocket;
+        private Thread recvThread;
+        private bool isConnected;
 
-        public static void Connect(IPEndPoint serverEP)
+        public event Action<string> OnMoveReceived; // Sự kiện khi nhận được nước đi từ server
+
+        public Client()
+        {
+            clientSocket = null;
+            recvThread = null;
+            isConnected = false;
+        }
+
+        public void Connect(string ipAddress, int port)
         {
             try
             {
                 clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                clientSocket.Connect(serverEP);
-                recvThread = new Thread(ReceiveData);
+                clientSocket.Connect(new IPEndPoint(IPAddress.Parse(ipAddress), port));
+                isConnected = true;
+
+                // Bắt đầu một luồng để nhận dữ liệu
+                recvThread = new Thread(ReceiveMove);
                 recvThread.IsBackground = true;
                 recvThread.Start();
+
+                Console.WriteLine("Connected to server at " + ipAddress + ":" + port);
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Lỗi khi kết nối server: " + ex.Message);
+                isConnected = false;
             }
         }
 
-        public static void SendData( )
+        public void SendData(string data)
         {
             try
             {
-             //   byte[] buffer = packet.ToBytes();
-             //   clientSocket.Send(buffer);
+                if (clientSocket != null && clientSocket.Connected)
+                {
+                    byte[] dataBytes = Encoding.UTF8.GetBytes(data);
+                    clientSocket.Send(dataBytes);
+                }
+                else
+                {
+                    Console.WriteLine("Không thể gửi dữ liệu: Client chưa kết nối.");
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Lỗi khi gửi dữ liệu: " + ex.Message);
             }
         }
-        private static void ReceiveData()
+
+        private void ReceiveMove()
         {
             try
             {
-                byte[] buffer = new byte[1024];
-                while (clientSocket.Connected)
+                while (isConnected && clientSocket.Connected)
                 {
-                    // Nhận dữ liệu từ server
-                    int receivedBytes = clientSocket.Receive(buffer);
-                    if (receivedBytes > 0)
+                    byte[] buffer = new byte[256];
+                    int bytesRead = clientSocket.Receive(buffer);
+
+                    if (bytesRead > 0)
                     {
-                        // Chuyển đổi dữ liệu nhận được thành chuỗi
-                        string msg = Encoding.UTF8.GetString(buffer, 0, receivedBytes);
-
-
+                        string moveData = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                        OnMoveReceived?.Invoke(moveData);
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Lỗi khi nhận dữ liệu từ server: " + ex.Message);
+                Console.WriteLine($"Lỗi nhận dữ liệu: {ex.Message}");
             }
             finally
             {
-                clientSocket.Close();
-                Console.WriteLine("Đã ngắt kết nối với server");
+                CloseConnection();
             }
         }
 
-        //private static Packet ParsePacket(string msg)
-        //{
-        //    string[] payload = msg.Split(';');
-        //    if (payload.Length == 0)
-        //    {
-        //        return null; // Không có dữ liệu
-        //    }
+        public void CloseConnection()
+        {
+            try
+            {
+                isConnected = false;
 
-            // Xác định loại packet dựa trên phần tử đầu tiên
-        //    PacketType packetType;
-        //    if (Enum.TryParse(payload[0], out packetType))
-        //    {
-        //        switch (packetType)
-        //        {
-        //            case PacketType.LOGIN_RESULT:
-        //                return new LoginResultPacket(msg);
-        //            case PacketType.REGISTER_RESULT:
-        //                return new RegisterResultPacket(msg);
-        //            case PacketType.ROOM_INFO:
-        //                return new RoomInfoPacket(msg);
-        //            case PacketType.OTHER_INFO:
-        //                return new OtherInfoPacket(msg);
-        //            case PacketType.ROUND_UPDATE:
-        //                return new RoundUpdatePacket(msg);
-        //            case PacketType.GUESS_RESULT:
-        //                return new GuessResultPacket(msg);
-        //            case PacketType.LEADER_BOARD_INFO:
-        //                return new LeaderBoardInfoPacket(msg);
-        //            default:
-        //                return null; // Không biết loại packet
-        //        }
-        //    }
-        //    return null;
-        //}
+                if (recvThread != null && recvThread.IsAlive)
+                {
+                    recvThread.Join(); // Đợi luồng hoàn thành
+                }
 
-        //private static void AnalyzingPacket(Packet packet)
-        //{
-        //    switch (packet.Type)
-        //    {
-        //        case PacketType.LOGIN_RESULT:
-        //            break;
-        //        case PacketType.REGISTER_RESULT:
-        //            break;
-        //        case PacketType.ROOM_INFO:
-        //            break;
-        //        case PacketType.OTHER_INFO:
-        //            break;
-        //        case PacketType.ROUND_UPDATE:
-        //            break;
-        //        case PacketType.GUESS_RESULT:
-        //            break;
-        //        case PacketType.LEADER_BOARD_INFO:
-        //            break;
-        //        default:
-        //            break;
-        //    }
-        //}
+                if (clientSocket != null && clientSocket.Connected)
+                {
+                    clientSocket.Shutdown(SocketShutdown.Both);
+                    clientSocket.Close();
+                }
+
+                Console.WriteLine("Đã đóng kết nối.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi khi đóng kết nối: {ex.Message}");
+            }
+        }
     }
 }

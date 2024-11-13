@@ -79,7 +79,7 @@
             this.ready.TabIndex = 3;
             this.ready.Text = "Confirm";
             this.ready.UseVisualStyleBackColor = true;
-            this.ready.Click += new System.EventHandler(this.button1_Click);
+            this.ready.Click += new System.EventHandler(this.ready_Click);
             // 
             // exit
             // 

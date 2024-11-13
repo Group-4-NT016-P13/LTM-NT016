@@ -34,6 +34,8 @@ namespace TCPServer
             InitializeComponent();
         }
 
+//------------------------------------------------------------------
+
         private async void button1_Click(object sender, EventArgs e)
         {
             try
@@ -85,29 +87,54 @@ namespace TCPServer
             {
                 while (clientSocket.Connected)
                 {
-                    
-                    byte[] buffer = new byte[512];
-                    int bytesRead = await Task.Run(() => clientSocket.Receive(buffer));
-                   
-                    string message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                    LogMessage("Đã nhận từ client: " + message);
-
-                    Packet receivedPacket = Packet.FromPacketString(message);
-                    string response;
-
-                    if (receivedPacket.Request == "ShutdownRequest")
+                    try
                     {
-                        response = new Packet("ShutdownResponse", "", "", "", "", "").ToPacketString();
-                        byte[] shutdownMessage = Encoding.UTF8.GetBytes(response);
-                        await Task.Run(() => clientSocket.Send(shutdownMessage));
-                        LogMessage("Client đã tắt");
-                        break;
+                        byte[] buffer = new byte[512];
+                        int bytesRead = await Task.Run(() => clientSocket.Receive(buffer));
+
+                        // Kiểm tra nếu không nhận được dữ liệu
+                        if (bytesRead == 0)
+                        {
+                            LogMessage("Client đã đóng kết nối.");
+                            break;
+                        }
+
+                        string message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                        LogMessage("Đã nhận từ client: " + message);
+
+                        // Thử phân tích dữ liệu nhận thành Packet
+                        Packet receivedPacket;
+                        try
+                        {
+                            receivedPacket = Packet.FromPacketString(message);
+                        }
+                        catch (Exception ex)
+                        {
+                            LogMessage("Lỗi phân tích cú pháp gói tin: " + ex.Message);
+                            continue;
+                        }
+
+                        string response;
+
+                        // Xử lý yêu cầu ShutdownRequest
+                        if (receivedPacket.Request == "ShutdownRequest")
+                        {
+                            response = new Packet("ShutdownResponse", "", "", "", "", "").ToPacketString();
+                            byte[] shutdownMessage = Encoding.UTF8.GetBytes(response);
+                            await Task.Run(() => clientSocket.Send(shutdownMessage));
+                            LogMessage("Client đã tắt");
+                            break;
+                        }
+                        else
+                        {
+                            response = HandleRequest(receivedPacket);
+                            byte[] responseData = Encoding.UTF8.GetBytes(response);
+                            await Task.Run(() => clientSocket.Send(responseData));
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        response = HandleRequest(receivedPacket);
-                        byte[] responseData = Encoding.UTF8.GetBytes(response);
-                        await Task.Run(() => clientSocket.Send(responseData));
+                        LogMessage("Lỗi trong vòng lặp xử lý client: " + ex.Message);
                     }
                 }
             }
@@ -117,12 +144,13 @@ namespace TCPServer
             }
             finally
             {
-                //  đóng socket khi client ngắt kết nối 
+                // Đóng socket khi client ngắt kết nối 
                 clientSocket.Close();
                 LogMessage("Client đã ngắt kết nối.");
             }
         }
 
+        //------------------------------------------------------------------
 
         private string HandleRequest(Packet receivedPacket)
         {
@@ -400,7 +428,5 @@ namespace TCPServer
         {
             this.Close();
         }
-
-       
     }
 }

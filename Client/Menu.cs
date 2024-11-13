@@ -87,6 +87,7 @@ namespace Client
         {
             CreateRoom room = new CreateRoom();
             room.Show();
+            this.Hide();
         }
     }
 }
