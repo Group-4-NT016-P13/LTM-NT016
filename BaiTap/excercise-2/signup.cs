@@ -82,18 +82,18 @@ namespace excercise_2
             IPEndPoint endPoint = new IPEndPoint(IPAddress.Parse(ServerIp), port);
             await Task.Run(() => Client.Connect(endPoint));
 
-            var Signuppacket = new Packet("SignupRequest", "", username,"", password, email);
+            var Signuppacket = new Packet("SignupRequest", "", username, "", password, email);
             string packetString = Signuppacket.ToPacketString();
 
 
             byte[] messageBytes = Encoding.UTF8.GetBytes(packetString);
             await Task.Run(() => Client.Send(messageBytes));
 
-            await ReceiveDataAsync();
+            await ReceiveData();
 
         }
 
-        private async Task ReceiveDataAsync()
+        private async Task ReceiveData()
         {
             try
             {
@@ -109,7 +109,9 @@ namespace excercise_2
                     {
                         Invoke(new Action(() =>
                         {
-                            
+                            FindBook find = new FindBook(username,email);
+                            find.Show();
+                            this.Hide();
                         }));
                     }
                     else if (receivedPacket.Message == "SignupFailedName")

@@ -29,30 +29,25 @@
         private void InitializeComponent()
         {
             this.dgvBooks = new System.Windows.Forms.DataGridView();
+            this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Authors = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PublishedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Search_btn = new System.Windows.Forms.Button();
             this.Search_txt = new System.Windows.Forms.TextBox();
             this.Userinfor_grp = new System.Windows.Forms.GroupBox();
             this.Email_txt = new System.Windows.Forms.TextBox();
             this.Username_txt = new System.Windows.Forms.TextBox();
             this.AddBook_btn = new System.Windows.Forms.Button();
-            this.Addbookshelves_btn = new System.Windows.Forms.Button();
-            this.Title = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Authors = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PublishedDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Display_btn = new System.Windows.Forms.Button();
             this.dgvShelves = new System.Windows.Forms.DataGridView();
             this.ShelvesName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BookNumbers = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.Shelfname_txt = new System.Windows.Forms.TextBox();
-            this.Description_txt = new System.Windows.Forms.TextBox();
-            this.Shelfname_lb = new System.Windows.Forms.Label();
-            this.Description_lb = new System.Windows.Forms.Label();
-            this.Addbookshelf_btn = new System.Windows.Forms.Button();
+            this.Delete_btn = new System.Windows.Forms.Button();
+            this.BookInShelf_btn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBooks)).BeginInit();
             this.Userinfor_grp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShelves)).BeginInit();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvBooks
@@ -69,9 +64,27 @@
             this.dgvBooks.TabIndex = 0;
             this.dgvBooks.SelectionChanged += new System.EventHandler(this.DgvBooks_SelectionChanged);
             // 
+            // Title
+            // 
+            this.Title.HeaderText = "Tựa đề";
+            this.Title.Name = "Title";
+            this.Title.Width = 165;
+            // 
+            // Authors
+            // 
+            this.Authors.HeaderText = "Tác giả";
+            this.Authors.Name = "Authors";
+            this.Authors.Width = 150;
+            // 
+            // PublishedDate
+            // 
+            this.PublishedDate.HeaderText = "Ngày phát hành";
+            this.PublishedDate.Name = "PublishedDate";
+            this.PublishedDate.Width = 190;
+            // 
             // Search_btn
             // 
-            this.Search_btn.Location = new System.Drawing.Point(435, 121);
+            this.Search_btn.Location = new System.Drawing.Point(450, 123);
             this.Search_btn.Name = "Search_btn";
             this.Search_btn.Size = new System.Drawing.Size(97, 34);
             this.Search_btn.TabIndex = 2;
@@ -115,39 +128,23 @@
             // 
             // AddBook_btn
             // 
-            this.AddBook_btn.Location = new System.Drawing.Point(140, 431);
+            this.AddBook_btn.Location = new System.Drawing.Point(110, 431);
             this.AddBook_btn.Name = "AddBook_btn";
             this.AddBook_btn.Size = new System.Drawing.Size(117, 43);
             this.AddBook_btn.TabIndex = 5;
             this.AddBook_btn.Text = "Thêm Sách";
             this.AddBook_btn.UseVisualStyleBackColor = true;
+            this.AddBook_btn.Click += new System.EventHandler(this.AddBook_btn_Click);
             // 
-            // Addbookshelves_btn
+            // Display_btn
             // 
-            this.Addbookshelves_btn.Location = new System.Drawing.Point(695, 431);
-            this.Addbookshelves_btn.Name = "Addbookshelves_btn";
-            this.Addbookshelves_btn.Size = new System.Drawing.Size(117, 43);
-            this.Addbookshelves_btn.TabIndex = 6;
-            this.Addbookshelves_btn.Text = "Thêm Kệ Sách";
-            this.Addbookshelves_btn.UseVisualStyleBackColor = true;
-            // 
-            // Title
-            // 
-            this.Title.HeaderText = "Tựa đề";
-            this.Title.Name = "Title";
-            this.Title.Width = 165;
-            // 
-            // Authors
-            // 
-            this.Authors.HeaderText = "Tác giả";
-            this.Authors.Name = "Authors";
-            this.Authors.Width = 150;
-            // 
-            // PublishedDate
-            // 
-            this.PublishedDate.HeaderText = "Ngày phát hành";
-            this.PublishedDate.Name = "PublishedDate";
-            this.PublishedDate.Width = 190;
+            this.Display_btn.Location = new System.Drawing.Point(863, 121);
+            this.Display_btn.Name = "Display_btn";
+            this.Display_btn.Size = new System.Drawing.Size(117, 38);
+            this.Display_btn.TabIndex = 6;
+            this.Display_btn.Text = "Hiển Thị Kệ";
+            this.Display_btn.UseVisualStyleBackColor = true;
+            this.Display_btn.Click += new System.EventHandler(this.Display_btn_Click);
             // 
             // dgvShelves
             // 
@@ -158,8 +155,10 @@
             this.BookNumbers});
             this.dgvShelves.Location = new System.Drawing.Point(553, 165);
             this.dgvShelves.Name = "dgvShelves";
+            this.dgvShelves.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvShelves.Size = new System.Drawing.Size(427, 232);
             this.dgvShelves.TabIndex = 7;
+            this.dgvShelves.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvShelves_CellClick);
             // 
             // ShelvesName
             // 
@@ -179,70 +178,35 @@
             this.BookNumbers.Name = "BookNumbers";
             this.BookNumbers.Width = 80;
             // 
-            // groupBox1
+            // Delete_btn
             // 
-            this.groupBox1.Controls.Add(this.Addbookshelf_btn);
-            this.groupBox1.Controls.Add(this.Description_lb);
-            this.groupBox1.Controls.Add(this.Shelfname_lb);
-            this.groupBox1.Controls.Add(this.Description_txt);
-            this.groupBox1.Controls.Add(this.Shelfname_txt);
-            this.groupBox1.Location = new System.Drawing.Point(780, 3);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 152);
-            this.groupBox1.TabIndex = 8;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Thông Tin Kệ Sách";
+            this.Delete_btn.Location = new System.Drawing.Point(715, 431);
+            this.Delete_btn.Name = "Delete_btn";
+            this.Delete_btn.Size = new System.Drawing.Size(117, 43);
+            this.Delete_btn.TabIndex = 8;
+            this.Delete_btn.Text = "Xóa Sách";
+            this.Delete_btn.UseVisualStyleBackColor = true;
+            this.Delete_btn.Click += new System.EventHandler(this.Delete_btn_Click);
             // 
-            // Shelfname_txt
+            // BookInShelf_btn
             // 
-            this.Shelfname_txt.Location = new System.Drawing.Point(6, 34);
-            this.Shelfname_txt.Name = "Shelfname_txt";
-            this.Shelfname_txt.Size = new System.Drawing.Size(171, 20);
-            this.Shelfname_txt.TabIndex = 0;
-            // 
-            // Description_txt
-            // 
-            this.Description_txt.Location = new System.Drawing.Point(6, 83);
-            this.Description_txt.Name = "Description_txt";
-            this.Description_txt.Size = new System.Drawing.Size(171, 20);
-            this.Description_txt.TabIndex = 1;
-            // 
-            // Shelfname_lb
-            // 
-            this.Shelfname_lb.AutoSize = true;
-            this.Shelfname_lb.Location = new System.Drawing.Point(6, 15);
-            this.Shelfname_lb.Name = "Shelfname_lb";
-            this.Shelfname_lb.Size = new System.Drawing.Size(70, 13);
-            this.Shelfname_lb.TabIndex = 2;
-            this.Shelfname_lb.Text = "Tên Kệ Sách";
-            // 
-            // Description_lb
-            // 
-            this.Description_lb.AutoSize = true;
-            this.Description_lb.Location = new System.Drawing.Point(6, 67);
-            this.Description_lb.Name = "Description_lb";
-            this.Description_lb.Size = new System.Drawing.Size(38, 13);
-            this.Description_lb.TabIndex = 3;
-            this.Description_lb.Text = "Mô Tả";
-            // 
-            // Addbookshelf_btn
-            // 
-            this.Addbookshelf_btn.Location = new System.Drawing.Point(46, 118);
-            this.Addbookshelf_btn.Name = "Addbookshelf_btn";
-            this.Addbookshelf_btn.Size = new System.Drawing.Size(97, 23);
-            this.Addbookshelf_btn.TabIndex = 4;
-            this.Addbookshelf_btn.Text = "Thêm Kệ Sách";
-            this.Addbookshelf_btn.UseVisualStyleBackColor = true;
-            this.Addbookshelf_btn.Click += new System.EventHandler(this.Addbookshelf_btn_Click);
+            this.BookInShelf_btn.Location = new System.Drawing.Point(385, 431);
+            this.BookInShelf_btn.Name = "BookInShelf_btn";
+            this.BookInShelf_btn.Size = new System.Drawing.Size(140, 43);
+            this.BookInShelf_btn.TabIndex = 9;
+            this.BookInShelf_btn.Text = "Hiện Thị Sách Trong Kệ";
+            this.BookInShelf_btn.UseVisualStyleBackColor = true;
+            this.BookInShelf_btn.Click += new System.EventHandler(this.BookInShelf_btn_Click);
             // 
             // FindBook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1004, 506);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.BookInShelf_btn);
+            this.Controls.Add(this.Delete_btn);
             this.Controls.Add(this.dgvShelves);
-            this.Controls.Add(this.Addbookshelves_btn);
+            this.Controls.Add(this.Display_btn);
             this.Controls.Add(this.AddBook_btn);
             this.Controls.Add(this.Userinfor_grp);
             this.Controls.Add(this.Search_txt);
@@ -254,8 +218,6 @@
             this.Userinfor_grp.ResumeLayout(false);
             this.Userinfor_grp.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvShelves)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -270,7 +232,7 @@
         private System.Windows.Forms.TextBox Username_txt;
         private System.Windows.Forms.TextBox Email_txt;
         private System.Windows.Forms.Button AddBook_btn;
-        private System.Windows.Forms.Button Addbookshelves_btn;
+        private System.Windows.Forms.Button Display_btn;
         private System.Windows.Forms.DataGridViewTextBoxColumn Title;
         private System.Windows.Forms.DataGridViewTextBoxColumn Authors;
         private System.Windows.Forms.DataGridViewTextBoxColumn PublishedDate;
@@ -278,11 +240,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ShelvesName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn BookNumbers;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label Description_lb;
-        private System.Windows.Forms.Label Shelfname_lb;
-        private System.Windows.Forms.TextBox Description_txt;
-        private System.Windows.Forms.TextBox Shelfname_txt;
-        private System.Windows.Forms.Button Addbookshelf_btn;
+        private System.Windows.Forms.Button Delete_btn;
+        private System.Windows.Forms.Button BookInShelf_btn;
     }
 }

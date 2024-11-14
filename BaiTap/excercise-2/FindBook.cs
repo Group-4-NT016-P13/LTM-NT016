@@ -16,37 +16,62 @@ namespace excercise_2
 {
     public partial class FindBook : Form
     {
+        private string apiKey = "AIzaSyA02f3GRfEboWT2M4Rg_kgX_LGgyqZV7uE";
         private string accessToken;
         private string Username;
-        private string Emaiil;
+        private string Email;
         private bool isFirstLoad = true;
-        public FindBook()
+        private Book selectedBook;
+        private BookShelf selectedShelf;
+        private List<BookShelf> bookShelves = new List<BookShelf>();
+        private List<Book> Books = new List<Book>();
+     
+        public FindBook(string username, string email)
         {
+            Username = username;
+            Email = email;
             InitializeComponent();
-            InitializeOAuth();
-
+            OAuth(email);
+            Username_txt.Text = Username;
+            Email_txt.Text = Email;
         }
-
-        private async void InitializeOAuth()
+        private async void OAuth(string email)
         {
-            var credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
-                new ClientSecrets
+            try
+            {
+                var credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
+                    new ClientSecrets
+                    {
+                        ClientId = "1065370628148-keskipl391b4lthrpc6rksahkeus06on.apps.googleusercontent.com",
+                        ClientSecret = "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"
+                    },
+                    new[] { "https://www.googleapis.com/auth/books","email" },
+                    email,
+                    CancellationToken.None
+                );
+
+                accessToken = await credential.GetAccessTokenForRequestAsync();
+
+                if (string.IsNullOrEmpty(accessToken))
                 {
-                    ClientId = "1065370628148-m71rrp4b3uhge5g0rkkbckua619n6t51",
-                    ClientSecret = "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"
-                },
-                new[] { "https://www.googleapis.com/auth/books" },
-                "user",
-                CancellationToken.None
-            );
-
-            accessToken = await credential.GetAccessTokenForRequestAsync();
+                    MessageBox.Show("Lỗi xác thực! Không thể lấy access token.");
+                }
+                else
+                {
+                    MessageBox.Show("Xác thực thành công! Access token đã được lấy.");
+                    Console.WriteLine($"Access Token: {accessToken}");
+                    Console.WriteLine($"User Email: {email}");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi OAuth: {ex.Message}");
+            }
         }
-
 
         private async void Search_btn_Click(object sender, EventArgs e)
         {
-            string keyword = Search_txt.Text;  // TextBox chứa từ khóa tìm kiếm
+            string keyword = Search_txt.Text;
             if (!string.IsNullOrEmpty(keyword))
             {
                 var books = await SearchBooks(keyword);
@@ -60,7 +85,7 @@ namespace excercise_2
 
         private async Task<List<Book>> SearchBooks(string keyword)
         {
-            string apiKey = "AIzaSyA02f3GRfEboWT2M4Rg_kgX_LGgyqZV7uE"; 
+
             string url = $"https://www.googleapis.com/books/v1/volumes?q={keyword}&key={apiKey}";
 
             using (HttpClient client = new HttpClient())
@@ -69,19 +94,21 @@ namespace excercise_2
                 var data = JsonConvert.DeserializeObject<GoogleBooksResponse>(response);
                 return data.Items.Select(item => new Book
                 {
-                    Title = item.VolumeInfo.Title ?? "Chưa có tiêu đề",  
-                    Authors = item.VolumeInfo.Authors != null ? string.Join(", ", item.VolumeInfo.Authors): "Chưa có tác giả", 
-                    Description = item.VolumeInfo.Description ?? "Không có mô tả",  
-                    PublishedDate = item.VolumeInfo.PublishedDate ?? "Chưa có thông tin",  
-                    Thumbnail = item.VolumeInfo.ImageLinks?.Thumbnail 
+                    Id = item.Id,
+                    Title = item.VolumeInfo.Title ?? "Chưa có tiêu đề",
+                    Authors = item.VolumeInfo.Authors != null ? string.Join(", ", item.VolumeInfo.Authors) : "Chưa có tác giả",
+                    Description = item.VolumeInfo.Description ?? "Không có mô tả",
+                    PublishedDate = item.VolumeInfo.PublishedDate ?? "Chưa có thông tin",
+                    Thumbnail = item.VolumeInfo.ImageLinks?.Thumbnail
                 }).ToList();
             }
         }
 
         private void DisplayBooks(List<Book> books)
         {
+            Books = books;
             dgvBooks.Rows.Clear();
-            foreach(var book in books)
+            foreach (var book in books)
             {
                 dgvBooks.Rows.Add(book.Title, book.Authors, book.PublishedDate);
             }
@@ -92,22 +119,22 @@ namespace excercise_2
             if (isFirstLoad)
             {
                 isFirstLoad = false;
-                return;  
+                return;
             }
 
             if (dgvBooks.SelectedRows.Count > 0)
-            { 
-                var selectedBookTitle = dgvBooks.SelectedRows[0].Cells["Title"].Value?.ToString();
-                if (!string.IsNullOrEmpty(selectedBookTitle))
+            {
+                var rowIndex = dgvBooks.SelectedRows[0].Index;
+                selectedBook = Books[rowIndex];
+                if (!string.IsNullOrEmpty(selectedBook.Id))
                 {
-                    
-                    var bookDetail = await GetBookDetails(selectedBookTitle);
+
+                    var bookDetail = await GetBookDetails(selectedBook.Id);
 
                     if (bookDetail != null)
                     {
-                       
                         BookInfor detailForm = new BookInfor(bookDetail);
-                        detailForm.ShowDialog(); 
+                        detailForm.ShowDialog();
                     }
                     else
                     {
@@ -117,23 +144,25 @@ namespace excercise_2
             }
         }
 
-        private async Task<Book> GetBookDetails(string title)
+
+        private async Task<Book> GetBookDetails(string id)
         {
-            string apiKey = "AIzaSyA02f3GRfEboWT2M4Rg_kgX_LGgyqZV7uE";  
-            string url = $"https://www.googleapis.com/books/v1/volumes?q={title}&key={apiKey}";
+
+            string url = $"https://www.googleapis.com/books/v1/volumes?q={id}&key={apiKey}";
 
             using (HttpClient client = new HttpClient())
             {
                 var response = await client.GetStringAsync(url);
                 var data = JsonConvert.DeserializeObject<GoogleBooksResponse>(response);
 
-               
+
                 var item = data.Items.FirstOrDefault();
 
                 if (item != null)
                 {
                     return new Book
                     {
+                        Id = item.Id,
                         Title = item.VolumeInfo.Title,
                         Authors = string.Join(", ", item.VolumeInfo.Authors),
                         Description = item.VolumeInfo.Description,
@@ -146,61 +175,188 @@ namespace excercise_2
             return null;
         }
 
-        private async void Addbookshelf_btn_Click(object sender, EventArgs e)
+
+        private  void DgvShelves_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (string.IsNullOrEmpty(accessToken))
+            
+            if (e.RowIndex >= 0)
             {
-                MessageBox.Show("Please authenticate first.");
-                return;
-            }
-            string shelfName = Shelfname_txt.Text;
-            string shelfDescription = Description_txt.Text;
-            try
-            {
-                using (HttpClient client = new HttpClient())
+                
+                selectedShelf = bookShelves[e.RowIndex];
+
+                if (selectedShelf != null)
                 {
-                    // Thiết lập header Authorization với access token
-                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
-
-                    // Tạo nội dung JSON cho kệ sách mới
-                    var bookshelfData = new
-                    {
-                        title = shelfName,
-                        description = shelfDescription,
-                        access = "PRIVATE"//  "PUBLIC" nếu muốn chia sẻ kệ sách
-                    };
-
-                    // Chuyển đổi thành JSON
-                    var content = new StringContent(JsonConvert.SerializeObject(bookshelfData), Encoding.UTF8, "application/json");
-
-                    // Gửi yêu cầu POST
-                    var response = await client.PostAsync("https://www.googleapis.com/books/v1/mylibrary/bookshelves", content);
-
-                    // Kiểm tra kết quả
-                    if (response.IsSuccessStatusCode)
-                    {
-                        MessageBox.Show("Bookshelf created successfully.");
-                    }
-                    else
-                    {
-                        var error = await response.Content.ReadAsStringAsync();
-                        MessageBox.Show($"Error creating bookshelf: {error}");
-                    }
+                    MessageBox.Show("kệ đã được chọn");
+                }
+                else
+                {
+                    MessageBox.Show("Không thể lấy thông tin kệ sách từ dòng được chọn.");
                 }
             }
-            catch (Exception ex)
+        }
+        private async void AddBook_btn_Click(object sender, EventArgs e)
+        {
+            if (selectedBook != null && selectedShelf != null)
             {
-                MessageBox.Show($"Exception: {ex.Message}");
+                bool success = await AddBookToShelf(selectedShelf.Id, selectedBook.Id);
+                if (success)
+                {
+                    MessageBox.Show("Đã thêm sách vào kệ thành công!");
+                }
+                else
+                {
+                    MessageBox.Show("Không thể thêm sách vào kệ.");
+                }
+            }
+            else if (selectedBook == null)
+            {
+                MessageBox.Show("Vui lòng chọn sách.");
+            }
+            else if (selectedShelf == null)
+            {
+                MessageBox.Show("Vui lòng chọn kệ  sách.");
+            }
+        }
+
+        private async Task<bool> AddBookToShelf(string shelfId, string volumeId)
+        {
+            string url = $"https://www.googleapis.com/books/v1/mylibrary/bookshelves/{shelfId}/addVolume?volumeId={volumeId}";
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+                HttpResponseMessage response = await client.PostAsync(url, null);
+                return response.IsSuccessStatusCode;
+            }
+        }
+
+
+        private async void Display_btn_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(accessToken))
+            {
+                List<BookShelf> bookshelves = await GetBookshelves(accessToken);
+                DisplayShelves(bookshelves);
+            }
+            else
+            {
+                MessageBox.Show("Không có access token.");
             }
 
         }
+
         private void DisplayShelves(List<BookShelf> shelves)
         {
+            bookShelves = shelves;
             dgvShelves.Rows.Clear();
 
             foreach (var shelf in shelves)
             {
-                dgvShelves.Rows.Add(shelf.Title, shelf.Description, shelf.VolumeCount);
+                dgvShelves.Rows.Add(shelf.Title, shelf.Description, shelf.BookCount);
+            }
+        }
+
+
+        private async Task<List<BookShelf>> GetBookshelves(string accesstoken)
+        {
+            string url = "https://www.googleapis.com/books/v1/mylibrary/bookshelves";
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseData = await response.Content.ReadAsStringAsync();
+                    var bookshelves = JsonConvert.DeserializeObject<ShelvesResponse>(responseData);
+                    return bookshelves.Items;
+                }
+                else
+                {
+                    MessageBox.Show("Không thể lấy thông tin kệ sách.");
+                    return null;
+                }
+            }
+        }
+
+        private async void BookInShelf_btn_Click(object sender, EventArgs e)
+        {
+            if (selectedShelf != null)
+            {
+                List<Book> booksInShelf = await GetBooksInShelf(selectedShelf.Id); 
+                DisplayBooks(booksInShelf); 
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn một kệ sách.");
+            }
+        }
+
+        private async Task<List<Book>> GetBooksInShelf(string shelfId)
+        {
+            string url = $"https://www.googleapis.com/books/v1/mylibrary/bookshelves/{shelfId}/volumes";
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+                HttpResponseMessage response = await client.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseData = await response.Content.ReadAsStringAsync();
+                    var data = JsonConvert.DeserializeObject<GoogleBooksResponse>(responseData);
+
+                    return data.Items?.Select(item => new Book
+                    {
+                        Id = item?.Id ?? "Không có ID", 
+                        Title = item?.VolumeInfo?.Title ?? "Chưa có tiêu đề",  
+                        Authors = item?.VolumeInfo?.Authors != null ? string.Join(", ", item.VolumeInfo.Authors) : "Chưa có tác giả",  
+                        Description = item?.VolumeInfo?.Description ?? "Không có mô tả",  
+                        PublishedDate = item?.VolumeInfo?.PublishedDate ?? "Chưa có thông tin",  
+                        Thumbnail = item?.VolumeInfo?.ImageLinks?.Thumbnail  
+                    }).ToList() ?? new List<Book>();
+                }
+                else
+                {
+                    MessageBox.Show("Không thể lấy thông tin sách trong kệ.");
+                    return new List<Book>();
+                }
+            }
+        }
+
+        private async void Delete_btn_Click(object sender, EventArgs e)
+        {
+            if (selectedBook != null && selectedShelf != null)
+            {
+                bool success = await DeleteFromShelf(selectedShelf.Id, selectedBook.Id);
+                if (success)
+                {
+                    MessageBox.Show("Đã xóa sách khỏi  kệ thành công!");
+                }
+                else
+                {
+                    MessageBox.Show("Không thể xóa sách khỏi  kệ.");
+                }
+            }
+            else if (selectedBook == null)
+            {
+                MessageBox.Show("Vui lòng chọn sách.");
+            }
+            else if (selectedShelf == null)
+            {
+                MessageBox.Show("Vui lòng chọn kệ  sách.");
+            }
+        }
+
+        private async Task<bool> DeleteFromShelf(string shelfId, string volumeId)
+        {
+            string url = $"https://www.googleapis.com/books/v1/mylibrary/bookshelves/{shelfId}/removeVolume?volumeId={volumeId}";
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+                HttpResponseMessage response = await client.PostAsync(url, null);
+                return response.IsSuccessStatusCode;
             }
         }
     }

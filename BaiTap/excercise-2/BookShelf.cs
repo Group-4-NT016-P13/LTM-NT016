@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,12 +10,23 @@ namespace excercise_2
 {
     public   class BookShelf
     {
+
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("title")]
         public string Title { get; set; }
+
+        [JsonProperty("description")]
         public string Description { get; set; }
-        public int? VolumeCount { get; set; } // Số lượng sách trong kệ
+
+        [JsonProperty("volumeCount")]
+        public int BookCount { get; set; }
+
     }
     public class ShelvesResponse
     {
+        [JsonProperty("items")]
         public List<BookShelf> Items { get; set; }
     }
 }

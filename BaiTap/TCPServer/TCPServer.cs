@@ -27,7 +27,7 @@ namespace TCPServer
             public string Username { get; set; }
             public string Email { get; set; }
             public string Nickname { get; set; }
-           
+
         }
         public TCPServer()
         {
@@ -47,8 +47,8 @@ namespace TCPServer
                 listener.Listen(10);
                 LogMessage("Server đang chạy ...");
                 running = true;
-                await ListenForClientsAsync();
-               
+                await ListenForClients();
+
             }
             catch (Exception ex)
             {
@@ -56,7 +56,7 @@ namespace TCPServer
             }
         }
 
-        private async Task ListenForClientsAsync()
+        private async Task ListenForClients()
         {
             while (running)
             {
@@ -67,7 +67,7 @@ namespace TCPServer
                     LogMessage("Client đã kết nối!");
 
                     // Xử lý client trong task riêng biệt
-                    _ = HandleClientAsync(clientSocket);
+                    _ = HandleClient(clientSocket);
                 }
                 catch (SocketException ex)
                 {
@@ -79,16 +79,16 @@ namespace TCPServer
             }
         }
 
-        private async Task HandleClientAsync(Socket clientSocket)
+        private async Task HandleClient(Socket clientSocket)
         {
             try
             {
                 while (clientSocket.Connected)
                 {
-                    
+
                     byte[] buffer = new byte[512];
                     int bytesRead = await Task.Run(() => clientSocket.Receive(buffer));
-                   
+
                     string message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
                     LogMessage("Đã nhận từ client: " + message);
 
@@ -160,7 +160,7 @@ namespace TCPServer
             UserInfo userinfor = GetInfo(receivedPacket.Username);
             if (Login(receivedPacket.Username, receivedPacket.Password))
             {
-                response = new Packet("LoginResponse", "LoginSuccessful", userinfor.Username,"", "", userinfor.Email).ToPacketString();
+                response = new Packet("LoginResponse", "LoginSuccessful", userinfor.Username, "", "", userinfor.Email).ToPacketString();
             }
             else
             {
@@ -191,7 +191,7 @@ namespace TCPServer
         private string AddNewUser(Packet receivedPacket)
         {
             string response;
-            string query = "INSERT INTO Users (Username, Nickname, Password, Email) VALUES (@Username, @Nickname, @Password, @Email)";
+            string query = "INSERT INTO Users (Username, Password, Email) VALUES (@Username, @Password, @Email)";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 try
@@ -199,7 +199,6 @@ namespace TCPServer
                     connection.Open();
                     SqlCommand cmd = new SqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("@Username", receivedPacket.Username);
-                    cmd.Parameters.AddWithValue("@Nickname", receivedPacket.Nickname);
                     cmd.Parameters.AddWithValue("@Password", receivedPacket.Password);
                     cmd.Parameters.AddWithValue("@Email", receivedPacket.Email);
                     int row = cmd.ExecuteNonQuery();
@@ -356,8 +355,8 @@ namespace TCPServer
                 return count > 0;
             }
         }
-        private bool IsEmailExsits(string username,string email)
-        { 
+        private bool IsEmailExsits(string username, string email)
+        {
             string query = "SELECT COUNT(*) FROM Users WHERE Email = @Email AND Username != @Username";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -390,7 +389,7 @@ namespace TCPServer
                     {
                         Username = reader.GetString(1),
                         Email = reader.GetString(2),
-                       // Nickname = reader.GetString(3),
+                        // Nickname = reader.GetString(3),
                     };
                 }
             }
@@ -402,6 +401,6 @@ namespace TCPServer
             this.Close();
         }
 
-       
+
     }
 }

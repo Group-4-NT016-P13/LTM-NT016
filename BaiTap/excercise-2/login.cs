@@ -38,8 +38,8 @@ namespace excercise_2
         private void label5_Click(object sender, EventArgs e)
         {
             signup log = new signup();
-            log.ShowDialog();
-            this.Close();
+            log.Show();
+            this.Hide();
         }
 
         private async void button1_Click(object sender, EventArgs e)
@@ -60,10 +60,10 @@ namespace excercise_2
             byte[] messageBytes = Encoding.UTF8.GetBytes(packetString);
             await Task.Run(() => Client.Send(messageBytes));
 
-            await ReceiveDataAsync();
+            await ReceiveData();
 
         }
-        private async Task ReceiveDataAsync()
+        private async Task ReceiveData()
         {
             try
             {
@@ -78,9 +78,9 @@ namespace excercise_2
                     {
                         Invoke(new Action(() =>
                         {
-                           /* FindBook find = new FindBook(receivedPacket.Username,receivedPacket.Email);
+                            FindBook find = new FindBook(receivedPacket.Username,receivedPacket.Email);
                             find.Show();
-                            this.Hide();*/
+                            this.Hide();
                         }));
                     }
                     else if (receivedPacket.Request == "LoginFailed")
