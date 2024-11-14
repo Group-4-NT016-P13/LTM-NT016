@@ -156,7 +156,7 @@ namespace excercise_2
                 var data = JsonConvert.DeserializeObject<GoogleBooksResponse>(response);
 
 
-                var item = data.Items.FirstOrDefault();
+                var item = data.Items?.FirstOrDefault();
 
                 if (item != null)
                 {
