@@ -1,1 +1,1 @@
-Cách để chạy TCPserver : chạy file query database + chỉnh sửa tên server trong biến query trong code TCPServer
+Cách để chạy TCPserver : chạy file query database + chỉnh sửa tên datasource  trong biến connectionString trong code TCPSerser 
