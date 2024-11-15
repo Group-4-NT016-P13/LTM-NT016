@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Net.Sockets;
+using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Client
@@ -7,12 +9,15 @@ namespace Client
     public partial class CreateRoom : Form
     {
         private Socket clientSocket;
+        private Thread receiveThread;
         private int click = 0;
+
         public CreateRoom()
         {
             InitializeComponent();
             RoomId();
             ConnectToServer();
+            StartReceiveThread();
         }
 
         private void ConnectToServer()
@@ -28,11 +33,12 @@ namespace Client
                 MessageBox.Show("Lỗi kết nối đến server: " + ex.Message);
             }
         }
+
         private void SendChoiceToServer(string choice)
         {
             if (clientSocket != null && clientSocket.Connected)
             {
-                byte[] data = System.Text.Encoding.UTF8.GetBytes(choice);
+                byte[] data = Encoding.UTF8.GetBytes(choice);
                 clientSocket.Send(data);
             }
             else
@@ -40,6 +46,7 @@ namespace Client
                 MessageBox.Show("Không có kết nối với server!");
             }
         }
+
         private void RoomId(int length = 6)
         {
             Random random = new Random();
@@ -54,12 +61,66 @@ namespace Client
             textBox1.Enabled = false;
         }
 
+        private void StartReceiveThread()
+        {
+            receiveThread = new Thread(ReceiveData);
+            receiveThread.IsBackground = true;
+            receiveThread.Start();
+        }
+
+        private void ReceiveData()
+        {
+            try
+            {
+                while (clientSocket != null && clientSocket.Connected)
+                {
+                    byte[] buffer = new byte[256];
+                    int bytesRead = clientSocket.Receive(buffer);
+
+                    if (bytesRead > 0)
+                    {
+                        string serverResponse = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                        HandleServerResponse(serverResponse);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi nhận dữ liệu từ server: " + ex.Message);
+            }
+        }
+
+        private void HandleServerResponse(string response)
+        {
+            if (response == "WAITING_FOR_PLAYER")
+            {
+                MessageBox.Show("Đợi người chơi khác tham gia...");
+            }
+            else if (response == "ROOM_READY")
+            {
+                MessageBox.Show("Phòng đã sẵn sàng! Bắt đầu trò chơi.");
+                Invoke((MethodInvoker)delegate {
+                    ChessWindow newGame = new ChessWindow();
+                    newGame.Show();
+                    this.Hide();
+                });
+            }
+        }
 
         private void exit_Click(object sender, EventArgs e)
         {
+            CloseConnection();
             this.Close();
         }
 
+        private void CloseConnection()
+        {
+            if (clientSocket != null && clientSocket.Connected)
+            {
+                clientSocket.Shutdown(SocketShutdown.Both);
+                clientSocket.Close();
+            }
+        }
 
         private void W_Click(object sender, EventArgs e)
         {
@@ -70,7 +131,6 @@ namespace Client
             SendChoiceToServer("WHITE");
         }
 
-
         private void B_Click(object sender, EventArgs e)
         {
             click++;
@@ -79,7 +139,6 @@ namespace Client
             label3.Text = click + "/2";
             SendChoiceToServer("BLACK");
         }
-
 
         private void ready_Click(object sender, EventArgs e)
         {
@@ -92,10 +151,6 @@ namespace Client
             string roomId = textBox1.Text;
             string message = $"CREATE_ROOM:{roomId}";
             SendChoiceToServer(message);
-
-            ChessWindow newGame = new ChessWindow();
-            newGame.Show();
-            this.Hide();
         }
     }
 }

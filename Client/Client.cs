@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Client;
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace Program
 {
@@ -74,8 +76,8 @@ namespace Program
 
                     if (bytesRead > 0)
                     {
-                        string moveData = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                        OnMoveReceived?.Invoke(moveData);
+                        string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                        HandleServerResponse(response); // Gọi phương thức xử lý phản hồi từ server
                     }
                 }
             }
@@ -86,6 +88,27 @@ namespace Program
             finally
             {
                 CloseConnection();
+            }
+        }
+
+        private void HandleServerResponse(string response)
+        {
+            Packet receivedPacket = Packet.FromPacketString(response);
+
+            if (receivedPacket.Request == "START_GAME")
+            {
+                // Khởi động trò chơi nếu phòng đã đủ người chơi
+                ChessWindow newGame = new ChessWindow();
+                newGame.Show();
+                Application.OpenForms[0].Hide(); // Ẩn Form chính hiện tại
+            }
+            else if (receivedPacket.Request == "WAITING_FOR_PLAYER")
+            {
+                MessageBox.Show("Đợi người chơi khác tham gia...");
+            }
+            else if (receivedPacket.Request == "ROOM_FULL")
+            {
+                MessageBox.Show("Phòng đã đầy, vui lòng chọn phòng khác.");
             }
         }
 

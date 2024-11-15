@@ -13,6 +13,7 @@ using System.Net.Sockets;
 using System.Net;
 using System.Threading;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using Server;
 
 
 namespace TCPServer
@@ -22,6 +23,7 @@ namespace TCPServer
         string connectionString = "Data Source=DESKTOP-0PFOH9Q\\SQLEXPRESS;Initial Catalog=ChessServer_DB;Integrated Security=True;";
         private Socket listener;
         private bool running;
+        private Dictionary<string, Room> rooms = new Dictionary<string, Room>();
         public class UserInfo
         {
             public string Username { get; set; }
@@ -34,7 +36,7 @@ namespace TCPServer
             InitializeComponent();
         }
 
-//------------------------------------------------------------------
+        //------------------------------------------------------------------
 
         private async void button1_Click(object sender, EventArgs e)
         {
@@ -50,7 +52,6 @@ namespace TCPServer
                 LogMessage("Server đang chạy ...");
                 running = true;
                 await ListenForClientsAsync();
-               
             }
             catch (Exception ex)
             {
@@ -64,11 +65,10 @@ namespace TCPServer
             {
                 try
                 {
-                    // Chờ kết nối của client
                     Socket clientSocket = await Task.Run(() => listener.Accept());
                     LogMessage("Client đã kết nối!");
 
-                    // Xử lý client trong task riêng biệt
+                    // Khởi chạy xử lý client trong một task riêng biệt
                     _ = HandleClientAsync(clientSocket);
                 }
                 catch (SocketException ex)
@@ -92,7 +92,6 @@ namespace TCPServer
                         byte[] buffer = new byte[512];
                         int bytesRead = await Task.Run(() => clientSocket.Receive(buffer));
 
-                        // Kiểm tra nếu không nhận được dữ liệu
                         if (bytesRead == 0)
                         {
                             LogMessage("Client đã đóng kết nối.");
@@ -102,7 +101,6 @@ namespace TCPServer
                         string message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
                         LogMessage("Đã nhận từ client: " + message);
 
-                        // Thử phân tích dữ liệu nhận thành Packet
                         Packet receivedPacket;
                         try
                         {
@@ -116,13 +114,12 @@ namespace TCPServer
 
                         string response;
 
-                        // Xử lý yêu cầu ShutdownRequest
                         if (receivedPacket.Request == "ShutdownRequest")
                         {
                             response = new Packet("ShutdownResponse", "", "", "", "", "").ToPacketString();
                             byte[] shutdownMessage = Encoding.UTF8.GetBytes(response);
                             await Task.Run(() => clientSocket.Send(shutdownMessage));
-                            LogMessage("Client đã tắt");
+                            LogMessage("Client đã yêu cầu tắt kết nối.");
                             break;
                         }
                         else
@@ -144,12 +141,55 @@ namespace TCPServer
             }
             finally
             {
-                // Đóng socket khi client ngắt kết nối 
                 clientSocket.Close();
                 LogMessage("Client đã ngắt kết nối.");
             }
         }
+        private string UpdateBoardState(Packet receivedPacket)
+        {
+            if (rooms.TryGetValue(receivedPacket.RoomId, out Room room))
+            {
+                room.CurrentBoardState = receivedPacket.BoardState;
+                room.Broadcast(new Packet("MovePieceResponse", "Success", "", "", receivedPacket.BoardState, "").ToPacketString());
+                return new Packet("MovePieceResponse", "Success", "", "", "", "").ToPacketString();
+            }
+            else
+            {
+                return new Packet("MovePieceResponse", "RoomNotFound", "", "", "", "").ToPacketString();
+            }
+        }
 
+        private string JoinRoom(string roomId, Socket clientSocket)
+        {
+            Room room = CreateRoom(roomId);
+            if (room.Players.Count < 2)
+            {
+                room.AddPlayer(clientSocket);
+                LogMessage($"Người chơi đã tham gia phòng {roomId}");
+
+                if (room.Players.Count == 2)
+                {
+                    room.Broadcast("Cả hai người chơi đã sẵn sàng. Trận đấu bắt đầu!");
+                }
+
+                return new Packet("JoinRoomResponse", "Success", roomId, "", "", "").ToPacketString();
+            }
+            else
+            {
+                return new Packet("JoinRoomResponse", "RoomFull", "", "", "", "").ToPacketString();
+            }
+        }
+        private Room CreateRoom(string roomId)
+        {
+            if (!rooms.ContainsKey(roomId))
+            {
+                Room newRoom = new Room(roomId);
+                rooms[roomId] = newRoom;
+                LogMessage("Phòng mới đã được tạo: " + roomId);
+            }
+            return rooms[roomId];
+        }
+      
         //------------------------------------------------------------------
 
         private string HandleRequest(Packet receivedPacket)
@@ -176,6 +216,13 @@ namespace TCPServer
 
                 case "ChangePasswordRequest":
                     response = ChangePasswordRequest(receivedPacket);
+                    break;
+                case "JoinRoomRequest":
+                    response = JoinRoom(receivedPacket.RoomId, listener);
+                    break;
+
+                case "MovePieceRequest":
+                    response = UpdateBoardState(receivedPacket);
                     break;
             }
 
