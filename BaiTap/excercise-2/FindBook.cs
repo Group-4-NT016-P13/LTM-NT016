@@ -35,6 +35,8 @@ namespace excercise_2
             Username_txt.Text = Username;
             Email_txt.Text = Email;
         }
+
+        //lấy mã xác thực
         private async void OAuth(string email)
         {
             try
@@ -68,7 +70,7 @@ namespace excercise_2
                 MessageBox.Show($"Lỗi OAuth: {ex.Message}");
             }
         }
-
+        // nút tìm sách
         private async void Search_btn_Click(object sender, EventArgs e)
         {
             string keyword = Search_txt.Text;
@@ -82,7 +84,7 @@ namespace excercise_2
                 MessageBox.Show("Vui lòng nhập từ khóa tìm kiếm.");
             }
         }
-
+        //hàm tìm sách
         private async Task<List<Book>> SearchBooks(string keyword)
         {
 
@@ -103,7 +105,7 @@ namespace excercise_2
                 }).ToList();
             }
         }
-
+        //hiển thị sách lên datagridview
         private void DisplayBooks(List<Book> books)
         {
             Books = books;
@@ -113,7 +115,7 @@ namespace excercise_2
                 dgvBooks.Rows.Add(book.Title, book.Authors, book.PublishedDate);
             }
         }
-
+        //hiển thị chi tiết sách
         private async void DgvBooks_SelectionChanged(object sender, EventArgs e)
         {
             if (isFirstLoad)
@@ -144,7 +146,7 @@ namespace excercise_2
             }
         }
 
-
+        //hàm lấy chi tiết sách
         private async Task<Book> GetBookDetails(string id)
         {
 
@@ -175,7 +177,7 @@ namespace excercise_2
             return null;
         }
 
-
+        //chọn kệ sách 
         private  void DgvShelves_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             
@@ -183,17 +185,9 @@ namespace excercise_2
             {
                 
                 selectedShelf = bookShelves[e.RowIndex];
-
-                if (selectedShelf != null)
-                {
-                    MessageBox.Show("kệ đã được chọn");
-                }
-                else
-                {
-                    MessageBox.Show("Không thể lấy thông tin kệ sách từ dòng được chọn.");
-                }
             }
         }
+        //nút thêm sách vào kệ
         private async void AddBook_btn_Click(object sender, EventArgs e)
         {
             if (selectedBook != null && selectedShelf != null)
@@ -217,7 +211,7 @@ namespace excercise_2
                 MessageBox.Show("Vui lòng chọn kệ  sách.");
             }
         }
-
+        //hàm thêm sách vào kệ
         private async Task<bool> AddBookToShelf(string shelfId, string volumeId)
         {
             string url = $"https://www.googleapis.com/books/v1/mylibrary/bookshelves/{shelfId}/addVolume?volumeId={volumeId}";
@@ -230,7 +224,7 @@ namespace excercise_2
             }
         }
 
-
+        //nút hiển thị sách trong kệ
         private async void Display_btn_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(accessToken))
@@ -244,7 +238,7 @@ namespace excercise_2
             }
 
         }
-
+        //hàm hiển thị kệ lên datagridview
         private void DisplayShelves(List<BookShelf> shelves)
         {
             bookShelves = shelves;
@@ -256,7 +250,7 @@ namespace excercise_2
             }
         }
 
-
+        //hàm để lấy kệ sách
         private async Task<List<BookShelf>> GetBookshelves(string accesstoken)
         {
             string url = "https://www.googleapis.com/books/v1/mylibrary/bookshelves";
@@ -278,7 +272,7 @@ namespace excercise_2
                 }
             }
         }
-
+        //nút để show sách có trong kệ
         private async void BookInShelf_btn_Click(object sender, EventArgs e)
         {
             if (selectedShelf != null)
@@ -291,7 +285,7 @@ namespace excercise_2
                 MessageBox.Show("Vui lòng chọn một kệ sách.");
             }
         }
-
+        //hàm để show sách trong kệ
         private async Task<List<Book>> GetBooksInShelf(string shelfId)
         {
             string url = $"https://www.googleapis.com/books/v1/mylibrary/bookshelves/{shelfId}/volumes";
@@ -323,7 +317,7 @@ namespace excercise_2
                 }
             }
         }
-
+        //nút xóa sách trong kệ
         private async void Delete_btn_Click(object sender, EventArgs e)
         {
             if (selectedBook != null && selectedShelf != null)
@@ -347,7 +341,7 @@ namespace excercise_2
                 MessageBox.Show("Vui lòng chọn kệ  sách.");
             }
         }
-
+        //hàm xóa sách trong kệ 
         private async Task<bool> DeleteFromShelf(string shelfId, string volumeId)
         {
             string url = $"https://www.googleapis.com/books/v1/mylibrary/bookshelves/{shelfId}/removeVolume?volumeId={volumeId}";
