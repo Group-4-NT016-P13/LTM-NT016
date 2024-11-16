@@ -3,7 +3,7 @@
   "WorkspaceRootPath": "D:\\Final\\DoAn_NT106\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{82E127D4-014F-4F8B-A510-E44F325341D7}|Server\\Server.csproj|D:\\Final\\DoAn_NT106\\server\\tcpserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{82E127D4-014F-4F8B-A510-E44F325341D7}|Server\\Server.csproj|d:\\final\\doan_nt106\\server\\tcpserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{82E127D4-014F-4F8B-A510-E44F325341D7}|Server\\Server.csproj|solutionrelative:server\\tcpserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -47,9 +47,10 @@
               "RelativeDocumentMoniker": "Server\\TCPServer.cs",
               "ToolTip": "D:\\Final\\DoAn_NT106\\Server\\TCPServer.cs",
               "RelativeToolTip": "Server\\TCPServer.cs",
-              "ViewState": "AgIAAKUAAAAAAAAAAAAgwJgAAAA4AAAAAAAAAA==",
+              "ViewState": "AgIAAKUAAAAAAAAAAAA3wJgAAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-16T07:24:26.319Z"
+              "WhenOpened": "2024-11-16T07:24:26.319Z",
+              "EditorCaption": ""
             }
           ]
         }
