@@ -74,6 +74,7 @@
     </Compile>
     <Compile Include="Menu.Designer.cs" />
     <Compile Include="Movement.cs" />
+    <Compile Include="MovePacket.cs" />
     <Compile Include="PacketClient.cs" />
     <Compile Include="PieceSelection.cs">
       <SubType>Form</SubType>

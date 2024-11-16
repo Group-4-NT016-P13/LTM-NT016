@@ -14,8 +14,10 @@ namespace Program
         private Thread recvThread;
         private bool isConnected;
 
-        public event Action<string> OnMoveReceived; // Sự kiện khi nhận được nước đi từ server
+        private string serverAddress = "127.0.0.1"; // Địa chỉ IP của Server
+        private int serverPort = 11000;
 
+       
         public Client()
         {
             clientSocket = null;
@@ -23,12 +25,12 @@ namespace Program
             isConnected = false;
         }
 
-        public void Connect(string ipAddress, int port)
+        public void Connect()
         {
             try
             {
                 clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                clientSocket.Connect(new IPEndPoint(IPAddress.Parse(ipAddress), port));
+                clientSocket.Connect(new IPEndPoint(IPAddress.Parse(serverAddress), serverPort));
                 isConnected = true;
 
                 // Bắt đầu một luồng để nhận dữ liệu
@@ -36,7 +38,7 @@ namespace Program
                 recvThread.IsBackground = true;
                 recvThread.Start();
 
-                Console.WriteLine("Connected to server at " + ipAddress + ":" + port);
+               
             }
             catch (Exception ex)
             {
@@ -45,14 +47,16 @@ namespace Program
             }
         }
 
-        public void SendData(string data)
+        public void SendData(MovePacket move)
         {
             try
             {
                 if (clientSocket != null && clientSocket.Connected)
                 {
-                    byte[] dataBytes = Encoding.UTF8.GetBytes(data);
-                    clientSocket.Send(dataBytes);
+                      byte[] moveData = move.ToByteArray();
+
+            // Gửi dữ liệu qua socket
+            clientSocket.Send(moveData);
                 }
                 else
                 {

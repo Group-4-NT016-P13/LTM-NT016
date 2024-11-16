@@ -3,22 +3,19 @@
   "WorkspaceRootPath": "D:\\doan\\DoAn_NT106\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BA7071C2-65FC-4452-AF36-DE322A69774B}|..\\Server\\Server.csproj|d:\\doan\\server\\tcpserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{82E127D4-014F-4F8B-A510-E44F325341D7}|Server\\Server.csproj|d:\\doan\\doan_nt106\\server\\tcpserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{82E127D4-014F-4F8B-A510-E44F325341D7}|Server\\Server.csproj|solutionrelative:server\\tcpserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BA7071C2-65FC-4452-AF36-DE322A69774B}|..\\Server\\Server.csproj|d:\\doan\\server\\packet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{82E127D4-014F-4F8B-A510-E44F325341D7}|Server\\Server.csproj|D:\\doan\\DoAn_NT106\\server\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{82E127D4-014F-4F8B-A510-E44F325341D7}|Server\\Server.csproj|solutionrelative:server\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BA7071C2-65FC-4452-AF36-DE322A69774B}|..\\Server\\Server.csproj|d:\\doan\\server\\room.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{82E127D4-014F-4F8B-A510-E44F325341D7}|Server\\Server.csproj|D:\\doan\\DoAn_NT106\\server\\connect2player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{82E127D4-014F-4F8B-A510-E44F325341D7}|Server\\Server.csproj|solutionrelative:server\\connect2player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\client.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{BA7071C2-65FC-4452-AF36-DE322A69774B}|..\\Server\\Server.csproj|d:\\doan\\server\\tcpserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9CA7FDBF-8AFF-4F8E-87B4-25FACF338EDF}|..\\Client\\Client.csproj|d:\\doan\\client\\menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -28,8 +25,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 5,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Room.cs",
+              "DocumentMoniker": "D:\\doan\\DoAn_NT106\\Server\\Room.cs",
+              "RelativeDocumentMoniker": "Server\\Room.cs",
+              "ToolTip": "D:\\doan\\DoAn_NT106\\Server\\Room.cs",
+              "RelativeToolTip": "Server\\Room.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAIwCkAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-16T07:29:03.294Z",
+              "IsPinned": true
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
@@ -40,15 +50,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "TCPServer.cs [Design]",
-              "DocumentMoniker": "D:\\doan\\Server\\TCPServer.cs",
-              "RelativeDocumentMoniker": "..\\Server\\TCPServer.cs",
-              "ToolTip": "D:\\doan\\Server\\TCPServer.cs [Design]",
-              "RelativeToolTip": "..\\Server\\TCPServer.cs [Design]",
+              "DocumentIndex": 2,
+              "Title": "Connect2player.cs",
+              "DocumentMoniker": "D:\\doan\\DoAn_NT106\\Server\\Connect2player.cs",
+              "RelativeDocumentMoniker": "Server\\Connect2player.cs",
+              "ToolTip": "D:\\doan\\DoAn_NT106\\Server\\Connect2player.cs",
+              "RelativeToolTip": "Server\\Connect2player.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAACkAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-15T10:56:39.844Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2024-11-16T07:20:28.777Z"
             },
             {
               "$type": "Document",
@@ -58,61 +68,22 @@
               "RelativeDocumentMoniker": "..\\Client\\Client.cs",
               "ToolTip": "D:\\doan\\Client\\Client.cs",
               "RelativeToolTip": "..\\Client\\Client.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAIwBkAAAA3AAAAAAAAAA==",
+              "ViewState": "AgIAACwAAAAAAAAAAAAAADEAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-14T10:41:35.728Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Room.cs",
-              "DocumentMoniker": "D:\\doan\\Server\\Room.cs",
-              "RelativeDocumentMoniker": "..\\Server\\Room.cs",
-              "ToolTip": "D:\\doan\\Server\\Room.cs",
-              "RelativeToolTip": "..\\Server\\Room.cs",
-              "ViewState": "AgIAACEAAAAAAAAAAAAUwCYAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-14T10:25:09.046Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Packet.cs",
-              "DocumentMoniker": "D:\\doan\\Server\\Packet.cs",
-              "RelativeDocumentMoniker": "..\\Server\\Packet.cs",
-              "ToolTip": "D:\\doan\\Server\\Packet.cs",
-              "RelativeToolTip": "..\\Server\\Packet.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAcwDoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-14T10:10:50.775Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-16T07:19:44.475Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "TCPServer.cs",
-              "DocumentMoniker": "D:\\doan\\Server\\TCPServer.cs",
-              "RelativeDocumentMoniker": "..\\Server\\TCPServer.cs",
-              "ToolTip": "D:\\doan\\Server\\TCPServer.cs",
-              "RelativeToolTip": "..\\Server\\TCPServer.cs",
-              "ViewState": "AgIAAIwAAAAAAAAAAAAvwJ8AAAAJAAAAAAAAAA==",
+              "DocumentMoniker": "D:\\doan\\DoAn_NT106\\Server\\TCPServer.cs",
+              "RelativeDocumentMoniker": "Server\\TCPServer.cs",
+              "ToolTip": "D:\\doan\\DoAn_NT106\\Server\\TCPServer.cs",
+              "RelativeToolTip": "Server\\TCPServer.cs",
+              "ViewState": "AgIAAOcAAAAAAAAAAAAswNEAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T13:43:33.887Z",
+              "WhenOpened": "2024-11-16T07:24:26.319Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Menu.cs",
-              "DocumentMoniker": "D:\\doan\\Client\\Menu.cs",
-              "RelativeDocumentMoniker": "..\\Client\\Menu.cs",
-              "ToolTip": "D:\\doan\\Client\\Menu.cs",
-              "RelativeToolTip": "..\\Client\\Menu.cs",
-              "ViewState": "AgIAAFEAAAAAAAAAAAAuwFYAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-13T13:34:57.752Z"
             }
           ]
         }

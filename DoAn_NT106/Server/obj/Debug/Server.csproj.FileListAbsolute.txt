@@ -1,0 +1,10 @@
+D:\doan\DoAn_NT106\Server\bin\Debug\Server.exe.config
+D:\doan\DoAn_NT106\Server\bin\Debug\Server.exe
+D:\doan\DoAn_NT106\Server\bin\Debug\Server.pdb
+D:\doan\DoAn_NT106\Server\obj\Debug\Server.csproj.AssemblyReference.cache
+D:\doan\DoAn_NT106\Server\obj\Debug\Server.Properties.Resources.resources
+D:\doan\DoAn_NT106\Server\obj\Debug\Server.TCPServer.resources
+D:\doan\DoAn_NT106\Server\obj\Debug\Server.csproj.GenerateResource.cache
+D:\doan\DoAn_NT106\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+D:\doan\DoAn_NT106\Server\obj\Debug\Server.exe
+D:\doan\DoAn_NT106\Server\obj\Debug\Server.pdb

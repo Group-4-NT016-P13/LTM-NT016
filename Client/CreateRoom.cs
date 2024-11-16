@@ -46,7 +46,6 @@ namespace Client
                 MessageBox.Show("Không có kết nối với server!");
             }
         }
-
         private void RoomId(int length = 6)
         {
             Random random = new Random();
@@ -61,7 +60,7 @@ namespace Client
             textBox1.Enabled = false;
         }
 
-        private void StartReceiveThread()
+       private void StartReceiveThread()
         {
             receiveThread = new Thread(ReceiveData);
             receiveThread.IsBackground = true;
@@ -128,7 +127,7 @@ namespace Client
             MessageBox.Show("YOU ARE WHITE");
             W.Enabled = false;
             label3.Text = click + "/2";
-            SendChoiceToServer("WHITE");
+         //   SendChoiceToServer("WHITE");
         }
 
         private void B_Click(object sender, EventArgs e)
@@ -148,9 +147,8 @@ namespace Client
                 return;
             }
 
-            string roomId = textBox1.Text;
-            string message = $"CREATE_ROOM:{roomId}";
-            SendChoiceToServer(message);
+            ChessWindow game = new ChessWindow();
+            game.Show();
         }
     }
 }

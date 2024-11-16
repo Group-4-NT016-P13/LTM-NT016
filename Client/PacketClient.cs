@@ -14,78 +14,64 @@ namespace Client
         public string Password { get; set; }
         public string Email { get; set; }
         public string Nickname { get; set; }
-        public string GameId { get; set; }
-        public string BasePos { get; set; }
-        public string EndPos { get; set; }
+        public string RoomId { get; set; }
+        public string Role { get; set; }
+        public string BoardState { get; set; }
+        public string Move { get; set; } // Thêm Move để lưu nước đi
 
-        // Các thuộc tính mới cho việc tạo phòng
-        public string Player1Color { get; set; }
-        public string Player2Color { get; set; }
-        public string Player1Nickname { get; set; }
-        public string Player2Nickname { get; set; }
+        public Packet() { } // Constructor mặc định
 
-        // Các thuộc tính cho nước đi của người chơi
-        public string Move { get; set; }
-        public Packet(string request, string message, string username, string nickname, string password, string email)
+        public Packet(string request, string message, string username, string nickname, string password, string email, string roomId = null, string role = null, string boardState = null, string move = null)
         {
             Request = request;
             Message = message;
             Username = username;
             Nickname = nickname;
-            Email = email;
             Password = password;
-        }
-        public Packet(string request, string message, string gameId, string player1Nickname, string player2Nickname, string player1Color, string player2Color, string move)
-        {
-            Request = request;
-            Message = message;
-            GameId = gameId;
-            Player1Nickname = player1Nickname;
-            Player2Nickname = player2Nickname;
-            Player1Color = player1Color;
-            Player2Color = player2Color;
+            Email = email;
+            RoomId = roomId;
+            Role = role;
+            BoardState = boardState;
             Move = move;
         }
 
-
-        // ToPacketString để gửi thông tin đăng ký người chơi
+        // Serialize Packet to string
         public string ToPacketString()
         {
-            return $"{Request}|{Message}|{Username}|{Password}|{Email}|{Nickname}";
+            return $"{EscapeSpecialChars(Request)}|{EscapeSpecialChars(Message)}|{EscapeSpecialChars(Username)}|{EscapeSpecialChars(Password)}|{EscapeSpecialChars(Email)}|{EscapeSpecialChars(Nickname)}|{EscapeSpecialChars(RoomId)}|{EscapeSpecialChars(Role)}|{EscapeSpecialChars(BoardState)}|{EscapeSpecialChars(Move)}";
         }
 
-        // ToPacketString cho tạo phòng game
-        public string ToPacketRoomString()
-        {
-            return $"{Request}|{Message}|{GameId}|{Player1Nickname}|{Player2Nickname}|{Player1Color}|{Player2Color}";
-        }
-
+        // Deserialize string to Packet
         public static Packet FromPacketString(string packetString)
         {
             var parts = packetString.Split('|');
+            if (parts.Length != 10)
+            {
+                throw new Exception("Invalid packet format.");
+            }
+
             return new Packet(
-                request: parts[0],
-                message: parts[1],
-                username: parts[2],
-                password: parts[3],
-                email: parts[4],
-                nickname: parts[5]
+                request: UnescapeSpecialChars(parts[0]),
+                message: UnescapeSpecialChars(parts[1]),
+                username: UnescapeSpecialChars(parts[2]),
+                password: UnescapeSpecialChars(parts[3]),
+                email: UnescapeSpecialChars(parts[4]),
+                nickname: UnescapeSpecialChars(parts[5]),
+                roomId: UnescapeSpecialChars(parts[6]),
+                role: UnescapeSpecialChars(parts[7]),
+                boardState: UnescapeSpecialChars(parts[8]),
+                move: UnescapeSpecialChars(parts[9])
             );
         }
 
-        public static Packet FromPacketRoomString(string packetString)
+        private string EscapeSpecialChars(string str)
         {
-            var parts = packetString.Split('|');
-            return new Packet(
-                request: parts[0],
-                message: parts[1],
-                gameId: parts[2],
-                player1Nickname: parts[3],
-                player2Nickname: parts[4],
-                player1Color: parts[5],
-                player2Color: parts[6],
-                move: parts[7]
-            );
+            return str?.Replace("|", "||");
+        }
+
+        private static string UnescapeSpecialChars(string str)
+        {
+            return str?.Replace("||", "|");
         }
     }
 }
