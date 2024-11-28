@@ -18,6 +18,7 @@ namespace chess
             Username_txt.Text = client.Username;
             Email_txt.Text = client.Email;
             Rating_txt.Text = client.Rating.ToString();
+           lbRank.Text = client.Rank.ToString();
         }
         private static string GenerateRandomString(int length)
         {
@@ -135,11 +136,11 @@ namespace chess
            
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        /*private void button2_Click(object sender, EventArgs e)
         {
             Champion champ = new Champion(client);
             champ.Show();
-        }
+        }*/
 
         private void FindRoom_btn_Click(object sender, EventArgs e)
         {
@@ -231,6 +232,16 @@ namespace chess
             {
                 Notification_txt.Text = $"Lỗi: {ex.Message}";
             }
+        }
+
+        private void lbRank_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lbRank_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

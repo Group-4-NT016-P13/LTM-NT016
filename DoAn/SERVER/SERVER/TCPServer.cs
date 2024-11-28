@@ -398,20 +398,20 @@ namespace chess
         }
 
         private async void SendMessage(TcpClient client, string message)
-        {
-            try
-            {
-                byte[] data = Encoding.UTF8.GetBytes(message + "\n");
-                NetworkStream stream = client.GetStream();
-                await stream.WriteAsync(data, 0, data.Length);
-                await stream.FlushAsync();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error sending message: {ex.Message}");
-            }
-        }
-
+         {
+             try
+             {
+                 byte[] data = Encoding.UTF8.GetBytes(message + "\n");
+                 NetworkStream stream = client.GetStream();
+                 await stream.WriteAsync(data, 0, data.Length);
+                 await stream.FlushAsync();
+             }
+             catch (Exception ex)
+             {
+                 Console.WriteLine($"Error sending message: {ex.Message}");
+             }
+         }
+    
         private void CreateDatabase()
         {
             using (var connection = new SQLiteConnection(connectionString))

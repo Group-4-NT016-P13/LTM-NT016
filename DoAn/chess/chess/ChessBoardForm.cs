@@ -139,7 +139,7 @@ namespace chess
                 }    
             }
         }
-        private async Task ListenForInformation()
+        /*private async Task ListenForInformation()
         {
             while (true)
             {
@@ -166,7 +166,61 @@ namespace chess
                     rtb_historychat.AppendText("Đối thủ: " + response.Substring(5) + "\n");
                 }
             }
+        }*/
+        private async Task ListenForInformation()
+        {
+            while (true)
+            {
+                try
+                {
+                    string response = await client.ReceiveResponseAsync();
+
+                    if (response.StartsWith("CHAT"))
+                    {
+                        string chatMessage = response.Substring(5).Trim(); // Bỏ prefix "CHAT "
+
+                        // Phân biệt tin nhắn của mình hay của đối thủ
+                        string sender = chatMessage.Split(':')[0]; // Lấy người gửi (dạng "username: message")
+                        string message = chatMessage.Substring(chatMessage.IndexOf(':') + 1).Trim(); // Nội dung tin nhắn
+
+                        if (sender == client.Username)
+                        {
+                            rtb_historychat.Invoke((MethodInvoker)delegate
+                            {
+                                rtb_historychat.AppendText($"Bạn: {message}\n"); // Tin nhắn của bạn
+                            });
+                        }
+                        else
+                        {
+                            rtb_historychat.Invoke((MethodInvoker)delegate
+                            {
+                                rtb_historychat.AppendText($"Đối thủ: {message}\n"); // Tin nhắn của đối thủ
+                            });
+                        }
+                    }
+                    else if (response.StartsWith("MOVE"))
+                    {
+                        string[] parts = response.Split(' ');
+                        if (parts.Length == 3)
+                        {
+                            string from = parts[1];
+                            string to = parts[2];
+                            ApplyMove(from, to);
+                            timeLeft = 600; // Đặt lại thời gian cho người chơi
+                            opponentTimeLeft = 600; // Đặt lại thời gian cho đối thủ
+                            UpdateTimeLabels();
+                            isPlayerTurn = true;
+                            CheckTurn(isPlayerTurn);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Error in ListenForInformation: {ex.Message}");
+                }
+            }
         }
+
 
         private async  void OnCellClick(object sender, EventArgs e)
         {
@@ -359,20 +413,32 @@ namespace chess
         }
 
 
+        /*private async void btn_send_Click(object sender, EventArgs e)
+         {
+            // for (int i = 1; i <= 20; i++) ListenForOpponentChat();
+             string message = txb_message.Text.Trim();
+             if (message !="")
+             {
+                 await client.SendMessageAsync("CHAT " + message);
+                 rtb_historychat.Text += "Bạn: " +message+'\n';
+                 txb_message.Text = "";
+             }
+          //   for (int i=1; i<=20; i++) ListenForOpponentChat();
+
+
+         }*/
         private async void btn_send_Click(object sender, EventArgs e)
         {
-           // for (int i = 1; i <= 20; i++) ListenForOpponentChat();
             string message = txb_message.Text.Trim();
-            if (message !="")
+            if (!string.IsNullOrEmpty(message))
             {
-                await client.SendMessageAsync("CHAT " + message);
-                rtb_historychat.Text += "Bạn: " +message+'\n';
-                txb_message.Text = "";
+                string formattedMessage = $"{client.Username}: {message}"; // Định dạng tin nhắn kèm username
+                await client.SendMessageAsync("CHAT " + formattedMessage); // Gửi tin nhắn qua server
+               // rtb_historychat.AppendText($"Bạn: {message}\n"); // Hiển thị tin nhắn của bạn
+                txb_message.Text = ""; // Xóa nội dung sau khi gửi
             }
-         //   for (int i=1; i<=20; i++) ListenForOpponentChat();
-
-
         }
+
 
         private void txb_message_TextChanged(object sender, EventArgs e)
         {
@@ -380,6 +446,11 @@ namespace chess
         }
 
         private void opponentTimeLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rtb_historychat_TextChanged(object sender, EventArgs e)
         {
 
         }

@@ -93,12 +93,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Champion.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Champion.Designer.cs">
-      <DependentUpon>Champion.cs</DependentUpon>
-    </Compile>
     <Compile Include="ChessBoard.cs" />
     <Compile Include="ChessBoardForm.cs">
       <SubType>Form</SubType>
@@ -153,9 +147,6 @@
       <DependentUpon>SignUp.cs</DependentUpon>
     </Compile>
     <Compile Include="TCPClient.cs" />
-    <EmbeddedResource Include="Champion.resx">
-      <DependentUpon>Champion.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ChessBoardForm.resx">
       <DependentUpon>ChessBoardForm.cs</DependentUpon>
     </EmbeddedResource>
