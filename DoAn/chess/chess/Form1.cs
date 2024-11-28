@@ -134,7 +134,7 @@ namespace chess
             }
         }
 
-        private void MakeAIMove()
+        /*private void MakeAIMove()
         {
             List<(int, int, int, int)> validMoves = GetAllValidMoves(PieceColor.Black);
 
@@ -159,6 +159,163 @@ namespace chess
             }
 
             currentPlayer = PieceColor.White;
+        }*/
+        private void MakeAIMove()
+        {
+            var bestMove = FindBestMove(PieceColor.Black, 3); // Tìm nước đi tốt nhất với độ sâu 3.
+            if (bestMove == null) return;
+
+            var (startX, startY, endX, endY) = bestMove.Value;
+
+            // Thực hiện di chuyển
+            chessBoard.Board[endX, endY] = chessBoard.Board[startX, startY];
+            chessBoard.Board[startX, startY] = null;
+            UpdatePictureBox(startX, startY);
+            UpdatePictureBox(endX, endY);
+
+            // Kiểm tra kết thúc trò chơi
+            if (IsGameOver())
+            {
+                MessageBox.Show("Game Over! AI wins!");
+                ResetBoard();
+                return;
+            }
+
+            currentPlayer = PieceColor.White;
+        }
+        private (int, int, int, int)? FindBestMove(PieceColor color, int depth)
+        {
+            int bestScore = int.MinValue;
+            (int, int, int, int)? bestMove = null;
+
+            var validMoves = GetAllValidMoves(color);
+
+            foreach (var move in validMoves)
+            {
+                var (startX, startY, endX, endY) = move;
+
+                // Giả lập di chuyển
+                ChessPiece temp = chessBoard.Board[endX, endY];
+                chessBoard.Board[endX, endY] = chessBoard.Board[startX, startY];
+                chessBoard.Board[startX, startY] = null;
+
+                // Gọi Minimax
+                int score = Minimax(depth - 1, false, int.MinValue, int.MaxValue);
+
+                // Hoàn tác di chuyển
+                chessBoard.Board[startX, startY] = chessBoard.Board[endX, endY];
+                chessBoard.Board[endX, endY] = temp;
+
+                // Cập nhật nước đi tốt nhất
+                if (score > bestScore)
+                {
+                    bestScore = score;
+                    bestMove = move;
+                }
+            }
+
+            return bestMove;
+        }
+        private int Minimax(int depth, bool isMaximizingPlayer, int alpha, int beta)
+        {
+            if (depth == 0 || IsGameOver())
+            {
+                return EvaluateBoard();
+            }
+
+            var validMoves = GetAllValidMoves(isMaximizingPlayer ? PieceColor.Black : PieceColor.White);
+
+            if (isMaximizingPlayer)
+            {
+                int maxEval = int.MinValue;
+                foreach (var move in validMoves)
+                {
+                    var (startX, startY, endX, endY) = move;
+
+                    // Giả lập di chuyển
+                    ChessPiece temp = chessBoard.Board[endX, endY];
+                    chessBoard.Board[endX, endY] = chessBoard.Board[startX, startY];
+                    chessBoard.Board[startX, startY] = null;
+
+                    // Đệ quy Minimax
+                    int eval = Minimax(depth - 1, false, alpha, beta);
+
+                    // Hoàn tác di chuyển
+                    chessBoard.Board[startX, startY] = chessBoard.Board[endX, endY];
+                    chessBoard.Board[endX, endY] = temp;
+
+                    maxEval = Math.Max(maxEval, eval);
+                    alpha = Math.Max(alpha, eval);
+
+                    if (beta <= alpha) break; // Cắt tỉa alpha-beta
+                }
+                return maxEval;
+            }
+            else
+            {
+                int minEval = int.MaxValue;
+                foreach (var move in validMoves)
+                {
+                    var (startX, startY, endX, endY) = move;
+
+                    // Giả lập di chuyển
+                    ChessPiece temp = chessBoard.Board[endX, endY];
+                    chessBoard.Board[endX, endY] = chessBoard.Board[startX, startY];
+                    chessBoard.Board[startX, startY] = null;
+
+                    // Đệ quy Minimax
+                    int eval = Minimax(depth - 1, true, alpha, beta);
+
+                    // Hoàn tác di chuyển
+                    chessBoard.Board[startX, startY] = chessBoard.Board[endX, endY];
+                    chessBoard.Board[endX, endY] = temp;
+
+                    minEval = Math.Min(minEval, eval);
+                    beta = Math.Min(beta, eval);
+
+                    if (beta <= alpha) break; // Cắt tỉa alpha-beta
+                }
+                return minEval;
+            }
+        }
+        private int EvaluateBoard()
+        {
+            int score = 0;
+
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    ChessPiece piece = chessBoard.Board[i, j];
+                    if (piece != null)
+                    {
+                        int pieceValue = GetPieceValue(piece.Type);
+                        score += piece.Color == PieceColor.Black ? pieceValue : -pieceValue;
+                    }
+                }
+            }
+
+            return score;
+        }
+
+        private int GetPieceValue(PieceType type)
+        {
+            switch (type)
+            {
+                case PieceType.King:
+                    return 1000;
+                case PieceType.Queen:
+                    return 9;
+                case PieceType.Rook:
+                    return 5;
+                case PieceType.Bishop:
+                case PieceType.Knight:
+                    return 3;
+                case PieceType.Pawn:
+                    return 1;
+                default:
+                    return 0;
+            }
         }
 
         private List<(int, int, int, int)> GetAllValidMoves(PieceColor color)

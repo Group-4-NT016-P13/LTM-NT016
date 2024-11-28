@@ -3,24 +3,44 @@
   "WorkspaceRootPath": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|c:\\users\\admin\\desktop\\ltm-nt016\\doan\\chess\\chess\\chessboardform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\chessboardform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|c:\\users\\admin\\desktop\\ltm-nt016\\doan\\chess\\chess\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|c:\\users\\admin\\desktop\\ltm-nt016\\doan\\chess\\chess\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|c:\\users\\admin\\desktop\\ltm-nt016\\doan\\chess\\chess\\matchgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\matchgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\matchgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\matchgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\chessboardform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\chessboardform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\matchgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\matchgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\chessboardform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\chessboardform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|c:\\users\\admin\\desktop\\ltm-nt016\\doan\\chess\\chess\\chessboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\chessboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|c:\\users\\admin\\desktop\\ltm-nt016\\doan\\chess\\chess\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|c:\\users\\admin\\desktop\\ltm-nt016\\doan\\chess\\chess\\matchgame.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\matchgame.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\chessboardform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\chessboardform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\matchgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\matchgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\tcpclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -38,11 +58,75 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\Form1.cs",
+              "RelativeDocumentMoniker": "chess\\Form1.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\Form1.cs",
+              "RelativeToolTip": "chess\\Form1.cs",
+              "ViewState": "AgIAAB0BAAAAAAAAAAAQwCYBAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T12:53:21.904Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\Form1.cs",
+              "RelativeDocumentMoniker": "chess\\Form1.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\Form1.cs [Design]",
+              "RelativeToolTip": "chess\\Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T12:53:19.907Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Game.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\Game.cs",
+              "RelativeDocumentMoniker": "chess\\Game.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\Game.cs",
+              "RelativeToolTip": "chess\\Game.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T12:52:06.477Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ChessBoard.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\ChessBoard.cs",
+              "RelativeDocumentMoniker": "chess\\ChessBoard.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\ChessBoard.cs",
+              "RelativeToolTip": "chess\\ChessBoard.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T12:52:00.619Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MatchGame.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\MatchGame.Designer.cs",
+              "RelativeDocumentMoniker": "chess\\MatchGame.Designer.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\MatchGame.Designer.cs",
+              "RelativeToolTip": "chess\\MatchGame.Designer.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAQwOUAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T12:51:40.879Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "TCPClient.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\TCPClient.cs",
               "RelativeDocumentMoniker": "chess\\TCPClient.cs",
@@ -54,7 +138,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 11,
               "Title": "Login(2).cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\Login(2).cs",
               "RelativeDocumentMoniker": "chess\\Login(2).cs",
@@ -72,26 +156,27 @@
               "RelativeDocumentMoniker": "chess\\MatchGame.cs",
               "ToolTip": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\MatchGame.cs",
               "RelativeToolTip": "chess\\MatchGame.cs",
-              "ViewState": "AgIAAIQAAAAAAAAAAAAgwI4AAAALAAAAAAAAAA==",
+              "ViewState": "AgIAAHAAAAAAAAAAAAAswIQAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-28T07:15:42.298Z"
+              "WhenOpened": "2024-11-28T07:15:42.298Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "ChessBoardForm.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\ChessBoardForm.cs",
               "RelativeDocumentMoniker": "chess\\ChessBoardForm.cs",
               "ToolTip": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\ChessBoardForm.cs",
               "RelativeToolTip": "chess\\ChessBoardForm.cs",
-              "ViewState": "AgIAAJ4BAAAAAAAAAAAywLQBAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAALQBAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-28T07:15:24.476Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 9,
               "Title": "ChessBoardForm.Designer.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\ChessBoardForm.Designer.cs",
               "RelativeDocumentMoniker": "chess\\ChessBoardForm.Designer.cs",
@@ -104,7 +189,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "ChessBoardForm.cs [Design]",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\ChessBoardForm.cs",
               "RelativeDocumentMoniker": "chess\\ChessBoardForm.cs",
@@ -116,14 +201,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "MatchGame.cs [Design]",
               "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\MatchGame.cs",
               "RelativeDocumentMoniker": "chess\\MatchGame.cs",
               "ToolTip": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\MatchGame.cs [Design]",
               "RelativeToolTip": "chess\\MatchGame.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-28T07:14:57.148Z"
+              "WhenOpened": "2024-11-28T07:14:57.148Z",
+              "EditorCaption": " [Design]"
             }
           ]
         }
