@@ -330,3 +330,46 @@ C:\Users\ADMIN\OneDrive - Trường ĐH CNTT - University of Information Technol
 C:\Users\ADMIN\OneDrive - Trường ĐH CNTT - University of Information Technology\Máy tính\DoAn\DoAn\chess\chess\obj\Debug\chess.exe
 C:\Users\ADMIN\OneDrive - Trường ĐH CNTT - University of Information Technology\Máy tính\DoAn\DoAn\chess\chess\obj\Debug\chess.pdb
 C:\Users\ADMIN\OneDrive - Trường ĐH CNTT - University of Information Technology\Máy tính\DoAn\DoAn\chess\chess\obj\Debug\chess.ResetPassword.resources
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\chess.exe.config
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\chess.exe
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\chess.pdb
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\EntityFramework.dll
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\System.Buffers.dll
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\System.Data.SQLite.dll
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\System.Memory.dll
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\System.Numerics.Vectors.dll
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\System.Text.Encodings.Web.dll
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\System.Text.Json.dll
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\System.Threading.Tasks.Extensions.dll
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\System.ValueTuple.dll
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\EntityFramework.xml
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\System.Buffers.xml
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\System.Data.SQLite.xml
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\System.Memory.xml
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\System.Numerics.Vectors.xml
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\System.Text.Encodings.Web.xml
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\System.Text.Json.xml
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\System.Threading.Tasks.Extensions.xml
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\bin\Debug\System.ValueTuple.xml
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\obj\Debug\chess.csproj.AssemblyReference.cache
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\obj\Debug\chess.ChessBoardForm.resources
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\obj\Debug\chess.Form1.resources
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\obj\Debug\chess.Login_2_.resources
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\obj\Debug\chess.MatchGame.resources
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\obj\Debug\chess.Properties.Resources.resources
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\obj\Debug\chess.Recovery.resources
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\obj\Debug\chess.ResetPassword.resources
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\obj\Debug\chess.SignUp.resources
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\obj\Debug\chess.csproj.GenerateResource.cache
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\obj\Debug\chess.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\obj\Debug\chess.csproj.Up2Date
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\obj\Debug\chess.exe
+C:\Users\Admin\Desktop\LTM-NT016\DoAn\chess\chess\obj\Debug\chess.pdb

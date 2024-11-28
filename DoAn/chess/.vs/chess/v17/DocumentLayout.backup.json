@@ -1,74 +1,34 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\",
+  "WorkspaceRootPath": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\matchgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\matchgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\matchgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\matchgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\login(2).cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\login(2).cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|c:\\users\\admin\\desktop\\doan\\doan\\chess\\chess\\champion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\champion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\champion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\champion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\chesspiece.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\chesspiece.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\chessboardform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\chessboardform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\chessboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\chessboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\login(2).cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\login(2).cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\tcpclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\tcpclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\chessboardform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|c:\\users\\admin\\desktop\\ltm-nt016\\doan\\chess\\chess\\chessboardform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\chessboardform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\packages.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\packages.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\chessboardform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\chessboardform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\matchgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\matchgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\signup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\signup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\chessboardform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\chessboardform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\signup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\signup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\matchgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\matchgame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\tcpclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\tcpclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\login(2).cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5C232BB7-D4AF-43F4-B7B5-04D4BD75BD3E}|chess\\chess.csproj|solutionrelative:chess\\login(2).cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -78,217 +38,92 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "Game.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\Game.cs",
-              "RelativeDocumentMoniker": "chess\\Game.cs",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\Game.cs",
-              "RelativeToolTip": "chess\\Game.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAAAAC4AAAA4AAAAAAAAAA==",
+              "Title": "TCPClient.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\TCPClient.cs",
+              "RelativeDocumentMoniker": "chess\\TCPClient.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\TCPClient.cs",
+              "RelativeToolTip": "chess\\TCPClient.cs",
+              "ViewState": "AgIAABsBAAAAAAAAAAAgwEUBAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T09:40:32.305Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Champion.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\Champion.cs",
-              "RelativeDocumentMoniker": "chess\\Champion.cs",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\Champion.cs [Design]*",
-              "RelativeToolTip": "chess\\Champion.cs [Design]*",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T12:33:37.213Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Champion.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\Champion.cs",
-              "RelativeDocumentMoniker": "chess\\Champion.cs",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\Champion.cs*",
-              "RelativeToolTip": "chess\\Champion.cs*",
-              "ViewState": "AgIAABEAAAAAAAAAAAAywCoAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T12:34:52.413Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Login(2).cs [Design]",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\Login(2).cs",
-              "RelativeDocumentMoniker": "chess\\Login(2).cs",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\Login(2).cs [Design]*",
-              "RelativeToolTip": "chess\\Login(2).cs [Design]*",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T12:36:35.112Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MatchGame.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\MatchGame.cs",
-              "RelativeDocumentMoniker": "chess\\MatchGame.cs",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\MatchGame.cs*",
-              "RelativeToolTip": "chess\\MatchGame.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T12:39:07.249Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MatchGame.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\MatchGame.cs",
-              "RelativeDocumentMoniker": "chess\\MatchGame.cs",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\MatchGame.cs [Design]*",
-              "RelativeToolTip": "chess\\MatchGame.cs [Design]*",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T12:38:48.243Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2024-11-28T07:31:54.974Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "Form1.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\Form1.cs",
-              "RelativeDocumentMoniker": "chess\\Form1.cs",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\Form1.cs [Design]",
-              "RelativeToolTip": "chess\\Form1.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T12:38:38.272Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ChessPiece.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\ChessPiece.cs",
-              "RelativeDocumentMoniker": "chess\\ChessPiece.cs",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\ChessPiece.cs",
-              "RelativeToolTip": "chess\\ChessPiece.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T09:39:40.936Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "ChessBoardForm.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\ChessBoardForm.cs",
-              "RelativeDocumentMoniker": "chess\\ChessBoardForm.cs",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\ChessBoardForm.cs [Design]",
-              "RelativeToolTip": "chess\\ChessBoardForm.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T12:38:32.778Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "ChessBoard.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\ChessBoard.cs",
-              "RelativeDocumentMoniker": "chess\\ChessBoard.cs",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\ChessBoard.cs",
-              "RelativeToolTip": "chess\\ChessBoard.cs",
-              "ViewState": "AgIAAEsAAAAAAAAAAAAMwEoAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T09:39:47.293Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
               "Title": "Login(2).cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\Login(2).cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\Login(2).cs",
               "RelativeDocumentMoniker": "chess\\Login(2).cs",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\Login(2).cs*",
-              "RelativeToolTip": "chess\\Login(2).cs*",
-              "ViewState": "AgIAABcAAAAAAAAAAAAUwDMAAAA7AAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\Login(2).cs",
+              "RelativeToolTip": "chess\\Login(2).cs",
+              "ViewState": "AgIAAJwAAAAAAAAAAAAAAJoAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T09:40:08.148Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-28T07:31:42.509Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "TCPClient.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\TCPClient.cs",
-              "RelativeDocumentMoniker": "chess\\TCPClient.cs",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\TCPClient.cs",
-              "RelativeToolTip": "chess\\TCPClient.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABEAAAASAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "MatchGame.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\MatchGame.cs",
+              "RelativeDocumentMoniker": "chess\\MatchGame.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\MatchGame.cs",
+              "RelativeToolTip": "chess\\MatchGame.cs",
+              "ViewState": "AgIAAIQAAAAAAAAAAAAgwI4AAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T09:16:14.583Z"
+              "WhenOpened": "2024-11-28T07:15:42.298Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 0,
               "Title": "ChessBoardForm.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\ChessBoardForm.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\ChessBoardForm.cs",
               "RelativeDocumentMoniker": "chess\\ChessBoardForm.cs",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\ChessBoardForm.cs",
-              "RelativeToolTip": "chess\\ChessBoardForm.cs",
-              "ViewState": "AgIAAGoAAAAAAAAAAAAkwAAAAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\ChessBoardForm.cs*",
+              "RelativeToolTip": "chess\\ChessBoardForm.cs*",
+              "ViewState": "AgIAAJ4BAAAAAAAAAAAywLQBAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T12:44:28.471Z",
+              "WhenOpened": "2024-11-28T07:15:24.476Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "SignUp.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\SignUp.cs",
-              "RelativeDocumentMoniker": "chess\\SignUp.cs",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\H\u1ECDc CTDL\\fixdoan\\chess\\chess\\SignUp.cs [Design]",
-              "RelativeToolTip": "..\\..\\..\\H\u1ECDc CTDL\\fixdoan\\chess\\chess\\SignUp.cs [Design]",
+              "DocumentIndex": 3,
+              "Title": "ChessBoardForm.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\ChessBoardForm.Designer.cs",
+              "RelativeDocumentMoniker": "chess\\ChessBoardForm.Designer.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\ChessBoardForm.Designer.cs",
+              "RelativeToolTip": "chess\\ChessBoardForm.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T12:38:44.313Z"
+              "WhenOpened": "2024-11-28T07:32:38.098Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "packages.config",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\packages.config",
-              "RelativeDocumentMoniker": "chess\\packages.config",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\packages.config",
-              "RelativeToolTip": "chess\\packages.config",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
-              "WhenOpened": "2024-11-17T12:38:46.524Z"
+              "DocumentIndex": 1,
+              "Title": "ChessBoardForm.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\ChessBoardForm.cs",
+              "RelativeDocumentMoniker": "chess\\ChessBoardForm.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\ChessBoardForm.cs [Design]*",
+              "RelativeToolTip": "chess\\ChessBoardForm.cs [Design]*",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-28T07:15:17.757Z",
+              "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\Program.cs",
-              "RelativeDocumentMoniker": "chess\\Program.cs",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\Program.cs",
-              "RelativeToolTip": "chess\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAoAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "MatchGame.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\MatchGame.cs",
+              "RelativeDocumentMoniker": "chess\\MatchGame.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\LTM-NT016\\DoAn\\chess\\chess\\MatchGame.cs [Design]",
+              "RelativeToolTip": "chess\\MatchGame.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T09:40:05.094Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "SignUp.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\SignUp.cs",
-              "RelativeDocumentMoniker": "chess\\SignUp.cs",
-              "ToolTip": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\chess\\chess\\SignUp.cs",
-              "RelativeToolTip": "chess\\SignUp.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAYwB0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-17T09:17:07.92Z"
+              "WhenOpened": "2024-11-28T07:14:57.148Z"
             }
           ]
         }
