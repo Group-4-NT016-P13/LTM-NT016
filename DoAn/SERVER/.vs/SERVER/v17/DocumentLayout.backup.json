@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\SERVER\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B7B7BA4F-AE73-42A6-85B6-1B1195346BF0}|SERVER\\SERVER.csproj|c:\\users\\admin\\desktop\\doan\\doan\\server\\server\\tcpserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B7B7BA4F-AE73-42A6-85B6-1B1195346BF0}|SERVER\\SERVER.csproj|solutionrelative:server\\tcpserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TCPServer.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\SERVER\\SERVER\\TCPServer.cs",
+              "RelativeDocumentMoniker": "SERVER\\TCPServer.cs",
+              "ToolTip": "C:\\Users\\Admin\\Desktop\\DoAn\\DoAn\\SERVER\\SERVER\\TCPServer.cs",
+              "RelativeToolTip": "SERVER\\TCPServer.cs",
+              "ViewState": "AgIAAKgAAAAAAAAAAAAAAL0AAABWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-17T09:18:26.333Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
