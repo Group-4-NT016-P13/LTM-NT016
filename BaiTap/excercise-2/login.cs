@@ -12,6 +12,7 @@ namespace excercise_2
     public partial class login : Form
     {
         private Socket Client;
+        private string LocalIP;
     public class UserInfo
     {
         public string Username { get; set; }
@@ -30,9 +31,29 @@ namespace excercise_2
                 return builder.ToString();
             }
         }
+
+        public string GetLocalIPAddress()
+        {
+            try
+            {
+                foreach (var ip in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
+                {
+                    if (ip.AddressFamily == AddressFamily.InterNetwork)
+                    {
+                        return ip.ToString();
+                    }
+                }
+                throw new Exception("Không tìm thấy địa chỉ IPv4 nào!");
+            }
+            catch (Exception ex)
+            {
+                return "Lỗi: " + ex.Message;
+            }
+        }
         public login()
         {
             InitializeComponent();
+            LocalIP = GetLocalIPAddress();
         }
 
         private void label5_Click(object sender, EventArgs e)
@@ -46,7 +67,7 @@ namespace excercise_2
         {
             string username = textBox1.Text;
             string password = Passdecode(textBox2.Text);
-            string ServerIp = "127.0.0.1";
+            string ServerIp = LocalIP;
             int port = 11000;
 
             Client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -93,6 +114,13 @@ namespace excercise_2
             {
                 MessageBox.Show("Lỗi kết nối: " + ex.Message);
             }
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Recovery log = new Recovery();
+            log.Show();
         }
     }
 }

@@ -24,6 +24,7 @@ namespace excercise_2
         private string email;
         private string username;
         private string name;
+        private string LocalIP;
         private Socket Client;
         public static string Passdecode(string password)
         {
@@ -38,6 +39,24 @@ namespace excercise_2
                 return builder.ToString();
             }
         }
+        public string GetLocalIPAddress()
+        {
+            try
+            {
+                foreach (var ip in Dns.GetHostEntry(Dns.GetHostName()).AddressList)
+                {
+                    if (ip.AddressFamily == AddressFamily.InterNetwork)
+                    {
+                        return ip.ToString();
+                    }
+                }
+                throw new Exception("Không tìm thấy địa chỉ IPv4 nào!");
+            }
+            catch (Exception ex)
+            {
+                return "Lỗi: " + ex.Message;
+            }
+        }
         public static bool checkmail(string email)
         {
             string Pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
@@ -47,6 +66,7 @@ namespace excercise_2
         public signup()
         {
             InitializeComponent();
+            LocalIP = GetLocalIPAddress();
         }
         private async void button1_Click(object sender, EventArgs e)
         {
@@ -56,7 +76,7 @@ namespace excercise_2
             email = textBox4.Text;
             password = Passdecode(textBox2.Text);
             string confirm = Passdecode(textBox3.Text);
-            string ServerIp = "127.0.0.1";
+            string ServerIp = LocalIP;
             int port = 11000;
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirm) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(name))
             {
