@@ -38,11 +38,10 @@ namespace TCPServer
         {
             try
             {
-                IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
                 int port = 11000;
                 listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                IPEndPoint endPoint = new IPEndPoint(ipAddress, port);
-                textBox1.Text = endPoint.ToString();
+                IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, port);
+                
                 listener.Bind(endPoint);
                 listener.Listen(10);
                 LogMessage("Server đang chạy ...");
@@ -372,7 +371,7 @@ namespace TCPServer
         private UserInfo GetInfo(string username)
         {
             UserInfo userInfo = null;
-            //them lai nickname
+           
             string query = "SELECT UserId, Username, Email FROM Users WHERE Username = @Username";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -389,7 +388,7 @@ namespace TCPServer
                     {
                         Username = reader.GetString(1),
                         Email = reader.GetString(2),
-                        // Nickname = reader.GetString(3),
+                        
                     };
                 }
             }
