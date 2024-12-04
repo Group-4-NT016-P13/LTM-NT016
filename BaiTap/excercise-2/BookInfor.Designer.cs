@@ -28,15 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BookInfor));
             this.BookInfor_grp = new System.Windows.Forms.GroupBox();
-            this.Name_lb = new System.Windows.Forms.Label();
-            this.Name_txt = new System.Windows.Forms.TextBox();
-            this.Author_txt = new System.Windows.Forms.TextBox();
-            this.Author_lb = new System.Windows.Forms.Label();
-            this.PublishedDate_txt = new System.Windows.Forms.TextBox();
-            this.PublishedDate_lb = new System.Windows.Forms.Label();
             this.Description_txt = new System.Windows.Forms.TextBox();
             this.Description_lb = new System.Windows.Forms.Label();
+            this.PublishedDate_txt = new System.Windows.Forms.TextBox();
+            this.PublishedDate_lb = new System.Windows.Forms.Label();
+            this.Author_txt = new System.Windows.Forms.TextBox();
+            this.Author_lb = new System.Windows.Forms.Label();
+            this.Name_txt = new System.Windows.Forms.TextBox();
+            this.Name_lb = new System.Windows.Forms.Label();
             this.Thumbnail_pic = new System.Windows.Forms.PictureBox();
             this.BookInfor_grp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Thumbnail_pic)).BeginInit();
@@ -59,57 +60,6 @@
             this.BookInfor_grp.TabStop = false;
             this.BookInfor_grp.Text = "Thông tin sách";
             // 
-            // Name_lb
-            // 
-            this.Name_lb.AutoSize = true;
-            this.Name_lb.Location = new System.Drawing.Point(6, 32);
-            this.Name_lb.Name = "Name_lb";
-            this.Name_lb.Size = new System.Drawing.Size(54, 13);
-            this.Name_lb.TabIndex = 0;
-            this.Name_lb.Text = "Tên Sách";
-            // 
-            // Name_txt
-            // 
-            this.Name_txt.Location = new System.Drawing.Point(6, 48);
-            this.Name_txt.Name = "Name_txt";
-            this.Name_txt.ReadOnly = true;
-            this.Name_txt.Size = new System.Drawing.Size(261, 20);
-            this.Name_txt.TabIndex = 1;
-            // 
-            // Author_txt
-            // 
-            this.Author_txt.Location = new System.Drawing.Point(6, 113);
-            this.Author_txt.Name = "Author_txt";
-            this.Author_txt.ReadOnly = true;
-            this.Author_txt.Size = new System.Drawing.Size(261, 20);
-            this.Author_txt.TabIndex = 3;
-            // 
-            // Author_lb
-            // 
-            this.Author_lb.AutoSize = true;
-            this.Author_lb.Location = new System.Drawing.Point(6, 97);
-            this.Author_lb.Name = "Author_lb";
-            this.Author_lb.Size = new System.Drawing.Size(67, 13);
-            this.Author_lb.TabIndex = 2;
-            this.Author_lb.Text = "Tên Tác Giả";
-            // 
-            // PublishedDate_txt
-            // 
-            this.PublishedDate_txt.Location = new System.Drawing.Point(6, 178);
-            this.PublishedDate_txt.Name = "PublishedDate_txt";
-            this.PublishedDate_txt.ReadOnly = true;
-            this.PublishedDate_txt.Size = new System.Drawing.Size(261, 20);
-            this.PublishedDate_txt.TabIndex = 5;
-            // 
-            // PublishedDate_lb
-            // 
-            this.PublishedDate_lb.AutoSize = true;
-            this.PublishedDate_lb.Location = new System.Drawing.Point(6, 162);
-            this.PublishedDate_lb.Name = "PublishedDate_lb";
-            this.PublishedDate_lb.Size = new System.Drawing.Size(86, 13);
-            this.PublishedDate_lb.TabIndex = 4;
-            this.PublishedDate_lb.Text = "Ngày Phát Hành";
-            // 
             // Description_txt
             // 
             this.Description_txt.Location = new System.Drawing.Point(6, 241);
@@ -128,6 +78,57 @@
             this.Description_lb.TabIndex = 6;
             this.Description_lb.Text = "Mô Tả";
             // 
+            // PublishedDate_txt
+            // 
+            this.PublishedDate_txt.Location = new System.Drawing.Point(6, 178);
+            this.PublishedDate_txt.Name = "PublishedDate_txt";
+            this.PublishedDate_txt.ReadOnly = true;
+            this.PublishedDate_txt.Size = new System.Drawing.Size(261, 20);
+            this.PublishedDate_txt.TabIndex = 5;
+            // 
+            // PublishedDate_lb
+            // 
+            this.PublishedDate_lb.AutoSize = true;
+            this.PublishedDate_lb.Location = new System.Drawing.Point(6, 162);
+            this.PublishedDate_lb.Name = "PublishedDate_lb";
+            this.PublishedDate_lb.Size = new System.Drawing.Size(86, 13);
+            this.PublishedDate_lb.TabIndex = 4;
+            this.PublishedDate_lb.Text = "Ngày Phát Hành";
+            // 
+            // Author_txt
+            // 
+            this.Author_txt.Location = new System.Drawing.Point(6, 113);
+            this.Author_txt.Name = "Author_txt";
+            this.Author_txt.ReadOnly = true;
+            this.Author_txt.Size = new System.Drawing.Size(261, 20);
+            this.Author_txt.TabIndex = 3;
+            // 
+            // Author_lb
+            // 
+            this.Author_lb.AutoSize = true;
+            this.Author_lb.Location = new System.Drawing.Point(6, 97);
+            this.Author_lb.Name = "Author_lb";
+            this.Author_lb.Size = new System.Drawing.Size(67, 13);
+            this.Author_lb.TabIndex = 2;
+            this.Author_lb.Text = "Tên Tác Giả";
+            // 
+            // Name_txt
+            // 
+            this.Name_txt.Location = new System.Drawing.Point(6, 48);
+            this.Name_txt.Name = "Name_txt";
+            this.Name_txt.ReadOnly = true;
+            this.Name_txt.Size = new System.Drawing.Size(261, 20);
+            this.Name_txt.TabIndex = 1;
+            // 
+            // Name_lb
+            // 
+            this.Name_lb.AutoSize = true;
+            this.Name_lb.Location = new System.Drawing.Point(6, 32);
+            this.Name_lb.Name = "Name_lb";
+            this.Name_lb.Size = new System.Drawing.Size(54, 13);
+            this.Name_lb.TabIndex = 0;
+            this.Name_lb.Text = "Tên Sách";
+            // 
             // Thumbnail_pic
             // 
             this.Thumbnail_pic.Location = new System.Drawing.Point(12, 12);
@@ -141,6 +142,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.Thumbnail_pic);
             this.Controls.Add(this.BookInfor_grp);

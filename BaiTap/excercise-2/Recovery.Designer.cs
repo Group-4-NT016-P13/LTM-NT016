@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Recovery));
             this.Noti_Lb = new System.Windows.Forms.Label();
             this.Email_txt = new System.Windows.Forms.TextBox();
             this.Send_btn = new System.Windows.Forms.Button();
@@ -40,11 +41,11 @@
             // 
             this.Noti_Lb.AutoSize = true;
             this.Noti_Lb.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Noti_Lb.Location = new System.Drawing.Point(141, 50);
+            this.Noti_Lb.Location = new System.Drawing.Point(85, 37);
             this.Noti_Lb.Name = "Noti_Lb";
-            this.Noti_Lb.Size = new System.Drawing.Size(500, 31);
+            this.Noti_Lb.Size = new System.Drawing.Size(625, 31);
             this.Noti_Lb.TabIndex = 1;
-            this.Noti_Lb.Text = "Nhập Email để nhận mã khôi phục mật khẩu";
+            this.Noti_Lb.Text = "Nhập Email đã đăng ký để nhận mã khôi phục mật khẩu";
             // 
             // Email_txt
             // 
@@ -100,6 +101,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.Comfirm_btn);
             this.Controls.Add(this.Comfirm_txt);

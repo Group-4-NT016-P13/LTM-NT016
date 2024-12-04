@@ -104,7 +104,7 @@ namespace excercise_2
                             this.Hide();
                         }));
                     }
-                    else if (receivedPacket.Request == "LoginFailed")
+                    else if (receivedPacket.Message == "LoginFailed")
                     {
                         MessageBox.Show("Thông tin đăng nhập không đúng, vui lòng nhập lại.");
                     }
