@@ -13,7 +13,7 @@ namespace chess
     {
         private TCPClient client;
         private string playerColor; // Màu của người chơi ("WHITE" hoặc "BLACK")
-        
+        private bool isRandom;
         private PieceColor currentPlayer;
         private PictureBox[,] pictureBoxes;
         private (int, int)? selectedCell = null;
@@ -22,10 +22,11 @@ namespace chess
         private int turn = 0;
         private int timeLeft; // Thời gian còn lại cho người chơi hiện tại (tính bằng giây)
         private int opponentTimeLeft; // Thời gian còn lại cho đối thủ
+        private int TimeSelected;
         private Timer timer;
         private bool isGameOver = false;
        
-        public ChessBoardForm(TCPClient client, string playerColor)
+        public ChessBoardForm(TCPClient client, string playerColor,string time)
         {
             InitializeComponent();
           
@@ -38,6 +39,8 @@ namespace chess
             if(this.playerColor == "white")
             {
                 lbl_luot.Text = $"Lượt của {client.Username}";
+                
+               
             }
             else if(this.playerColor == "black")
             {
@@ -46,8 +49,9 @@ namespace chess
             pictureBoxes = new PictureBox[8, 8];
             chessBoard = new ChessBoard();
             InitializeBoard();
-            timeLeft = 600;
-           
+            //timeLeft = 600;
+            timeLeft = int.Parse(time);
+            TimeSelected = int.Parse(time);
 
             timer = new Timer { Interval = 1000 };
             timer.Tick += Timer_Tick;
@@ -139,34 +143,7 @@ namespace chess
                 }    
             }
         }
-        /*private async Task ListenForInformation()
-        {
-            while (true)
-            {
-                string response = await client.ReceiveResponseAsync();
-                if (response.StartsWith("MOVE"))
-                {
-                    string[] parts = response.Split(' ');
-                    if (parts.Length == 3)
-                    {
-                        string from = parts[1];
-                        string to = parts[2];
-                        ApplyMove(from, to); // Gọi ApplyMove để xử lý nước đi và kiểm tra vua bị bắt
-                        timeLeft = 600; // Đặt lại thời gian cho người chơi hiện tại
-                        opponentTimeLeft = 600; // Đặt lại thời gian cho đối thủ
-                        UpdateTimeLabels();
-                        isPlayerTurn = true;
-                        CheckTurn(isPlayerTurn);
-                    }
-                }
-
-                if (response.StartsWith("CHAT"))
-                {
-                    isPlayerTurn = true;
-                    rtb_historychat.AppendText("Đối thủ: " + response.Substring(5) + "\n");
-                }
-            }
-        }*/
+       
         private async Task ListenForInformation()
         {
             while (true)
@@ -206,13 +183,21 @@ namespace chess
                             string from = parts[1];
                             string to = parts[2];
                             ApplyMove(from, to);
-                            timeLeft = 600; // Đặt lại thời gian cho người chơi
-                            opponentTimeLeft = 600; // Đặt lại thời gian cho đối thủ
+                            timeLeft = TimeSelected; // Đặt lại thời gian cho người chơi
+                            opponentTimeLeft = TimeSelected; // Đặt lại thời gian cho đối thủ
                             UpdateTimeLabels();
                             isPlayerTurn = true;
                             CheckTurn(isPlayerTurn);
                         }
                     }
+                    else if(response.StartsWith("GAMEOVER!!"))
+                    {
+                        this.Close();
+                    }   
+                    else if (response.StartsWith("ERROR"))
+                    {
+                        Console.WriteLine($"Error in ListenForInformation: {response}");
+                    }    
                 }
                 catch (Exception ex)
                 {
@@ -260,21 +245,12 @@ namespace chess
                 {
                     string from = $"{startX}{startY}";
                     string to = $"{row}{col}";
-
-                  
                  
                     ApplyMove(from, to);
-                    if (IsKingCaptured(playerColor))
-                    {
-                       
-                       
-                        MessageBox.Show("Quân vua của bạn đã bị bắt! Trò chơi kết thúc.");
-                        this.Close();
-                    }
                     await client.SendMove(from,to);
                    
-                    timeLeft = 600; // Đặt lại thời gian cho người chơi hiện tại
-                    opponentTimeLeft = 600;
+                    timeLeft = TimeSelected; // Đặt lại thời gian cho người chơi hiện tại
+                    opponentTimeLeft = TimeSelected;
                     isPlayerTurn = false; // Chuyển lượt cho đối thủ
                     lbl_luot.Text = "Lượt của đối thủ";
                 }
@@ -302,16 +278,32 @@ namespace chess
             // Cập nhật hình ảnh quân cờ
             UpdatePictureBox(startX, startY);
             UpdatePictureBox(endX, endY);
-
-            // Kiểm tra xem quân vua của người chơi có bị bắt không
-           if (!isGameOver && IsKingCaptured(playerColor))  // Kiểm tra nếu trò chơi chưa kết thúc
-            {
-                MessageBox.Show("Quân vua của bạn đã bị bắt! Trò chơi kết thúc.");
-                isGameOver = true;  // Đánh dấu trò chơi đã kết thúc
-                this.Close();  // Kết thúc trò chơi, hoặc bạn có thể thay thế bằng hành động khác
-            }
+            HandleGameResult();
         }
-
+        private async void HandleGameResult()
+        {
+            string result = GetGameResult();
+            if (result == null) return;
+            string request = $"GAMEOVER {RoomID_txt.Text} {result} {client.Username}";
+            string response = await client.SendRequestAsync(request);
+            string[] responseParts = response.Split(' ');
+            if(response.StartsWith("GAMEOVER!!"))
+            {
+                EndGame(result);
+            }
+            else if (response.StartsWith("ERROR"))
+            {
+               MessageBox.Show("Lỗi");
+            }
+          
+        }
+        private void EndGame(string result)
+        {
+            timer.Stop();
+            MessageBox.Show(result, "Game Over");
+            isGameOver = true;
+           // this.Close();
+        }
 
         private void UpdatePictureBox(int row, int col)
         {
@@ -371,27 +363,29 @@ namespace chess
                 }
             }
         }
-         private bool IsKingCaptured(string playerColor)
-          {
-              bool whiteKingExists = false;
-              bool blackKingExists = false;
+        private string GetGameResult()
+        {
+            bool whiteKingExists = false;
+            bool blackKingExists = false;
 
-              foreach (var piece in chessBoard.Board)
-              {
-                  if (piece != null)
-                  {
-                      if (piece.Type == PieceType.King)
-                      {
-                          if (piece.Color == PieceColor.White)
-                              whiteKingExists = true;
-                          else if (piece.Color == PieceColor.Black)
-                              blackKingExists = true;
-                      }
-                  }
-              }
+            foreach (var piece in chessBoard.Board)
+            {
+                if (piece != null && piece.Type == PieceType.King)
+                {
+                    if (piece.Color == PieceColor.White)
+                        whiteKingExists = true;
+                    else if (piece.Color == PieceColor.Black)
+                        blackKingExists = true;
+                }
+            }
 
-              return !whiteKingExists || !blackKingExists;
-          }
+            if (!whiteKingExists && blackKingExists)
+                return "BLACK wins!";
+            else if (!blackKingExists && whiteKingExists)
+                return "WHITE wins!";
+            else
+                return null; // Trò chơi chưa kết thúc
+        }
         private void lbl_luot_Click(object sender, EventArgs e)
         {
            
@@ -402,8 +396,8 @@ namespace chess
             isPlayerTurn = !isPlayerTurn;
 
             // Đặt lại thời gian
-            timeLeft = isPlayerTurn ? 600 : 600; // Thời gian cho người chơi hiện tại
-            opponentTimeLeft = !isPlayerTurn ? 600 : 600; // Thời gian cho đối thủ
+            timeLeft = isPlayerTurn ? TimeSelected : TimeSelected; // Thời gian cho người chơi hiện tại
+            opponentTimeLeft = !isPlayerTurn ? TimeSelected : TimeSelected; // Thời gian cho đối thủ
 
             // Cập nhật lại label thời gian
             UpdateTimeLabels();
@@ -411,22 +405,6 @@ namespace chess
             // Bắt đầu lại timer cho người chơi hiện tại
             timer.Start();
         }
-
-
-        /*private async void btn_send_Click(object sender, EventArgs e)
-         {
-            // for (int i = 1; i <= 20; i++) ListenForOpponentChat();
-             string message = txb_message.Text.Trim();
-             if (message !="")
-             {
-                 await client.SendMessageAsync("CHAT " + message);
-                 rtb_historychat.Text += "Bạn: " +message+'\n';
-                 txb_message.Text = "";
-             }
-          //   for (int i=1; i<=20; i++) ListenForOpponentChat();
-
-
-         }*/
         private async void btn_send_Click(object sender, EventArgs e)
         {
             string message = txb_message.Text.Trim();
@@ -434,25 +412,16 @@ namespace chess
             {
                 string formattedMessage = $"{client.Username}: {message}"; // Định dạng tin nhắn kèm username
                 await client.SendMessageAsync("CHAT " + formattedMessage); // Gửi tin nhắn qua server
-               // rtb_historychat.AppendText($"Bạn: {message}\n"); // Hiển thị tin nhắn của bạn
                 txb_message.Text = ""; // Xóa nội dung sau khi gửi
             }
         }
 
-
-        private void txb_message_TextChanged(object sender, EventArgs e)
+        private void ChessBoardForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-
+            MatchGame log = new MatchGame(client);
+            log.Show();
         }
 
-        private void opponentTimeLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void rtb_historychat_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+       
     }
 }

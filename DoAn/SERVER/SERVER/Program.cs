@@ -10,7 +10,7 @@ namespace chess // Thay "YourNamespace" bằng namespace của bạn
         {
             int port = 11000; // Cổng mà server lắng nghe
             TCPServer server = new TCPServer(port);  // Khởi tạo server với cổng 9000
-            await server.StartAsync();
+            await server.StartServer();
         }
        
     }

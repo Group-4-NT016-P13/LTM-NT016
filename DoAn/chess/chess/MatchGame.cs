@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace chess
 {
@@ -9,6 +10,8 @@ namespace chess
     {
         private TCPClient client;
         private bool isFindingMatch = false;
+        private string timeInText;
+        private string Time;
        // private bool WaitingPlayer = false;
 
         public MatchGame(TCPClient client)
@@ -18,7 +21,7 @@ namespace chess
             Username_txt.Text = client.Username;
             Email_txt.Text = client.Email;
             Rating_txt.Text = client.Rating.ToString();
-           lbRank.Text = client.Rank.ToString();
+           
         }
         private static string GenerateRandomString(int length)
         {
@@ -58,7 +61,7 @@ namespace chess
                 }
                 else if (response.StartsWith("MATCH_FOUND"))
                 {
-                    OpenChessBoard(response); // Mở bàn cờ nếu tìm thấy trận
+                    OpenChessBoard(response,true); // Mở bàn cờ nếu tìm thấy trận
                 }
                 else
                 {
@@ -80,11 +83,16 @@ namespace chess
                 // Đọc phản hồi từ server về việc tìm trận
                 string response = await client.WaitForMatchAsync();
 
-                if (response.StartsWith("MATCH_FOUND") || response.StartsWith("START"))
+                if (response.StartsWith("MATCH_FOUND"))
                 {
-                    OpenChessBoard(response); // Mở bàn cờ khi trận đấu được tìm thấy
+                    OpenChessBoard(response, true); // Mở bàn cờ khi trận đấu được tìm thấy
                     break;
                 }
+                else if(response.StartsWith("START"))
+                {
+                    OpenChessBoard(response,false); // Mở bàn cờ khi trận đấu được tìm thấy
+                    break;
+                }    
                 else
                 {
                     lblStatus.Text = response;
@@ -93,7 +101,7 @@ namespace chess
             }
         }
 
-        private void OpenChessBoard(string matchResponse)
+        private void OpenChessBoard(string matchResponse,bool IsRandom,string time = null)
         {
             if (string.IsNullOrEmpty(matchResponse))
             {
@@ -111,23 +119,17 @@ namespace chess
 
             string playerColor = parts[1]; // "WHITE" hoặc "BLACK"
             MessageBox.Show($"Trận đấu đã tìm thấy! Bạn đang chơi với màu: {playerColor}");
-
+            if(IsRandom)
+            {
+                Time = "300";
+            }    
             // Mở bàn cờ không chặn giao diện
-            ChessBoardForm chessBoard = new ChessBoardForm(client, playerColor);
+            ChessBoardForm chessBoard = new ChessBoardForm(client, playerColor,Time);
             this.Hide();
             chessBoard.Show();
             chessBoard.FormClosed += (s, e) => this.Show();
-        }
 
-        private void MatchGame_Load(object sender, EventArgs e)
-        {
-            // Thêm logic nếu cần khi form tải
         }
-        private void label1_Click(object sender, EventArgs e)
-        {
-            // Thêm logic nếu cần khi nhấp vào label
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             Form1 form1 = new Form1();
@@ -135,13 +137,6 @@ namespace chess
             form1.Show();
            
         }
-
-        /*private void button2_Click(object sender, EventArgs e)
-        {
-            Champion champ = new Champion(client);
-            champ.Show();
-        }*/
-
         private void FindRoom_btn_Click(object sender, EventArgs e)
         {
             Find_btn.Visible = !Find_btn.Visible;
@@ -150,16 +145,18 @@ namespace chess
             AIPlay_btn.Visible = !AIPlay_btn.Visible;
             lblStatus.Visible = !lblStatus.Visible;
 
+
+            RoomID_txt.Text = string.Empty;
             RoomID_txt.Visible = !RoomID_txt.Visible;
             RoomID_txt.ReadOnly = false;
             Notification_txt.Visible = !Notification_txt.Visible;
             FindRoom2_btn.Visible = !FindRoom2_btn.Visible;
-
+            Return_btn.Visible = !Return_btn.Visible;
 
 
         }
 
-        private async void CreateRoom_btn_Click(object sender, EventArgs e)
+        private  void CreateRoom_btn_Click(object sender, EventArgs e)
         {
             Find_btn.Visible = !Find_btn.Visible;
             FindRoom_btn.Visible = !FindRoom_btn.Visible;
@@ -171,31 +168,12 @@ namespace chess
             Notification_txt.Visible = !Notification_txt.Visible;
 
             RoomID_txt.Text = GenerateRandomString(5);
-            string roomId = RoomID_txt.Text.Trim();
-            string request = $"CREATEROOM {roomId}";
-            try
-            {
-                string response = await client.SendRequestAsync(request);
-                string[] parts = response.Split(' ');
-                if (response.StartsWith("SUCCESS"))
-                {
-                    client.RoomID = parts[2];
-                    Notification_txt.Text = response;
-                    await ListenForMatchAsync(); // Lắng nghe thông báo tìm thấy người chơi
-                }
-                else if (response.StartsWith("ERROR"))
-                {
-                    Notification_txt.Text = "Phòng đã tồn tại";
-                }
-                else
-                {
-                    Notification_txt.Text = $"Lỗi: {response}";
-                }
-            }
-            catch (Exception ex)
-            {
-                Notification_txt.Text = $"Lỗi: {ex.Message}";
-            }
+            CreateRoom2_btn.Visible = ! CreateRoom2_btn.Visible;
+            TimeSelect_lb.Visible = !TimeSelect_lb.Visible;
+            TimeList_cb.Visible = !TimeList_cb.Visible;
+            PieceColorSelect_lb.Visible = !PieceColorSelect_lb.Visible;
+            ColorList_cb.Visible= !ColorList_cb.Visible;
+            Return_btn.Visible = !Return_btn.Visible;
         }
 
         private async void FindRoom2_btn_Click(object sender, EventArgs e)
@@ -216,8 +194,9 @@ namespace chess
                 if (response.StartsWith("SUCCESS"))
                 {
                     client.RoomID = parts[2];
+                    Time = parts[3]; 
                     Notification_txt.Text = "Phòng đã tìm thấy! Đang kết nối...";
-                    OpenChessBoard(response);
+                    OpenChessBoard(response,false,Time);
                 }
                 else if (response.StartsWith("ERROR"))
                 {
@@ -234,14 +213,180 @@ namespace chess
             }
         }
 
-        private void lbRank_Click(object sender, EventArgs e)
+        private async void CreateRoom2_btn_Click(object sender, EventArgs e)
         {
+            
+            string roomId = RoomID_txt.Text.Trim();
+            string request = null;
+            if(client.PieceColor == "Trắng")
+            {
+                request = $"CREATEROOM {roomId} WHITE {Time}";
+            }    
+            else if (client.PieceColor == "Đen")
+            {
+                request = $"CREATEROOM {roomId} BLACK {Time}";
+            }    
+            try
+            {
+                string response = await client.SendRequestAsync(request);
+                string[] parts = response.Split(' ');
+                if (response.StartsWith("SUCCESS"))
+                {
+                    client.RoomID = parts[2];
+                    Notification_txt.Text = parts[0];
+                    await ListenForMatchAsync(); // Lắng nghe thông báo tìm thấy người chơi
+                }
+                else if (response.StartsWith("ERROR"))
+                {
+                    Notification_txt.Text = "Phòng đã tồn tại";
+                }
+                else
+                {
+                    Notification_txt.Text = $"Lỗi: {response}";
+                }
+            }
+            catch (Exception ex)
+            {
+                Notification_txt.Text = $"Lỗi: {ex.Message}";
+            }
+        }
+
+        private void TimeList_cb_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            for (int i = 0; i < TimeList_cb.Items.Count; i++)
+            {
+                if (i != e.Index)
+                {
+                    TimeList_cb.SetItemChecked(i, false);
+                }
+            }
+
+            // Lấy mục được chọn
+            if (e.NewValue == CheckState.Checked)
+            {
+                timeInText = TimeList_cb.Items[e.Index].ToString();
+                switch(timeInText)
+                {
+                    case "10 Phút":
+                        Time = "600";
+                        break;
+                    case "6 Phút":
+                        Time = "360";
+                        break;
+                    case "3 Phút":
+                        Time = "180";
+                        break;
+                    case "1 Phút":
+                        Time = "60";
+                        break;
+                }    
+                MessageBox.Show($"Bạn đã chọn: {timeInText}");
+            }
+        }
+
+        private void ColorList_cb_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            for (int i = 0; i < ColorList_cb.Items.Count; i++)
+            {
+                if (i != e.Index)
+                {
+                    ColorList_cb.SetItemChecked(i, false);
+                }
+            }
+
+            // Lấy mục được chọn
+            if (e.NewValue == CheckState.Checked)
+            {
+                client.PieceColor = ColorList_cb.Items[e.Index].ToString();
+                MessageBox.Show($"Bạn đã chọn: {client.PieceColor}");
+            }
+        }
+
+        private async void LogOut_btn_Click(object sender, EventArgs e)
+        {
+            await Task.Run(async () =>
+            {
+                string response = await client.Logout(client.Username);
+                string[] responseParts = response.Split(' ');
+                this.Invoke(new Action(() =>
+                {
+                    if (response.StartsWith("SUCCESS"))
+                    {
+                        MessageBox.Show("Đăng Xuất Thành Công");
+                        this.Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show(response);
+                    }
+                }));
+            });
 
         }
 
-        private void lbRank_TextChanged(object sender, EventArgs e)
+        private void Return_btn_Click(object sender, EventArgs e)
         {
+            Return_btn.Visible = !Return_btn.Visible;
+            Find_btn.Visible = !Find_btn.Visible;
+            FindRoom_btn.Visible = !FindRoom_btn.Visible;
+            CreateRoom_btn.Visible = !CreateRoom_btn.Visible;
+            AIPlay_btn.Visible = !AIPlay_btn.Visible;
+            lblStatus.Visible = !lblStatus.Visible;
 
+            RoomID_txt.Visible = !RoomID_txt.Visible;
+            Notification_txt.Visible = !Notification_txt.Visible;
+
+            if(FindRoom2_btn.Visible)
+            {
+                FindRoom2_btn.Visible = !FindRoom2_btn.Visible;
+            }
+            if (CreateRoom2_btn.Visible)
+            {
+                CreateRoom2_btn.Visible = !CreateRoom2_btn.Visible;
+            }
+            if(TimeList_cb.Visible)
+            {
+                TimeList_cb.Visible = !TimeList_cb.Visible;
+            }
+            if(TimeSelect_lb.Visible)
+            {
+                TimeSelect_lb.Visible = !TimeSelect_lb.Visible;
+            }   
+            if(PieceColorSelect_lb.Visible)
+            {
+                PieceColorSelect_lb.Visible = !PieceColorSelect_lb.Visible;
+            }
+            if (ColorList_cb.Visible)
+            {
+                ColorList_cb.Visible = !ColorList_cb.Visible;
+            }
+        }
+
+        private async void  Reload_btn_Click(object sender, EventArgs e)
+        {
+            string request = $"UPDATE {client.Username}";
+            try
+            {
+                string response = await client.SendRequestAsync(request);
+                string[] parts = response.Split(' ');
+                if (response.StartsWith("SUCCESS"))
+                {
+                    Rating_txt.Text = parts[1];
+                  
+                }
+                else if (response.StartsWith("ERROR"))
+                {
+                    MessageBox.Show("Lỗi gói tin");
+                }
+                else
+                {
+                    MessageBox.Show("Lỗi");
+                }
+            }
+            catch (Exception ex)
+            {
+                Notification_txt.Text = $"Lỗi: {ex.Message}";
+            }
         }
     }
 }

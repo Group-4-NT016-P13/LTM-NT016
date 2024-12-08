@@ -30,7 +30,7 @@ namespace chess
             CreateDatabase();
         }
 
-        public async Task StartAsync()
+        public async Task StartServer()
         {
             tcpListener.Start();
             Console.WriteLine("Server started, waiting for connections...");
@@ -39,11 +39,11 @@ namespace chess
             {
                 TcpClient client = await tcpListener.AcceptTcpClientAsync();
                 Console.WriteLine($"Client connected: {client.Client.RemoteEndPoint}");
-                _ = HandleClientAsync(client); // Xử lý mỗi client trong một task riêng biệt
+                _ = HandleClient(client); // Xử lý mỗi client trong một task riêng biệt
             }
         }
 
-        private async Task HandleClientAsync(TcpClient client)
+        private async Task HandleClient(TcpClient client)
         {
             NetworkStream stream = client.GetStream();
             byte[] buffer = new byte[1024];
@@ -85,26 +85,32 @@ namespace chess
 
             switch (command)
             {
+                // xử lí liên quan đến đăng nhập đăng ký
                 case "REGISTER":
                     return parts.Length >= 4 ? RegisterPlayer(parts[1], parts[2], parts[3]) : "ERROR: Invalid request format";
                 case "LOGIN":
                     return parts.Length >= 3 ? LoginPlayer(parts[1], parts[2]) : "ERROR: Invalid request format";
+                case "CHECK":
+                    return parts.Length >= 2 ? CheckMail(parts[1]) : "ERROR: Invalid request format";
+                case "UPDATEPASSWORD":
+                    return parts.Length >= 3 ? UpdatePassword(parts[1], parts[2]) : "ERROR: Invalid request format";
+                case "LOGOUT":
+                    return parts.Length >=2 ? LogoutPlayer(parts[1]) : "ERROR: Invalid request format";
+                case "UPDATE":
+                    return parts.Length >= 2 ? GetRating(parts[1]).ToString() : "ERROR: Invalid request format";
+                //xử lí liên quan đến game
                 case "FIND_MATCH":
                     return FindMatch(client);
                 case "MOVE":
                     return parts.Length >= 3 ? HandleMove(parts[1], parts[2], client) : "ERROR: Invalid move format";
                 case "CHAT":
                     return parts.Length >= 2 ? HandleChat(string.Join(" ", parts.Skip(1)), client) : "ERROR: Empty message";
-                case "UPDATE":
-                    return UpdatePlayerRank(int.Parse(parts[1]), int.Parse(parts[2]));
                 case "CREATEROOM":
-                    return parts.Length >= 2 ? CreateRoom(parts[1], client) : "ERROR: Cant Create";
+                    return parts.Length >= 3 ? CreateRoom(parts[1], parts[2],parts[3],client) : "ERROR: Cant Create";
                 case "FINDROOM":
                     return parts.Length >= 2 ? JoinRoom(parts[1], client) : "ERROR: Invalid request format";
-                case "CHECK":
-                    return parts.Length >= 2 ? CheckMail(parts[1]) : "ERROR: Invalid request format";
-                case "UPDATEPASSWORD":
-                    return parts.Length >= 3 ? UpdatePassword(parts[1], parts[2]) : "ERROR: Invalid request format";
+               case "GAMEOVER":
+                    return parts.Length >=5 ? GameOver(parts[1], parts[2], parts[3], parts[4],client) : "ERROR: Invalid request format";
                 default:
                     return "ERROR: Unknown command";
             }
@@ -115,7 +121,7 @@ namespace chess
             using (var connection = new SQLiteConnection(connectionString))
             {
                 connection.Open();
-                string query = "INSERT INTO players (Username, Password, Email, Rating) VALUES (@username, @password, @email, 1200)";
+                string query = "INSERT INTO players (Username, Password, Email, Rating, IsLoggedIn) VALUES (@username, @password, @email, 1200, 1)";
                 using (var command = new SQLiteCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@username", username);
@@ -124,6 +130,7 @@ namespace chess
                     try
                     {
                         command.ExecuteNonQuery();
+
                         return $"SUCCESS: Logged in {username} {email} 1200";
                     }
                     catch (SQLiteException ex)
@@ -148,7 +155,7 @@ namespace chess
                 connection.Open();
 
                 // Câu truy vấn duy nhất để lấy cả ID và rank
-                string query = "SELECT Username,Email,Rating FROM players WHERE Username = @username AND Password = @password";
+                string query = "SELECT Username,Email,Rating,IsLoggedIn FROM players WHERE Username = @username AND Password = @password";
 
                 using (var command = new SQLiteCommand(query, connection))
                 {
@@ -163,6 +170,12 @@ namespace chess
                             string Username = reader.GetString(0);  
                             string Email = reader.GetString(1);  
                             int Rating = reader.GetInt32(2);
+                            int IsLoggedIn = reader.GetInt32(3);
+                            if (IsLoggedIn == 1)
+                            {
+                                return "ERROR: Account is already logged in from another client.";
+                            }
+                            UpdateLoginStatus(username, true, connection);
                             return $"SUCCESS: Logged in {Username} {Email} {Rating}";
                         }
                         else
@@ -171,6 +184,25 @@ namespace chess
                         }
                     }
                 }
+            }
+        }
+        private string LogoutPlayer(string username)
+        {
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+                UpdateLoginStatus(username, false, connection);
+                return $"SUCCESS: {username} has logged out.";
+            }
+        }
+        private void UpdateLoginStatus(string username, bool isLoggedIn, SQLiteConnection connection)
+        {
+            string query = "UPDATE players SET IsLoggedIn = @isLoggedIn WHERE Username = @username";
+            using (var command = new SQLiteCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@isLoggedIn", isLoggedIn ? 1 : 0);
+                command.Parameters.AddWithValue("@username", username);
+                command.ExecuteNonQuery();
             }
         }
 
@@ -242,8 +274,50 @@ namespace chess
                 }
             }
         }
+        private string UpdateRating(string username, int ratingChange)
+        {
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
 
-        private string CreateRoom(string roomid,TcpClient client)
+                // Kiểm tra xem username có tồn tại hay không
+                string checkQuery = "SELECT COUNT(*) FROM players WHERE Username = @Username";
+
+                using (var checkCommand = new SQLiteCommand(checkQuery, connection))
+                {
+                    checkCommand.Parameters.AddWithValue("@Username", username);
+                    int count = Convert.ToInt32(checkCommand.ExecuteScalar());
+
+                    if (count == 0)
+                    {
+                        return "ERROR: Username not found";
+                    }
+                }
+
+                // Nếu username tồn tại, cập nhật rating
+                string updateQuery = "UPDATE players SET Rating = Rating + @RatingChange WHERE Username = @Username";
+
+                using (var updateCommand = new SQLiteCommand(updateQuery, connection))
+                {
+                    updateCommand.Parameters.AddWithValue("@RatingChange", ratingChange);
+                    updateCommand.Parameters.AddWithValue("@Username", username);
+
+                    int rowsAffected = updateCommand.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        return "SUCCESS: Rating updated";
+                    }
+                    else
+                    {
+                        return "ERROR: Rating update failed";
+                    }
+                }
+            }
+        }
+
+
+        private string CreateRoom(string roomid,string piececolor,string time,TcpClient client)
         {
             lock (rooms)
             {
@@ -253,6 +327,8 @@ namespace chess
                 }
 
                 var newRoom = new GameRoom(client);
+                newRoom.SetTime(time);
+                newRoom.SetP1Color(piececolor);
                 rooms[roomid] = newRoom;
                 return $"SUCCESS: Room {roomid} created.";
             }
@@ -260,6 +336,7 @@ namespace chess
 
         private string JoinRoom(string roomId, TcpClient client)
         {
+            string RoomTime;
             lock (rooms)
             {
                 if (!rooms.ContainsKey(roomId))
@@ -280,11 +357,16 @@ namespace chess
                 {
                     return "ERROR: Room is already full.";
                 }
-
+                RoomTime = existingRoom.GetTime();
                 // Thêm người chơi vào phòng
                 existingRoom.AddPlayer(client);
-                SendMessage(existingRoom.GetLastPlayer(), "START WHITE");
-                return $"SUCCESS: BLACK {roomId}";
+                string P1_Color = existingRoom.P1Color();
+                string P2_Color = (P1_Color == "WHITE") ? "BLACK" : "WHITE";
+                existingRoom.SetP2Color(P2_Color);
+                existingRoom.SetIndexByColor();
+                SendMessage(existingRoom.GetLastPlayer(), $"START {P1_Color}");
+                return $"SUCCESS: {P2_Color} {roomId} {RoomTime}";
+
             }
         }
 
@@ -322,6 +404,93 @@ namespace chess
             }
         }
 
+        private string GameOver(string roomid, string P_piececolor, string result, string username, TcpClient client)
+        {
+            GameRoom existingRoom = null;
+
+            // Kiểm tra và lấy phòng từ từ điển
+            if (rooms.ContainsKey(roomid))
+            {
+                existingRoom = rooms[roomid];
+            }
+            // Kiểm tra và lấy phòng từ danh sách
+            else if (gameRooms.Any(r => r.HasPlayer(client)))
+            {
+                existingRoom = gameRooms.FirstOrDefault(r => r.HasPlayer(client));
+            }
+
+            // Nếu không tìm thấy phòng
+            if (existingRoom == null)
+            {
+                return "ERROR: Room not found";
+            }
+
+            // Lấy màu sắc của người chơi
+            string P1 = existingRoom.P1Color();
+            string P2 = existingRoom.P2Color();
+            string message = "GAMEOVER!!";
+
+            // Xử lý kết quả thắng
+            if (result == "wins!")
+            {
+                if (P1 == P_piececolor)
+                {
+                    UpdateRating(username, 20);
+                }
+                if (P2 == P_piececolor)
+                {
+                    UpdateRating(username, 20);
+                }
+            }
+
+            // Gửi thông điệp GAMEOVER đến tất cả người chơi
+            existingRoom.SendMessageToAll(message);
+
+            // Xóa phòng khỏi từ điển (nếu tồn tại)
+            if (rooms.ContainsKey(roomid))
+            {
+                rooms.Remove(roomid);
+                Console.WriteLine("Xóa phòng  thành công");
+            }
+
+            // Xóa phòng khỏi danh sách (nếu tồn tại)
+            if (gameRooms.Contains(existingRoom))
+            {
+                gameRooms.Remove(existingRoom);
+                Console.WriteLine("Xóa phòng random thành công");
+            }
+
+            return message;
+        }
+
+        private string GetRating(string username)
+        {
+            int? rating;
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                // Truy vấn để lấy Rating theo username
+                string query = "SELECT Rating FROM players WHERE Username = @Username";
+
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Username", username);
+
+                    object result = command.ExecuteScalar();
+
+                    if (result != null && result != DBNull.Value)
+                    {
+                        rating = Convert.ToInt32(result);
+                    }
+                    else
+                    {
+                        rating = null; // Username không tồn tại hoặc Rating không có giá trị
+                    }
+                }
+            }
+            return $"SUCCESS {rating}";
+        }
 
         private string HandleMove(string from, string to, TcpClient client)
         {
@@ -356,7 +525,6 @@ namespace chess
         private string HandleChat(string message, TcpClient client)
         {
             GameRoom room = null;
-
             lock (rooms)
             {
                 room = rooms.Values.FirstOrDefault(g => g.HasPlayer(client));
@@ -423,7 +591,8 @@ namespace chess
                 Username TEXT UNIQUE,
                 Password TEXT NOT NULL,
                 Email TEXT UNIQUE,
-                Rating INT DEFAULT 1200
+                Rating INT DEFAULT 1200,
+                IsLoggedIn INT DEFAULT 0
             );";
                 using (var command = new SQLiteCommand(createTableQuery, connection))
                 {
@@ -433,10 +602,6 @@ namespace chess
                 AddAdminUserIfNotExists(connection);
             }
         }
-
-
-
-
         private void AddAdminUserIfNotExists(SQLiteConnection connection)
         {
             string checkQuery = "SELECT COUNT(*) FROM players WHERE Username = 'admin'";
@@ -456,24 +621,7 @@ namespace chess
         }
 
 
-        private string UpdatePlayerRank(int playerId, int rankChange)
-        {
-
-            using (var connection = new SQLiteConnection(connectionString))
-            {
-                connection.Open();
-                string query = "UPDATE players SET rank = rank + @rankChange WHERE id = @playerId";
-
-                using (var command = new SQLiteCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@rankChange", rankChange);
-                    command.Parameters.AddWithValue("@playerId", playerId);
-
-                    command.ExecuteNonQuery();
-                }
-            }
-            return "SUCCESS";
-        }
+       
 
     }
 

@@ -90,6 +90,7 @@ namespace chess
                         {
                             client.Close(); // Ngắt kết nối tới server
                             Application.Exit(); // Đóng hoàn toàn ứng dụng
+                            
                         };
                         this.Hide();
                         matchGame.ShowDialog();

@@ -47,13 +47,13 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(14, 15);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(9, 10);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(873, 588);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(582, 382);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // lbl_luot
@@ -61,9 +61,10 @@
             this.lbl_luot.BackColor = System.Drawing.Color.Transparent;
             this.lbl_luot.Font = new System.Drawing.Font("MS Reference Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_luot.ForeColor = System.Drawing.Color.White;
-            this.lbl_luot.Location = new System.Drawing.Point(890, 560);
+            this.lbl_luot.Location = new System.Drawing.Point(593, 364);
+            this.lbl_luot.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_luot.Name = "lbl_luot";
-            this.lbl_luot.Size = new System.Drawing.Size(180, 58);
+            this.lbl_luot.Size = new System.Drawing.Size(120, 38);
             this.lbl_luot.TabIndex = 1;
             this.lbl_luot.Text = "Lượt của: ";
             this.lbl_luot.Click += new System.EventHandler(this.lbl_luot_Click);
@@ -77,39 +78,38 @@
             this.timelabel.BackColor = System.Drawing.Color.Transparent;
             this.timelabel.Font = new System.Drawing.Font("MS Reference Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timelabel.ForeColor = System.Drawing.Color.White;
-            this.timelabel.Location = new System.Drawing.Point(890, 502);
+            this.timelabel.Location = new System.Drawing.Point(593, 326);
+            this.timelabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.timelabel.Name = "timelabel";
-            this.timelabel.Size = new System.Drawing.Size(231, 58);
+            this.timelabel.Size = new System.Drawing.Size(154, 38);
             this.timelabel.TabIndex = 3;
             this.timelabel.Text = "Thời gian còn lại:";
             // 
             // rtb_historychat
             // 
-            this.rtb_historychat.Location = new System.Drawing.Point(21, 29);
-            this.rtb_historychat.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.rtb_historychat.Location = new System.Drawing.Point(14, 19);
+            this.rtb_historychat.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.rtb_historychat.Name = "rtb_historychat";
-            this.rtb_historychat.Size = new System.Drawing.Size(416, 326);
+            this.rtb_historychat.Size = new System.Drawing.Size(279, 213);
             this.rtb_historychat.TabIndex = 4;
             this.rtb_historychat.Text = "";
-            this.rtb_historychat.TextChanged += new System.EventHandler(this.rtb_historychat_TextChanged);
             // 
             // txb_message
             // 
-            this.txb_message.Location = new System.Drawing.Point(21, 366);
-            this.txb_message.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.txb_message.Location = new System.Drawing.Point(14, 238);
+            this.txb_message.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txb_message.Name = "txb_message";
-            this.txb_message.Size = new System.Drawing.Size(271, 30);
+            this.txb_message.Size = new System.Drawing.Size(182, 22);
             this.txb_message.TabIndex = 6;
-            this.txb_message.TextChanged += new System.EventHandler(this.txb_message_TextChanged);
             // 
             // btn_send
             // 
             this.btn_send.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_send.ForeColor = System.Drawing.Color.Black;
-            this.btn_send.Location = new System.Drawing.Point(324, 362);
-            this.btn_send.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.btn_send.Location = new System.Drawing.Point(216, 235);
+            this.btn_send.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.btn_send.Name = "btn_send";
-            this.btn_send.Size = new System.Drawing.Size(92, 35);
+            this.btn_send.Size = new System.Drawing.Size(61, 23);
             this.btn_send.TabIndex = 7;
             this.btn_send.Text = "Gửi";
             this.btn_send.UseVisualStyleBackColor = true;
@@ -118,21 +118,19 @@
             // Username_txt
             // 
             this.Username_txt.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Username_txt.Location = new System.Drawing.Point(915, 15);
-            this.Username_txt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Username_txt.Location = new System.Drawing.Point(610, 10);
             this.Username_txt.Name = "Username_txt";
             this.Username_txt.ReadOnly = true;
-            this.Username_txt.Size = new System.Drawing.Size(206, 30);
+            this.Username_txt.Size = new System.Drawing.Size(139, 22);
             this.Username_txt.TabIndex = 8;
             // 
             // RoomID_txt
             // 
             this.RoomID_txt.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RoomID_txt.Location = new System.Drawing.Point(1132, 15);
-            this.RoomID_txt.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.RoomID_txt.Location = new System.Drawing.Point(755, 10);
             this.RoomID_txt.Name = "RoomID_txt";
             this.RoomID_txt.ReadOnly = true;
-            this.RoomID_txt.Size = new System.Drawing.Size(192, 30);
+            this.RoomID_txt.Size = new System.Drawing.Size(129, 22);
             this.RoomID_txt.TabIndex = 9;
             // 
             // groupBox1
@@ -143,29 +141,27 @@
             this.groupBox1.Controls.Add(this.btn_send);
             this.groupBox1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(894, 60);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox1.Location = new System.Drawing.Point(596, 39);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox1.Size = new System.Drawing.Size(462, 434);
+            this.groupBox1.Size = new System.Drawing.Size(308, 282);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Chat";
             // 
             // ChessBoardForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1359, 631);
+            this.ClientSize = new System.Drawing.Size(906, 410);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.RoomID_txt);
             this.Controls.Add(this.Username_txt);
             this.Controls.Add(this.timelabel);
             this.Controls.Add(this.lbl_luot);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Name = "ChessBoardForm";
             this.Text = "ChessBoardForm";
             this.groupBox1.ResumeLayout(false);

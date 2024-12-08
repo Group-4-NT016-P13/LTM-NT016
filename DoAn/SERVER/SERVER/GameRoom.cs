@@ -11,6 +11,9 @@ namespace chess
     {
         private TcpClient player1;
         private TcpClient player2;
+        private string P1_color;
+        private string P2_color;
+        private string Time;
         private int currentPlayerIndex = 0;
 
         public GameRoom(TcpClient player1, TcpClient player2 = null)
@@ -29,6 +32,30 @@ namespace chess
             {
                 player2 = client;
             }
+        }
+        public string GetTime()
+        { 
+            return Time; 
+        }
+        public void SetTime(string time)
+        {
+            Time = time;
+        }
+        public void SetP1Color(string color)
+        {
+            P1_color = color;   
+        }
+        public void SetP2Color(string color)
+        {
+            P2_color = color;
+        }
+        public string P1Color()
+        {
+            return P1_color;
+        }
+        public string P2Color()
+        {
+            return P2_color;
         }
 
         public bool IsFull()
@@ -49,6 +76,11 @@ namespace chess
         public bool IsCurrentPlayer(TcpClient client)
         {
             return (currentPlayerIndex == 0 && player1 == client) || (currentPlayerIndex == 1 && player2 == client);
+        }
+        public void SetIndexByColor()
+        {
+            // Nếu màu của P1 là trắng thì index là 0, nếu đen thì index là 1
+            currentPlayerIndex = (P1_color == "WHITE") ? 0 : 1;
         }
 
         public void SendMove(string from, string to, TcpClient client)
@@ -101,6 +133,21 @@ namespace chess
                 // Xóa phòng khi không còn người chơi
                 Console.WriteLine("Game room is empty and will be removed.");
             }
+        }
+
+        public void SendMessageToAll(string message)
+        {
+            if (player1 != null)
+            {
+                SendMessage(player1, message);
+            }
+
+            if (player2 != null)
+            {
+                SendMessage(player2, message);
+            }
+
+            Console.WriteLine($"Broadcast message: {message}");
         }
     }
 }

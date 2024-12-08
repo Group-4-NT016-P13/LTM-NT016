@@ -14,7 +14,6 @@ namespace chess
         private TcpClient tcpClient;
         private NetworkStream stream;
         public event Action<bool> MatchFound;
-       
         public string PieceColor;
         public string RoomID;
         public int Rating = 1200;
@@ -51,6 +50,12 @@ namespace chess
             return await SendRequestAsync(request);
         }
 
+        public async Task<string> Logout(string username)
+        {
+            string request = $"LOGOUT {username}";
+            return await SendRequestAsync(request);
+        }
+
         public async Task<string> LoginAsync(string username, string password)
         {
             string request = $"LOGIN {username} {password}";
@@ -68,42 +73,6 @@ namespace chess
             string resquest = $"UPDATEPASSWORD {password} {email}";
             return await SendRequestAsync(resquest);
         }
-       /* public async Task<List<(string Username, int Rank)>> GetUserListAsync()
-        {
-            try
-            {
-                // Gửi yêu cầu tới server
-                string request = "GET_USERS";
-                string response = await SendRequestAsync(request);
-
-                // Kiểm tra phản hồi
-                if (response.StartsWith("USER_LIST"))
-                {
-                    var users = new List<(string Username, int Rank)>();
-                    string[] lines = response.Split('\n');
-
-                    foreach (var line in lines.Skip(1)) // Bỏ qua dòng đầu tiên "USER_LIST"
-                    {
-                        string[] parts = line.Split(' ');
-                        if (parts.Length == 2 && int.TryParse(parts[1], out int rank))
-                        {
-                            users.Add((parts[0], rank));
-                        }
-                    }
-
-                    return users;
-                }
-
-                Console.WriteLine("Failed to retrieve user list.");
-                return new List<(string Username, int Rank)>();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error retrieving user list: {ex.Message}");
-                return new List<(string Username, int Rank)>();
-            }
-        }*/
-
         public async Task<string> FindMatchAsync()
         {
             string response = await SendRequestAsync("FIND_MATCH");
@@ -117,12 +86,7 @@ namespace chess
             return response;
         }
 
-        /*public async Task<string> SendMoveAsync(string from, string to)
-        {
-            string request = $"MOVE {from} {to}";
-            return await SendRequestAsync(request);
-        }*/
-
+      
         public async Task<string> SendRequestAsync(string request)
         {
             try
@@ -200,51 +164,7 @@ namespace chess
                 Console.WriteLine($"Error receiving match found: {ex.Message}");
             }
         }
-        /*public async Task ListenForOpponentMovesAsync()
-        {
-            try
-            {
-                while (true)
-                {
-                    string message = await ReceiveResponseAsync();
-                    if (message.StartsWith("MOVE"))
-                    {
-                        var parts = message.Split(' ');
-                        if (parts.Length == 3)
-                        {
-                            string from = parts[1];
-                            string to = parts[2];
-                            OnOpponentMoved(from, to); // Cập nhật bàn cờ cho nước đi của đối thủ
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error receiving opponent move: {ex.Message}");
-            }
-        }*/
-       /* public async Task ListenForMoves()
-        {
-            while (true)
-            {
-                byte[] buffer = new byte[256];
-                int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
-                string message = Encoding.ASCII.GetString(buffer, 0, bytesRead);
-
-                // Giả sử định dạng nước đi từ server là "MOVE from to"
-                if (message.StartsWith("MOVE"))
-                {
-                    var parts = message.Split(' ');
-                    if (parts.Length == 3)
-                    {
-                        string from = parts[1];
-                        string to = parts[2];
-                        OpponentMoved?.Invoke(from, to);
-                    }
-                }
-            }
-        }*/
+      
         public async Task SendMove(string from, string to)
         {
             // Chuyển nước đi thành dạng tin nhắn và gửi tới server
@@ -253,13 +173,6 @@ namespace chess
             await SendMessageToServer(message); // Gọi phương thức gửi tin nhắn tới server
         }
 
-        /*public async Task SendWinner(int winnerID, int bonusPoint)
-        {
-            // Chuyển nước đi thành dạng tin nhắn và gửi tới server
-            // Ví dụ: "MOVE <từ> <đến>"
-            string message = $"UPDATE {winnerID} {bonusPoint}";
-            await SendMessageToServer(message); // Gọi phương thức gửi tin nhắn tới server
-        }*/
         private async Task SendMessageToServer(string message)
         {
             try
@@ -278,39 +191,6 @@ namespace chess
                 Console.WriteLine($"Error sending message to server: {ex.Message}");
             }
         }
-        /*public async Task<string> ReceiveMoveAsync()
-        {
-            while (true)
-            {
-                string message = await ReceiveResponseAsync();
-                if (message.StartsWith("MOVE"))
-                {
-                    var parts = message.Split(' ');
-                    if (parts.Length == 3)
-                    {
-                        string from = parts[1];
-                        string to = parts[2];
-                        return $"MOVE {from} {to}"; // Trả về nước đi đã nhận
-                    }
-                }
-            }
-        }*/
-       /* public async Task<string> ReceiveChatAsync()
-        {
-            while (true)
-            {
-                string message = await ReceiveResponseAsync();
-                if (message.StartsWith("CHAT"))
-                {
-
-                    return message;
-                }
-            }
-        }*/
-      /*  protected virtual void OnOpponentMoved(string from, string to)
-        {
-            OpponentMoved?.Invoke(from, to);
-        }*/
         public async Task SendMessageAsync(string message)
         {
             byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
