@@ -19,26 +19,26 @@ namespace chess
         }
         
         private TcpListener tcpListener;
-        private Queue<TcpClient> waitingPlayers = new Queue<TcpClient>();
         private const string connectionString = "Data Source=players.db;Version=3;";
+        private Queue<TcpClient> waitingPlayers = new Queue<TcpClient>();//dành cho tìm trận ngẫu nhiên
         private List<GameRoom> gameRooms = new List<GameRoom>();
-        private Dictionary<string, GameRoom> rooms = new Dictionary<string, GameRoom>();
+        private Dictionary<string, GameRoom> rooms = new Dictionary<string, GameRoom>();// tạo phòng bình thường
 
         public TCPServer(int localPort)
         {
             tcpListener = new TcpListener(IPAddress.Any, localPort);
-            CreateDatabase();
+            CreateDatabase();// gói hàm tạo database
         }
 
         public async Task StartServer()
         {
             tcpListener.Start();
-            Console.WriteLine("Server started, waiting for connections...");
+            Console.WriteLine("Server dang khoi dong, cho doi ket noi...");
 
             while (true)
             {
                 TcpClient client = await tcpListener.AcceptTcpClientAsync();
-                Console.WriteLine($"Client connected: {client.Client.RemoteEndPoint}");
+                Console.WriteLine($"Client ket noi: {client.Client.RemoteEndPoint}");
                 _ = HandleClient(client); // Xử lý mỗi client trong một task riêng biệt
             }
         }
@@ -56,7 +56,7 @@ namespace chess
                     if (bytesRead == 0) break;
 
                     string request = Encoding.UTF8.GetString(buffer, 0, bytesRead).Trim();
-                    Console.WriteLine($"Received: {request}");
+                    Console.WriteLine($"Nhan yeu cau: {request}");
                     string response = ProcessRequest(request, client);
 
                     byte[] responseData = Encoding.UTF8.GetBytes(response + "\n");
@@ -74,7 +74,7 @@ namespace chess
                     client.Close();
                     RemovePlayer(client);
                 }
-                Console.WriteLine("Client disconnected.");
+                Console.WriteLine("Client ngat ket noi.");
             }
         }
 
@@ -87,32 +87,32 @@ namespace chess
             {
                 // xử lí liên quan đến đăng nhập đăng ký
                 case "REGISTER":
-                    return parts.Length >= 4 ? RegisterPlayer(parts[1], parts[2], parts[3]) : "ERROR: Invalid request format";
+                    return parts.Length >= 4 ? RegisterPlayer(parts[1], parts[2], parts[3]) : "ERROR: yêu cầu không rõ";
                 case "LOGIN":
-                    return parts.Length >= 3 ? LoginPlayer(parts[1], parts[2]) : "ERROR: Invalid request format";
+                    return parts.Length >= 3 ? LoginPlayer(parts[1], parts[2]) : "ERROR: yêu cầu không rõ";
                 case "CHECK":
-                    return parts.Length >= 2 ? CheckMail(parts[1]) : "ERROR: Invalid request format";
+                    return parts.Length >= 2 ? CheckMail(parts[1]) : "ERROR: yêu cầu không rõ";
                 case "UPDATEPASSWORD":
-                    return parts.Length >= 3 ? UpdatePassword(parts[1], parts[2]) : "ERROR: Invalid request format";
+                    return parts.Length >= 3 ? UpdatePassword(parts[1], parts[2]) : "ERROR: yêu cầu không rõ";
                 case "LOGOUT":
-                    return parts.Length >=2 ? LogoutPlayer(parts[1]) : "ERROR: Invalid request format";
+                    return parts.Length >=2 ? LogoutPlayer(parts[1]) : "ERROR: yêu cầu không rõ";
                 case "UPDATE":
-                    return parts.Length >= 2 ? GetRating(parts[1]).ToString() : "ERROR: Invalid request format";
+                    return parts.Length >= 2 ? GetRating(parts[1]).ToString() : "ERROR: yêu cầu không rõ";
                 //xử lí liên quan đến game
                 case "FIND_MATCH":
                     return FindMatch(client);
                 case "MOVE":
-                    return parts.Length >= 3 ? HandleMove(parts[1], parts[2], client) : "ERROR: Invalid move format";
+                    return parts.Length >= 3 ? HandleMove(parts[1], parts[2], client) : "ERROR: yêu cầu nước đi không rõ";
                 case "CHAT":
-                    return parts.Length >= 2 ? HandleChat(string.Join(" ", parts.Skip(1)), client) : "ERROR: Empty message";
+                    return parts.Length >= 2 ? HandleChat(string.Join(" ", parts.Skip(1)), client) : "ERROR: tin nhắn rỗng";
                 case "CREATEROOM":
-                    return parts.Length >= 3 ? CreateRoom(parts[1], parts[2],parts[3],client) : "ERROR: Cant Create";
+                    return parts.Length >= 3 ? CreateRoom(parts[1], parts[2],parts[3],client) : "ERROR: Không thể tạo";
                 case "FINDROOM":
-                    return parts.Length >= 2 ? JoinRoom(parts[1], client) : "ERROR: Invalid request format";
+                    return parts.Length >= 2 ? JoinRoom(parts[1], client) : "ERROR: yêu cầu không rõ";
                case "GAMEOVER":
-                    return parts.Length >=5 ? GameOver(parts[1], parts[2], parts[3], parts[4],client) : "ERROR: Invalid request format";
+                    return parts.Length >=5 ? GameOver(parts[1], parts[2], parts[3], parts[4],client) : "ERROR: yêu cầu không rõ";
                 default:
-                    return "ERROR: Unknown command";
+                    return "ERROR: Không rõ lệnh";
             }
         }
 
@@ -131,16 +131,16 @@ namespace chess
                     {
                         command.ExecuteNonQuery();
 
-                        return $"SUCCESS: Logged in {username} {email} 1200";
+                        return $"SUCCESS: đăng ký {username} {email} 1200";
                     }
                     catch (SQLiteException ex)
                     {
                         // Lỗi khóa duy nhất (unique constraint)
                         if (ex.ResultCode == SQLiteErrorCode.Constraint)
                         {
-                            return "ERROR: Username or Password already exists";
+                            return "ERROR: Tên đăng nhập hoặc Email đã tồn tại";
                         }
-                        return "ERROR: Database error: " + ex.Message;
+                        return "ERROR: Lỗi Database: " + ex.Message;
                     }
                 }
             }
@@ -173,14 +173,14 @@ namespace chess
                             int IsLoggedIn = reader.GetInt32(3);
                             if (IsLoggedIn == 1)
                             {
-                                return "ERROR: Account is already logged in from another client.";
+                                return "ERROR: tài khoản đã được đăng nhập ở nơi khác.";
                             }
                             UpdateLoginStatus(username, true, connection);
-                            return $"SUCCESS: Logged in {Username} {Email} {Rating}";
+                            return $"SUCCESS: đăng nhập {Username} {Email} {Rating}";
                         }
                         else
                         {
-                            return "ERROR: Invalid username or password";
+                            return "ERROR: Tên Đăng Nhập không đúng";
                         }
                     }
                 }
@@ -192,7 +192,7 @@ namespace chess
             {
                 connection.Open();
                 UpdateLoginStatus(username, false, connection);
-                return $"SUCCESS: {username} has logged out.";
+                return $"SUCCESS: {username} đã đăng xuất.";
             }
         }
         private void UpdateLoginStatus(string username, bool isLoggedIn, SQLiteConnection connection)
@@ -224,11 +224,11 @@ namespace chess
 
                     if (count > 0)
                     {
-                        return "SUCCESS: Email exists";
+                        return "SUCCESS: Email tồn tại";
                     }
                     else
                     {
-                        return "ERROR: Email not found";
+                        return "ERROR: Email không tìm thấy";
                     }
                 }
             }
@@ -249,7 +249,7 @@ namespace chess
 
                     if (count == 0)
                     {
-                        return "ERROR: Email not found";
+                        return "ERROR: Email không tìm thấy";
                     }
                 }
 
@@ -265,16 +265,16 @@ namespace chess
 
                     if (rowsAffected > 0)
                     {
-                        return "SUCCESS: Password updated";
+                        return "SUCCESS: đã cập nhật";
                     }
                     else
                     {
-                        return "ERROR: Password update failed";
+                        return "ERROR: cập nhật thất bại";
                     }
                 }
             }
         }
-        private string UpdateRating(string username, int ratingChange)
+        private void UpdateRating(string username, int ratingChange)
         {
             using (var connection = new SQLiteConnection(connectionString))
             {
@@ -290,7 +290,7 @@ namespace chess
 
                     if (count == 0)
                     {
-                        return "ERROR: Username not found";
+                        Console.WriteLine("ERROR: khong tim thay nguoi dung");
                     }
                 }
 
@@ -306,14 +306,43 @@ namespace chess
 
                     if (rowsAffected > 0)
                     {
-                        return "SUCCESS: Rating updated";
+                        Console.WriteLine("SUCCESS: diem duoc cap nhat");
                     }
                     else
                     {
-                        return "ERROR: Rating update failed";
+                        Console.WriteLine("ERROR: cap nhat that bai");
                     }
                 }
             }
+        }
+
+        private string GetRating(string username)
+        {
+            int? rating;
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                // Truy vấn để lấy Rating theo username
+                string query = "SELECT Rating FROM players WHERE Username = @Username";
+
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Username", username);
+
+                    object result = command.ExecuteScalar();
+
+                    if (result != null && result != DBNull.Value)
+                    {
+                        rating = Convert.ToInt32(result);
+                    }
+                    else
+                    {
+                        rating = null; // Username không tồn tại hoặc Rating không có giá trị
+                    }
+                }
+            }
+            return $"COMPLETE {rating}";
         }
 
 
@@ -323,14 +352,14 @@ namespace chess
             {
                 if (rooms.ContainsKey(roomid))
                 {
-                    return "ERROR: Room already exists.";
+                    return "ERROR: Phòng đã tồn tại";
                 }
 
                 var newRoom = new GameRoom(client);
                 newRoom.SetTime(time);
                 newRoom.SetP1Color(piececolor);
                 rooms[roomid] = newRoom;
-                return $"SUCCESS: Room {roomid} created.";
+                return $"SUCCESS: Room {roomid} đã tạo";
             }
         }
 
@@ -341,7 +370,7 @@ namespace chess
             {
                 if (!rooms.ContainsKey(roomId))
                 {
-                    return "ERROR: Room does not exist.";
+                    return "ERROR: Phòng không tồn tại";
                 }
 
                 var existingRoom = rooms[roomId];
@@ -349,13 +378,13 @@ namespace chess
                 // Kiểm tra nếu client đã ở trong phòng
                 if (existingRoom.HasPlayer(client))
                 {
-                    return "ERROR: You are already in this room.";
+                    return "ERROR: bạn đang ở trong phòng";
                 }
 
                 // Kiểm tra nếu phòng đã đầy
                 if (existingRoom.IsFull())
                 {
-                    return "ERROR: Room is already full.";
+                    return "ERROR: Phòng đã đầy";
                 }
                 RoomTime = existingRoom.GetTime();
                 // Thêm người chơi vào phòng
@@ -392,14 +421,12 @@ namespace chess
                     SendMessage(player1, "MATCH_FOUND WHITE");
                     SendMessage(player2, "MATCH_FOUND BLACK");
                     SendMessage(player1, "MATCH_FOUND WHITE");
-                    //  SendMessageBoardState(player1, gameRoom);
-                    // SendMessageBoardState(player2, gameRoom);
-
-                    return "SUCCESS: Match started";
+        
+                    return "SUCCESS: Trận bắt đầu";
                 }
                 else
                 {
-                    return "WAITING: Finding match...";
+                    return "WAITING: đang tìm trận...";
                 }
             }
         }
@@ -408,29 +435,29 @@ namespace chess
         {
             GameRoom existingRoom = null;
 
-            // Kiểm tra và lấy phòng từ từ điển
+           
             if (rooms.ContainsKey(roomid))
             {
                 existingRoom = rooms[roomid];
             }
-            // Kiểm tra và lấy phòng từ danh sách
+           
             else if (gameRooms.Any(r => r.HasPlayer(client)))
             {
                 existingRoom = gameRooms.FirstOrDefault(r => r.HasPlayer(client));
             }
 
-            // Nếu không tìm thấy phòng
+            
             if (existingRoom == null)
             {
-                return "ERROR: Room not found";
+                return "ERROR: Phòng không tìm thấy";
             }
 
-            // Lấy màu sắc của người chơi
+           
             string P1 = existingRoom.P1Color();
             string P2 = existingRoom.P2Color();
             string message = "GAMEOVER!!";
 
-            // Xử lý kết quả thắng
+           
             if (result == "wins!")
             {
                 if (P1 == P_piececolor)
@@ -443,17 +470,17 @@ namespace chess
                 }
             }
 
-            // Gửi thông điệp GAMEOVER đến tất cả người chơi
+            
             existingRoom.SendMessageToAll(message);
 
-            // Xóa phòng khỏi từ điển (nếu tồn tại)
+            
             if (rooms.ContainsKey(roomid))
             {
                 rooms.Remove(roomid);
                 Console.WriteLine("Xóa phòng  thành công");
             }
 
-            // Xóa phòng khỏi danh sách (nếu tồn tại)
+            
             if (gameRooms.Contains(existingRoom))
             {
                 gameRooms.Remove(existingRoom);
@@ -463,34 +490,6 @@ namespace chess
             return message;
         }
 
-        private string GetRating(string username)
-        {
-            int? rating;
-            using (var connection = new SQLiteConnection(connectionString))
-            {
-                connection.Open();
-
-                // Truy vấn để lấy Rating theo username
-                string query = "SELECT Rating FROM players WHERE Username = @Username";
-
-                using (var command = new SQLiteCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@Username", username);
-
-                    object result = command.ExecuteScalar();
-
-                    if (result != null && result != DBNull.Value)
-                    {
-                        rating = Convert.ToInt32(result);
-                    }
-                    else
-                    {
-                        rating = null; // Username không tồn tại hoặc Rating không có giá trị
-                    }
-                }
-            }
-            return $"SUCCESS {rating}";
-        }
 
         private string HandleMove(string from, string to, TcpClient client)
         {
@@ -511,16 +510,16 @@ namespace chess
 
             if (room == null)
             {
-                return "ERROR: Not in a game room.";
+                return "ERROR: không có phòng";
             }
 
             if (!room.IsCurrentPlayer(client))
             {
-                return "ERROR: Not your turn";
+                return "ERROR: không phải lượt bạn";
             }
 
             room.SendMove(from, to, client);
-            return "SUCCESS: Move sent";
+            return "SUCCESS: Đã gửi nước đi";
         }
         private string HandleChat(string message, TcpClient client)
         {
@@ -540,11 +539,11 @@ namespace chess
 
             if (room == null)
             {
-                return "ERROR: Not in a game room.";
+                return "ERROR: không có phòng";
             }
 
             room.SendChatMessage(message, client);
-            return "SUCCESS: Message sent";
+            return "SUCCESS: Tin nhắn đã gửi";
         }
 
         private void RemovePlayer(TcpClient client)
@@ -576,7 +575,7 @@ namespace chess
              }
              catch (Exception ex)
              {
-                 Console.WriteLine($"Error sending message: {ex.Message}");
+                 Console.WriteLine($"loi gui tin nhan: {ex.Message}");
              }
          }
     
@@ -614,7 +613,7 @@ namespace chess
                     using (var insertCommand = new SQLiteCommand(insertQuery, connection))
                     {
                         insertCommand.ExecuteNonQuery();
-                        Console.WriteLine("Admin user added.");
+                        Console.WriteLine("da them addmin");
                     }
                 }
             }

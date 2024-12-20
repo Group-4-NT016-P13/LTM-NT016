@@ -88,8 +88,7 @@ namespace chess
             TcpClient opponent = (client == player1) ? player2 : player1;
             // Gửi nước đi cho cả hai người chơi
             SendMessage(opponent, $"MOVE {from} {to}");
-            // SendMessage(client, $"MOVE {from} {to}");
-            Console.WriteLine($"Player {(currentPlayerIndex + 1)} moved from {from} to {to}");
+            Console.WriteLine($"Player {(currentPlayerIndex + 1)} di tu {from} den {to}");
             UpdateCurrentPlayer();
         }
 
@@ -109,7 +108,7 @@ namespace chess
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error sending message: {ex.Message}");
+                Console.WriteLine($"Lỗi gửi message: {ex.Message}");
             }
         }
         public void SendChatMessage(string message, TcpClient client)
@@ -117,7 +116,7 @@ namespace chess
             TcpClient opponent = (client == player1) ? player2 : player1;
             SendMessage(opponent, $"CHAT {message}");
             SendMessage(client, $"CHAT {message}");
-            Console.WriteLine($"Chat message from player {(currentPlayerIndex + 1)}: {message}");
+            Console.WriteLine($"Tin nhan tu player Player {(currentPlayerIndex + 1)}: {message}");
         }
 
         public void RemovePlayer(TcpClient client)
@@ -131,7 +130,7 @@ namespace chess
             if (player1 == null && player2 == null)
             {
                 // Xóa phòng khi không còn người chơi
-                Console.WriteLine("Game room is empty and will be removed.");
+                Console.WriteLine("Phong khong con nguoi choi xoa phong.");
             }
         }
 
@@ -147,7 +146,7 @@ namespace chess
                 SendMessage(player2, message);
             }
 
-            Console.WriteLine($"Broadcast message: {message}");
+            Console.WriteLine($"gui den player trong phong : {message}");
         }
     }
 }
