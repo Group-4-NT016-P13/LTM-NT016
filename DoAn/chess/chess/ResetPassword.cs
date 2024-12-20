@@ -87,9 +87,7 @@ namespace chess
 
         private void Return_btn_Click(object sender, EventArgs e)
         {
-            Login_2_ log = new Login_2_();
             this.Close();
-            log.ShowDialog();
         }
 
         private async void Comfirm_btn_Click(object sender, EventArgs e)

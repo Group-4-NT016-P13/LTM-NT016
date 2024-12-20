@@ -1,6 +1,6 @@
 ﻿namespace chess
 {
-    partial class Form1
+    partial class AIPlay
     {
         /// <summary>
         /// Required designer variable.

@@ -225,9 +225,7 @@ namespace chess
 
         private void Return_btn_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Login_2_ log = new Login_2_();
-            log.Show();
+            this.Close();
         }
     }
 }

@@ -49,7 +49,7 @@ namespace chess
             pictureBoxes = new PictureBox[8, 8];
             chessBoard = new ChessBoard();
             InitializeBoard();
-            //timeLeft = 600;
+            
             timeLeft = int.Parse(time);
             TimeSelected = int.Parse(time);
 
@@ -133,7 +133,7 @@ namespace chess
             isPlayerTurn = true;
             while (true)
             {
-                string respone = await client.ReceiveResponseAsync();
+                string respone = await client.ReceiveResponse();
                 if (respone.StartsWith("CHAT"))
                 {
                     rtb_historychat.Invoke((MethodInvoker)delegate
@@ -150,11 +150,11 @@ namespace chess
             {
                 try
                 {
-                    string response = await client.ReceiveResponseAsync();
+                    string response = await client.ReceiveResponse();
 
                     if (response.StartsWith("CHAT"))
                     {
-                        string chatMessage = response.Substring(5).Trim(); // Bỏ prefix "CHAT "
+                        string chatMessage = response.Substring(5).Trim(); 
 
                         // Phân biệt tin nhắn của mình hay của đối thủ
                         string sender = chatMessage.Split(':')[0]; // Lấy người gửi (dạng "username: message")
@@ -224,7 +224,7 @@ namespace chess
             if (selectedCell == null)
             {
                 // Chọn ô cờ
-                //ChessPiece piece = chessBoard.Board[row, col];
+                
                 if (chessBoard.Board[row, col] != null && chessBoard.Board[row, col].Color == currentPlayer)
                 {
                     selectedCell = (row, col);
@@ -284,8 +284,7 @@ namespace chess
         {
             string result = GetGameResult();
             if (result == null) return;
-            string request = $"GAMEOVER {RoomID_txt.Text} {result} {client.Username}";
-            string response = await client.SendRequestAsync(request);
+            string response = await client.GameOver(RoomID_txt.Text, result, client.Username);
             string[] responseParts = response.Split(' ');
             if(response.StartsWith("GAMEOVER!!"))
             {
@@ -302,7 +301,7 @@ namespace chess
             timer.Stop();
             MessageBox.Show(result, "Game Over");
             isGameOver = true;
-           // this.Close();
+            this.Close();
         }
 
         private void UpdatePictureBox(int row, int col)
@@ -396,13 +395,9 @@ namespace chess
             isPlayerTurn = !isPlayerTurn;
 
             // Đặt lại thời gian
-            timeLeft = isPlayerTurn ? TimeSelected : TimeSelected; // Thời gian cho người chơi hiện tại
-            opponentTimeLeft = !isPlayerTurn ? TimeSelected : TimeSelected; // Thời gian cho đối thủ
-
-            // Cập nhật lại label thời gian
+            timeLeft = isPlayerTurn ? TimeSelected : TimeSelected; 
+            opponentTimeLeft = !isPlayerTurn ? TimeSelected : TimeSelected; 
             UpdateTimeLabels();
-
-            // Bắt đầu lại timer cho người chơi hiện tại
             timer.Start();
         }
         private async void btn_send_Click(object sender, EventArgs e)
@@ -411,7 +406,7 @@ namespace chess
             if (!string.IsNullOrEmpty(message))
             {
                 string formattedMessage = $"{client.Username}: {message}"; // Định dạng tin nhắn kèm username
-                await client.SendMessageAsync("CHAT " + formattedMessage); // Gửi tin nhắn qua server
+                await client.SendMessage("CHAT " + formattedMessage); // Gửi tin nhắn qua server
                 txb_message.Text = ""; // Xóa nội dung sau khi gửi
             }
         }

@@ -5,14 +5,14 @@ using System.Windows.Forms;
 
 namespace chess
 {
-    public partial class Form1 : Form
+    public partial class AIPlay : Form
     {
         private ChessBoard chessBoard;
         private PictureBox[,] pictureBoxes;
         private (int, int)? selectedCell = null;
         private PieceColor currentPlayer = PieceColor.White;
 
-        public Form1()
+        public AIPlay()
         {
             InitializeComponent();
             chessBoard = new ChessBoard();

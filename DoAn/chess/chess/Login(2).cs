@@ -88,7 +88,7 @@ namespace chess
                         MatchGame matchGame = new MatchGame(client);
                         matchGame.FormClosed += (s, args) =>
                         {
-                            client.Close(); // Ngắt kết nối tới server
+                            client.Close();// Ngắt kết nối tới server
                             Application.Exit(); // Đóng hoàn toàn ứng dụng
                             
                         };
@@ -179,6 +179,7 @@ namespace chess
             this.Hide();
             SignUp log = new SignUp();
             log.Show();
+            log.FormClosed += (s, a) => this.Show();
         }
 
         private void Forgot_lb_Click(object sender, EventArgs e)
@@ -186,6 +187,7 @@ namespace chess
             this.Hide();
             Recovery log = new Recovery();
             log.Show();
+            log.FormClosed += (s, a) => this.Show();
         }
     }
 }

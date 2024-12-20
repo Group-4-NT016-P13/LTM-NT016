@@ -158,7 +158,7 @@
             this.Controls.Add(this.Email_lb);
             this.Controls.Add(this.Email_txt);
             this.Name = "Recovery";
-            this.Text = "Recovery";
+            this.Text = "s";
             this.ResumeLayout(false);
             this.PerformLayout();
 

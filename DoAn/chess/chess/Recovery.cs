@@ -174,11 +174,10 @@ namespace chess
                 this.Hide();
                 ResetPassword reset = new ResetPassword(client);
                 reset.Show();
-               
             }
             else if (string.IsNullOrEmpty(PassCode_txt.Text))
             {
-                MessageBox.Show("Vui lòng nhập mã xác nhận  ");
+                MessageBox.Show("Vui lòng nhập mã xác nhận");
             }
             else
             {
@@ -186,11 +185,14 @@ namespace chess
             }
         }
 
+        private void Reset_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         private void Return_btn_Click(object sender, EventArgs e)
         {
             this.Close();
-            Login_2_ log = new Login_2_();
-            log.Show();
         }
     }
 }

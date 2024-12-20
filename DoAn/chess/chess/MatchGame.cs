@@ -12,7 +12,6 @@ namespace chess
         private bool isFindingMatch = false;
         private string timeInText;
         private string Time;
-       // private bool WaitingPlayer = false;
 
         public MatchGame(TCPClient client)
         {
@@ -43,25 +42,25 @@ namespace chess
             lblStatus.Text = "Đang tìm trận...";
 
             // Gửi yêu cầu tìm trận
-            await FindMatchAsync();
+            await FindMatch();
         }
 
-        private async Task FindMatchAsync()
+        private async Task FindMatch()
         {
             try
             {
                 // Gửi yêu cầu tìm trận tới server
-                string response = await client.FindMatchAsync();
+                string response = await client.FindMatch();
 
                 // Kiểm tra phản hồi từ server
                 if (response.StartsWith("WAITING"))
                 {
                     lblStatus.Text = "Chờ đợi người chơi khác...";
-                    await ListenForMatchAsync(); // Lắng nghe thông báo tìm thấy trận
+                    await ListenForMatch(); 
                 }
                 else if (response.StartsWith("MATCH_FOUND"))
                 {
-                    OpenChessBoard(response,true); // Mở bàn cờ nếu tìm thấy trận
+                    OpenChessBoard(response,true); 
                 }
                 else
                 {
@@ -76,27 +75,27 @@ namespace chess
             }
         }
 
-        private async Task ListenForMatchAsync()
+        private async Task ListenForMatch()
         {
             while (true)
             {
                 // Đọc phản hồi từ server về việc tìm trận
-                string response = await client.WaitForMatchAsync();
+                string response = await client.ReceiveResponse();
 
                 if (response.StartsWith("MATCH_FOUND"))
                 {
-                    OpenChessBoard(response, true); // Mở bàn cờ khi trận đấu được tìm thấy
+                    OpenChessBoard(response, true); 
                     break;
                 }
                 else if(response.StartsWith("START"))
                 {
-                    OpenChessBoard(response,false); // Mở bàn cờ khi trận đấu được tìm thấy
+                    OpenChessBoard(response,false); 
                     break;
                 }    
                 else
                 {
                     lblStatus.Text = response;
-                    await Task.Delay(1000); // Đợi một chút rồi kiểm tra lại
+                    await Task.Delay(1000); 
                 }
             }
         }
@@ -123,7 +122,7 @@ namespace chess
             {
                 Time = "300";
             }    
-            // Mở bàn cờ không chặn giao diện
+            
             ChessBoardForm chessBoard = new ChessBoardForm(client, playerColor,Time);
             this.Hide();
             chessBoard.Show();
@@ -132,7 +131,7 @@ namespace chess
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            Form1 form1 = new Form1();
+            AIPlay form1 = new AIPlay();
             this.Hide();
             form1.Show();
            
@@ -183,13 +182,10 @@ namespace chess
                 Notification_txt.Text = "Vui lòng nhập mã phòng.";
                 return;
             }
-
             string roomId = RoomID_txt.Text.Trim();
-            string request = $"FINDROOM {roomId}";
-
             try
             {
-                string response = await client.SendRequestAsync(request);
+                string response = await client.FindRoom(roomId);
                 string[] parts = response.Split(' ');
                 if (response.StartsWith("SUCCESS"))
                 {
@@ -215,26 +211,31 @@ namespace chess
 
         private async void CreateRoom2_btn_Click(object sender, EventArgs e)
         {
-            
+            string response = string.Empty;
+            bool isTimeChecked = TimeList_cb.CheckedItems.Count> 0;
+            bool isColorChecked = ColorList_cb.CheckedItems.Count> 0;
+            if(!isTimeChecked || !isColorChecked)
+            {
+                Notification_txt.Text = "Có cài đặt chưa được chọn, vui lòng chọn đủ các cài đặt";
+                return;
+            }
             string roomId = RoomID_txt.Text.Trim();
-            string request = null;
             if(client.PieceColor == "Trắng")
             {
-                request = $"CREATEROOM {roomId} WHITE {Time}";
+                 response = await client.CreateRoom(roomId, "WHITE", Time);
             }    
             else if (client.PieceColor == "Đen")
             {
-                request = $"CREATEROOM {roomId} BLACK {Time}";
+                 response = await client.CreateRoom(roomId, "BLACK", Time);
             }    
             try
             {
-                string response = await client.SendRequestAsync(request);
                 string[] parts = response.Split(' ');
                 if (response.StartsWith("SUCCESS"))
                 {
                     client.RoomID = parts[2];
                     Notification_txt.Text = parts[0];
-                    await ListenForMatchAsync(); // Lắng nghe thông báo tìm thấy người chơi
+                    await ListenForMatch(); // Lắng nghe thông báo tìm thấy người chơi
                 }
                 else if (response.StartsWith("ERROR"))
                 {
@@ -364,19 +365,14 @@ namespace chess
 
         private async void  Reload_btn_Click(object sender, EventArgs e)
         {
-            string request = $"UPDATE {client.Username}";
             try
             {
-                string response = await client.SendRequestAsync(request);
+                string response = await client.UpdateRating(client.Username);
                 string[] parts = response.Split(' ');
-                if (response.StartsWith("SUCCESS"))
+                if (response.StartsWith("COMPLETE"))
                 {
                     Rating_txt.Text = parts[1];
                   
-                }
-                else if (response.StartsWith("ERROR"))
-                {
-                    MessageBox.Show("Lỗi gói tin");
                 }
                 else
                 {

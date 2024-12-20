@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace chess
 {
@@ -35,7 +36,6 @@ namespace chess
             {
                 await tcpClient.ConnectAsync(IPAddress.Parse(serverIP), serverPort);
                 stream = tcpClient.GetStream();
-                // _ = ListenForOpponentMovesAsync();
                 Console.WriteLine("Connected to the server.");
             }
             catch (Exception ex)
@@ -47,69 +47,123 @@ namespace chess
         public async Task<string> RegisterAsync(string username, string password, string email)
         {
             string request = $"REGISTER {username} {password} {email}";
-            return await SendRequestAsync(request);
+            return await SendRequest(request);
         }
 
         public async Task<string> Logout(string username)
         {
             string request = $"LOGOUT {username}";
-            return await SendRequestAsync(request);
+            return await SendRequest(request);
         }
 
         public async Task<string> LoginAsync(string username, string password)
         {
             string request = $"LOGIN {username} {password}";
-            return await SendRequestAsync(request);
+            return await SendRequest(request);
         }
 
         public async Task<string> CheckMailAsync(string email)
         {
             string request = $"CHECK {email}";
-            return await SendRequestAsync(request);
+            return await SendRequest(request);
         }
 
         public async Task<string> UpdatePassword(string password,string email)
         {
-            string resquest = $"UPDATEPASSWORD {password} {email}";
-            return await SendRequestAsync(resquest);
+            string request = $"UPDATEPASSWORD {password} {email}";
+            return await SendRequest(request);
         }
-        public async Task<string> FindMatchAsync()
+
+        public async Task<string> UpdateRating(string username)
         {
-            string response = await SendRequestAsync("FIND_MATCH");
+            string request = $"UPDATE {username}";
+            return await SendRequest(request);
+        }
+
+        public async Task<string> CreateRoom(string roomid, string hostcolor, string time)
+        {
+            string request = $"CREATEROOM {roomid} {hostcolor} {time}";
+            return await SendRequest(request);
+        }
+
+        public async Task<string> FindRoom(string roomid)
+        {
+            string request = $"FINDROOM {roomid}";
+            return await SendRequest(request);
+        }
+        public async Task<string> FindMatch()
+        {
+            string response = await SendRequest("FIND_MATCH");
 
             if (response.StartsWith("WAITING"))
             {
                 Console.WriteLine("Waiting for a match...");
-                await ListenForMatchFoundAsync(); // Lắng nghe thông báo tìm thấy trận đấu
+                await ListenForMatchFound(); // Lắng nghe thông báo tìm thấy trận đấu
             }
 
             return response;
         }
 
-      
-        public async Task<string> SendRequestAsync(string request)
+        public async Task SendMove(string from, string to)
+        {
+            string message = $"MOVE {from} {to}";
+            await SendMessageToServer(message);
+        }
+
+        public async Task<string> GameOver(string roomid, string result,string username)
+        {
+            string request = $"GAMEOVER {roomid} {result} {username}";
+            return await SendRequest(request);
+        }
+        //dùng để gửi các nước đi k cần phản hồi
+        private async Task SendMessageToServer(string message)
         {
             try
             {
                 if (!tcpClient.Connected)
                 {
-                    throw new InvalidOperationException("Client is not connected to the server.");
+                    throw new InvalidOperationException("Client chua ket noi voi server");
+                }
+
+                byte[] data = Encoding.UTF8.GetBytes(message + "\n"); // Thêm ký tự xuống dòng để đánh dấu kết thúc tin nhắn
+                await stream.WriteAsync(data, 0, data.Length);
+                await stream.FlushAsync(); // Đảm bảo dữ liệu được gửi ngay lập tức
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Loi gui tin nhan den server: {ex.Message}");
+            }
+        }
+        //gửi tin nhắn
+        public async Task SendMessage(string message)
+        {
+            byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
+            await stream.WriteAsync(data, 0, data.Length);
+        }
+        //gửi các yêu cầu cần phản hồi
+        public async Task<string> SendRequest(string request)
+        {
+            try
+            {
+                if (!tcpClient.Connected)
+                {
+                    throw new InvalidOperationException("Client chua ket noi voi server");
                 }
 
                 byte[] data = Encoding.UTF8.GetBytes(request + "\n");
                 await stream.WriteAsync(data, 0, data.Length);
                 await stream.FlushAsync();
 
-                return await ReceiveResponseAsync();
+                return await ReceiveResponse();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error sending request: {ex.Message}");
+                Console.WriteLine($"loi gui yeu cau: {ex.Message}");
                 return "ERROR";
             }
         }
 
-        public async Task<string> ReceiveResponseAsync()
+        public async Task<string> ReceiveResponse()
         {
             try
             {
@@ -119,41 +173,21 @@ namespace chess
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error receiving response: {ex.Message}");
-                return "ERROR";
+                Console.WriteLine($"loi nhan phan hoi: {ex.Message}");
+                return "ERROR" + ex.Message;
             }
-        }
-        public async Task<string> WaitForMatchAsync()
-        {
-            try
-            {
-                // Liên tục đọc phản hồi từ server đến khi trận đấu có sẵn
-                return await ReadResponseAsync();
-            }
-            catch (Exception ex)
-            {
-                return "ERROR: " + ex.Message;
-            }
-        }
-        private async Task<string> ReadResponseAsync()
-        {
-            byte[] buffer = new byte[1024];
-            int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
-            return Encoding.UTF8.GetString(buffer, 0, bytesRead).Trim();
         }
 
-        public async Task ListenForMatchFoundAsync()
+        public async Task ListenForMatchFound()
         {
             try
             {
                 while (true)
                 {
-                    string message = await ReceiveResponseAsync();
+                    string message = await ReceiveResponse();
                     if (message.StartsWith("MATCH_FOUND"))
                     {
                         bool isWhite = message.Contains("WHITE");
-                        // Mở form bàn cờ trên UI thread
-                        //OpenChessBoardForm(isWhite);
                         MatchFound?.Invoke(isWhite);
                         break;
                     }
@@ -164,38 +198,7 @@ namespace chess
                 Console.WriteLine($"Error receiving match found: {ex.Message}");
             }
         }
-      
-        public async Task SendMove(string from, string to)
-        {
-            // Chuyển nước đi thành dạng tin nhắn và gửi tới server
-            // Ví dụ: "MOVE <từ> <đến>"
-            string message = $"MOVE {from} {to}";
-            await SendMessageToServer(message); // Gọi phương thức gửi tin nhắn tới server
-        }
 
-        private async Task SendMessageToServer(string message)
-        {
-            try
-            {
-                if (!tcpClient.Connected)
-                {
-                    throw new InvalidOperationException("Client is not connected to the server.");
-                }
-
-                byte[] data = Encoding.UTF8.GetBytes(message + "\n"); // Thêm ký tự xuống dòng để đánh dấu kết thúc tin nhắn
-                await stream.WriteAsync(data, 0, data.Length);
-                await stream.FlushAsync(); // Đảm bảo dữ liệu được gửi ngay lập tức
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error sending message to server: {ex.Message}");
-            }
-        }
-        public async Task SendMessageAsync(string message)
-        {
-            byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
-            await stream.WriteAsync(data, 0, data.Length);
-        }
         public void Close()
         {
             stream?.Close();

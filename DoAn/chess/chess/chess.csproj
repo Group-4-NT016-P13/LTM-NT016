@@ -101,11 +101,11 @@
       <DependentUpon>ChessBoardForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ChessPiece.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="AIPlay.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="AIPlay.Designer.cs">
+      <DependentUpon>AIPlay.cs</DependentUpon>
     </Compile>
     <Compile Include="Game.cs" />
     <Compile Include="Login%282%29.cs">
@@ -150,8 +150,8 @@
     <EmbeddedResource Include="ChessBoardForm.resx">
       <DependentUpon>ChessBoardForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="AIPlay.resx">
+      <DependentUpon>AIPlay.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login%282%29.resx">
       <DependentUpon>Login%282%29.cs</DependentUpon>
