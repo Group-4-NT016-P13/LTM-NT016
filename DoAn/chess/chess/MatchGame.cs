@@ -374,10 +374,6 @@ namespace chess
                     Rating_txt.Text = parts[1];
                   
                 }
-                else
-                {
-                    MessageBox.Show("Lỗi");
-                }
             }
             catch (Exception ex)
             {

@@ -94,13 +94,6 @@ namespace chess
         public async Task<string> FindMatch()
         {
             string response = await SendRequest("FIND_MATCH");
-
-            if (response.StartsWith("WAITING"))
-            {
-                Console.WriteLine("Waiting for a match...");
-                await ListenForMatchFound(); // Lắng nghe thông báo tìm thấy trận đấu
-            }
-
             return response;
         }
 
@@ -177,28 +170,6 @@ namespace chess
                 return "ERROR" + ex.Message;
             }
         }
-
-        public async Task ListenForMatchFound()
-        {
-            try
-            {
-                while (true)
-                {
-                    string message = await ReceiveResponse();
-                    if (message.StartsWith("MATCH_FOUND"))
-                    {
-                        bool isWhite = message.Contains("WHITE");
-                        MatchFound?.Invoke(isWhite);
-                        break;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error receiving match found: {ex.Message}");
-            }
-        }
-
         public void Close()
         {
             stream?.Close();
