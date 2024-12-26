@@ -14,7 +14,6 @@ namespace chess
     {
         private TcpClient tcpClient;
         private NetworkStream stream;
-        public event Action<bool> MatchFound;
         public string PieceColor;
         public string RoomID;
         public int Rating = 1200;
@@ -70,7 +69,7 @@ namespace chess
 
         public async Task<string> UpdatePassword(string password,string email)
         {
-            string request = $"UPDATEPASSWORD {password} {email}";
+            string request = $"UPDATE_PASSWORD {password} {email}";
             return await SendRequest(request);
         }
 
@@ -80,15 +79,15 @@ namespace chess
             return await SendRequest(request);
         }
 
-        public async Task<string> CreateRoom(string roomid, string hostcolor, string time)
+        public async Task<string> CreateRoom(string roomid, string hostcolor, string time,string username)
         {
-            string request = $"CREATEROOM {roomid} {hostcolor} {time}";
+            string request = $"CREATE_ROOM {roomid} {hostcolor} {time} {username}";
             return await SendRequest(request);
         }
 
-        public async Task<string> FindRoom(string roomid)
+        public async Task<string> FindRoom(string roomid,string username)
         {
-            string request = $"FINDROOM {roomid}";
+            string request = $"FIND_ROOM {roomid} {username}";
             return await SendRequest(request);
         }
         public async Task<string> FindMatch()
@@ -96,7 +95,16 @@ namespace chess
             string response = await SendRequest("FIND_MATCH");
             return response;
         }
-
+        public async Task<string> CreateRandomRoom(string roomid, string hostcolor, string time, string username)
+        {
+            string request = $"CREATE_RANDOM_ROOM {roomid} {hostcolor} {time} {username}";
+            return await SendRequest(request);
+        }
+        public async Task<string> FindRandomRoom(string username)
+        {
+            string request = $"FIND_RANDOM_ROOM {username}";
+            return await SendRequest(request);
+        }
         public async Task SendMove(string from, string to)
         {
             string message = $"MOVE {from} {to}";
@@ -105,7 +113,7 @@ namespace chess
 
         public async Task<string> GameOver(string roomid, string result,string username)
         {
-            string request = $"GAMEOVER {roomid} {result} {username}";
+            string request = $"GAME_OVER {roomid} {result} {username}";
             return await SendRequest(request);
         }
         //dùng để gửi các nước đi k cần phản hồi

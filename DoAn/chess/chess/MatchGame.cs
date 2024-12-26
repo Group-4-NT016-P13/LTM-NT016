@@ -30,50 +30,6 @@ namespace chess
             return new string(Enumerable.Repeat(chars, length)
                 .Select(s => s[random.Next(s.Length)]).ToArray());
         }
-        private async void btn_find_Click(object sender, EventArgs e)
-        {
-            if (isFindingMatch)
-            {
-                MessageBox.Show("Đang tìm trận. Vui lòng chờ...");
-                return;
-            }
-
-            isFindingMatch = true;
-            lblStatus.Text = "Đang tìm trận...";
-
-            // Gửi yêu cầu tìm trận
-            await FindMatch();
-        }
-
-        private async Task FindMatch()
-        {
-            try
-            {
-                // Gửi yêu cầu tìm trận tới server
-                string response = await client.FindMatch();
-
-                // Kiểm tra phản hồi từ server
-                if (response.StartsWith("WAITING"))
-                {
-                    lblStatus.Text = "Chờ đợi người chơi khác...";
-                    await ListenForMatch(); 
-                }
-                else if (response.StartsWith("MATCH_FOUND"))
-                {
-                    OpenChessBoard(response,true); 
-                }
-                else
-                {
-                    lblStatus.Text = "Lỗi: " + response;
-                    isFindingMatch = false;
-                }
-            }
-            catch (Exception ex)
-            {
-                lblStatus.Text = "Lỗi: " + ex.Message;
-                isFindingMatch = false;
-            }
-        }
 
         private async Task ListenForMatch()
         {
@@ -81,7 +37,7 @@ namespace chess
             {
                 // Đọc phản hồi từ server về việc tìm trận
                 string response = await client.ReceiveResponse();
-
+                string[] parts = response.Split(' ');
                 if (response.StartsWith("MATCH_FOUND"))
                 {
                     OpenChessBoard(response, true); 
@@ -89,12 +45,14 @@ namespace chess
                 }
                 else if(response.StartsWith("START"))
                 {
+                    Opponentname_txt.Text = parts[2];
+                    OpponentRating_txt.Text = parts[3];
+                    await Task.Delay(10000);
                     OpenChessBoard(response,false); 
                     break;
                 }    
                 else
-                {
-                    lblStatus.Text = response;
+                { 
                     await Task.Delay(1000); 
                 }
             }
@@ -116,14 +74,19 @@ namespace chess
                 return;
             }
 
-            string playerColor = parts[1]; // "WHITE" hoặc "BLACK"
+            string playerColor = parts[1];// "WHITE" hoặc "BLACK"
+            string opponentname = parts[2];
+            if(parts.Length ==1)
+            {
+                opponentname = "Đối Thủ";
+            }    
             MessageBox.Show($"Trận đấu đã tìm thấy! Bạn đang chơi với màu: {playerColor}");
             if(IsRandom)
             {
                 Time = "300";
             }    
             
-            ChessBoardForm chessBoard = new ChessBoardForm(client, playerColor,Time);
+            ChessBoardForm chessBoard = new ChessBoardForm(client, playerColor,opponentname,Time);
             this.Hide();
             chessBoard.Show();
             chessBoard.FormClosed += (s, e) => this.Show();
@@ -136,15 +99,41 @@ namespace chess
             form1.Show();
            
         }
-        private void FindRoom_btn_Click(object sender, EventArgs e)
+
+        private void CreateRandom_btn_Click(object sender, EventArgs e)
         {
-            Find_btn.Visible = !Find_btn.Visible;
+            CreateRandom_btn.Visible = !CreateRandom_btn.Visible;
             FindRoom_btn.Visible = !FindRoom_btn.Visible;
             CreateRoom_btn.Visible = !CreateRoom_btn.Visible;
             AIPlay_btn.Visible = !AIPlay_btn.Visible;
-            lblStatus.Visible = !lblStatus.Visible;
 
+            RoomID_txt.Visible = !RoomID_txt.Visible;
+            Notification_txt.Visible = !Notification_txt.Visible;
 
+            OpponentRating_txt.Visible = !OpponentRating_txt.Visible;
+            OpponenRating_lb.Visible = !OpponenRating_lb.Visible;
+            OpponentName_lb.Visible = !OpponentName_lb.Visible;
+            Opponentname_txt.Visible = !Opponentname_txt.Visible;
+            RoomID_txt.Text = GenerateRandomString(5);
+            CreateRandom2_btn.Visible = !CreateRandom2_btn.Visible;
+            TimeSelect_lb.Visible = !TimeSelect_lb.Visible;
+            TimeList_cb.Visible = !TimeList_cb.Visible;
+            PieceColorSelect_lb.Visible = !PieceColorSelect_lb.Visible;
+            ColorList_cb.Visible = !ColorList_cb.Visible;
+            Return_btn.Visible = !Return_btn.Visible;
+        }
+        private void FindRoom_btn_Click(object sender, EventArgs e)
+        {
+            CreateRandom_btn.Visible = !CreateRandom_btn.Visible;
+            FindRoom_btn.Visible = !FindRoom_btn.Visible;
+            CreateRoom_btn.Visible = !CreateRoom_btn.Visible;
+            AIPlay_btn.Visible = !AIPlay_btn.Visible;
+            FindRandom_btn.Visible = !FindRandom_btn.Visible;
+           
+            OpponentRating_txt.Visible = !OpponentRating_txt.Visible;
+            OpponenRating_lb.Visible = !OpponenRating_lb.Visible;
+            OpponentName_lb.Visible = !OpponentName_lb.Visible;
+            Opponentname_txt.Visible = !Opponentname_txt.Visible;
             RoomID_txt.Text = string.Empty;
             RoomID_txt.Visible = !RoomID_txt.Visible;
             RoomID_txt.ReadOnly = false;
@@ -157,15 +146,18 @@ namespace chess
 
         private  void CreateRoom_btn_Click(object sender, EventArgs e)
         {
-            Find_btn.Visible = !Find_btn.Visible;
+            CreateRandom_btn.Visible = !CreateRandom_btn.Visible;
             FindRoom_btn.Visible = !FindRoom_btn.Visible;
             CreateRoom_btn.Visible = !CreateRoom_btn.Visible;
             AIPlay_btn.Visible = !AIPlay_btn.Visible;
-            lblStatus.Visible = !lblStatus.Visible;
-
+            
             RoomID_txt.Visible = !RoomID_txt.Visible;
             Notification_txt.Visible = !Notification_txt.Visible;
 
+            OpponentRating_txt.Visible = !OpponentRating_txt.Visible;
+            OpponenRating_lb.Visible = !OpponenRating_lb.Visible;
+            OpponentName_lb.Visible = !OpponentName_lb.Visible;
+            Opponentname_txt.Visible = !Opponentname_txt.Visible;
             RoomID_txt.Text = GenerateRandomString(5);
             CreateRoom2_btn.Visible = ! CreateRoom2_btn.Visible;
             TimeSelect_lb.Visible = !TimeSelect_lb.Visible;
@@ -185,13 +177,16 @@ namespace chess
             string roomId = RoomID_txt.Text.Trim();
             try
             {
-                string response = await client.FindRoom(roomId);
+                string response = await client.FindRoom(roomId,client.Username);
                 string[] parts = response.Split(' ');
                 if (response.StartsWith("SUCCESS"))
                 {
-                    client.RoomID = parts[2];
-                    Time = parts[3]; 
+                    Opponentname_txt.Text= parts[2];
+                    OpponentRating_txt.Text = parts[3];
+                    client.RoomID = parts[4];
+                    Time = parts[5]; 
                     Notification_txt.Text = "Phòng đã tìm thấy! Đang kết nối...";
+                    await Task.Delay(10000);
                     OpenChessBoard(response,false,Time);
                 }
                 else if (response.StartsWith("ERROR"))
@@ -222,11 +217,11 @@ namespace chess
             string roomId = RoomID_txt.Text.Trim();
             if(client.PieceColor == "Trắng")
             {
-                 response = await client.CreateRoom(roomId, "WHITE", Time);
+                 response = await client.CreateRoom(roomId, "WHITE", Time,client.Username);
             }    
             else if (client.PieceColor == "Đen")
             {
-                 response = await client.CreateRoom(roomId, "BLACK", Time);
+                 response = await client.CreateRoom(roomId, "BLACK", Time,client.Username);
             }    
             try
             {
@@ -240,6 +235,78 @@ namespace chess
                 else if (response.StartsWith("ERROR"))
                 {
                     Notification_txt.Text = "Phòng đã tồn tại";
+                }
+                else
+                {
+                    Notification_txt.Text = $"Lỗi: {response}";
+                }
+            }
+            catch (Exception ex)
+            {
+                Notification_txt.Text = $"Lỗi: {ex.Message}";
+            }
+        }
+        private async void CreateRandom2_btn_Click(object sender, EventArgs e)
+        {
+            string response = string.Empty;
+            bool isTimeChecked = TimeList_cb.CheckedItems.Count > 0;
+            bool isColorChecked = ColorList_cb.CheckedItems.Count > 0;
+            if (!isTimeChecked || !isColorChecked)
+            {
+                Notification_txt.Text = "Có cài đặt chưa được chọn, vui lòng chọn đủ các cài đặt";
+                return;
+            }
+            string roomId = RoomID_txt.Text.Trim();
+            if (client.PieceColor == "Trắng")
+            {
+                response = await client.CreateRandomRoom(roomId, "WHITE", Time, client.Username);
+            }
+            else if (client.PieceColor == "Đen")
+            {
+                response = await client.CreateRandomRoom(roomId, "BLACK", Time, client.Username);
+            }
+            try
+            {
+                string[] parts = response.Split(' ');
+                if (response.StartsWith("SUCCESS"))
+                {
+                    client.RoomID = parts[2];
+                    Notification_txt.Text = parts[0];
+                    await ListenForMatch(); // Lắng nghe thông báo tìm thấy người chơi
+                }
+                else if (response.StartsWith("ERROR"))
+                {
+                    Notification_txt.Text = "Phòng đã tồn tại";
+                }
+                else
+                {
+                    Notification_txt.Text = $"Lỗi: {response}";
+                }
+            }
+            catch (Exception ex)
+            {
+                Notification_txt.Text = $"Lỗi: {ex.Message}";
+            }
+        }
+        private async void FindRandom_btn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string response = await client.FindRandomRoom(client.Username);
+                string[] parts = response.Split(' ');
+                if (response.StartsWith("SUCCESS"))
+                {
+                    Opponentname_txt.Text = parts[2];
+                    OpponentRating_txt.Text = parts[3];
+                    client.RoomID = parts[4];
+                    Time = parts[5];
+                    Notification_txt.Text = "Phòng đã tìm thấy! Đang kết nối...";
+                    await Task.Delay(10000);
+                    OpenChessBoard(response, false, Time);
+                }
+                else if (response.StartsWith("ERROR"))
+                {
+                    Notification_txt.Text = "Phòng không tồn tại. Vui lòng kiểm tra lại.";
                 }
                 else
                 {
@@ -328,19 +395,26 @@ namespace chess
         private void Return_btn_Click(object sender, EventArgs e)
         {
             Return_btn.Visible = !Return_btn.Visible;
-            Find_btn.Visible = !Find_btn.Visible;
+            CreateRandom_btn.Visible = !CreateRandom_btn.Visible;
             FindRoom_btn.Visible = !FindRoom_btn.Visible;
             CreateRoom_btn.Visible = !CreateRoom_btn.Visible;
             AIPlay_btn.Visible = !AIPlay_btn.Visible;
-            lblStatus.Visible = !lblStatus.Visible;
-
+           
             RoomID_txt.Visible = !RoomID_txt.Visible;
             Notification_txt.Visible = !Notification_txt.Visible;
 
-            if(FindRoom2_btn.Visible)
+            if(CreateRandom2_btn.Visible)
+            {
+                CreateRandom2_btn.Visible = !CreateRandom2_btn.Visible;
+            }
+            if (FindRoom2_btn.Visible)
             {
                 FindRoom2_btn.Visible = !FindRoom2_btn.Visible;
             }
+            if(FindRandom_btn.Visible)
+            {
+                FindRandom_btn.Visible = ! FindRandom_btn.Visible;
+            }    
             if (CreateRoom2_btn.Visible)
             {
                 CreateRoom2_btn.Visible = !CreateRoom2_btn.Visible;
@@ -361,6 +435,22 @@ namespace chess
             {
                 ColorList_cb.Visible = !ColorList_cb.Visible;
             }
+            if(Opponentname_txt.Visible)
+            {
+                Opponentname_txt.Visible = !Opponentname_txt.Visible;
+            }    
+            if(OpponentName_lb.Visible)
+            {
+                OpponentName_lb.Visible = !OpponentName_lb.Visible;
+            }
+            if (OpponentRating_txt.Visible)
+            {
+                OpponentRating_txt.Visible = !OpponentRating_txt.Visible;
+            }
+            if (OpponenRating_lb.Visible)
+            {
+                OpponenRating_lb.Visible = !OpponenRating_lb.Visible;
+            }
         }
 
         private async void  Reload_btn_Click(object sender, EventArgs e)
@@ -380,5 +470,7 @@ namespace chess
                 Notification_txt.Text = $"Lỗi: {ex.Message}";
             }
         }
+
+      
     }
 }

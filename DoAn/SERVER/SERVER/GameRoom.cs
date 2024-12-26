@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace chess
 {
@@ -11,9 +12,12 @@ namespace chess
     {
         private TcpClient player1;
         private TcpClient player2;
+        private string P1_username;
+        private string P2_username;
         private string P1_color;
         private string P2_color;
         private string Time;
+        private string RoomId;
         private int currentPlayerIndex = 0;
 
         public GameRoom(TcpClient player1, TcpClient player2 = null)
@@ -33,6 +37,14 @@ namespace chess
                 player2 = client;
             }
         }
+        public void SetRoomId(string roomid)
+        {
+            RoomId = roomid;
+        }
+        public string GetRoomId()
+        {
+            return RoomId;
+        }
         public string GetTime()
         { 
             return Time; 
@@ -40,6 +52,22 @@ namespace chess
         public void SetTime(string time)
         {
             Time = time;
+        }
+        public void SetP1Username(string username)
+        {
+            P1_username = username;
+        }
+        public void SetP2Username(string username)
+        {
+            P2_username = username;
+        }
+        public string GetP1Username()
+        {
+            return P1_username;
+        }
+        public string GetP2Username()
+        {
+            return P2_username;
         }
         public void SetP1Color(string color)
         {

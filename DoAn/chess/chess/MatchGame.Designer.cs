@@ -29,8 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MatchGame));
-            this.Find_btn = new System.Windows.Forms.Button();
-            this.lblStatus = new System.Windows.Forms.Label();
+            this.CreateRandom_btn = new System.Windows.Forms.Button();
             this.AIPlay_btn = new System.Windows.Forms.Button();
             this.Email_txt = new System.Windows.Forms.TextBox();
             this.Username_txt = new System.Windows.Forms.TextBox();
@@ -48,32 +47,27 @@
             this.LogOut_btn = new System.Windows.Forms.Button();
             this.Return_btn = new System.Windows.Forms.Button();
             this.Reload_btn = new System.Windows.Forms.PictureBox();
+            this.Opponentname_txt = new System.Windows.Forms.TextBox();
+            this.OpponentName_lb = new System.Windows.Forms.Label();
+            this.OpponenRating_lb = new System.Windows.Forms.Label();
+            this.OpponentRating_txt = new System.Windows.Forms.TextBox();
+            this.CreateRandom2_btn = new System.Windows.Forms.Button();
+            this.FindRandom_btn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Reload_btn)).BeginInit();
             this.SuspendLayout();
             // 
-            // Find_btn
+            // CreateRandom_btn
             // 
-            this.Find_btn.BackColor = System.Drawing.Color.White;
-            this.Find_btn.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Find_btn.Location = new System.Drawing.Point(236, 130);
-            this.Find_btn.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.Find_btn.Name = "Find_btn";
-            this.Find_btn.Size = new System.Drawing.Size(213, 48);
-            this.Find_btn.TabIndex = 0;
-            this.Find_btn.Text = " Trận Ngẫu Nhiên";
-            this.Find_btn.UseVisualStyleBackColor = false;
-            this.Find_btn.Click += new System.EventHandler(this.btn_find_Click);
-            // 
-            // lblStatus
-            // 
-            this.lblStatus.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus.Location = new System.Drawing.Point(305, 96);
-            this.lblStatus.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(75, 19);
-            this.lblStatus.TabIndex = 1;
-            this.lblStatus.Text = "Chưa tìm";
-            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CreateRandom_btn.BackColor = System.Drawing.Color.White;
+            this.CreateRandom_btn.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CreateRandom_btn.Location = new System.Drawing.Point(236, 123);
+            this.CreateRandom_btn.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.CreateRandom_btn.Name = "CreateRandom_btn";
+            this.CreateRandom_btn.Size = new System.Drawing.Size(213, 55);
+            this.CreateRandom_btn.TabIndex = 0;
+            this.CreateRandom_btn.Text = "Tạo Phòng Ngẫu Nhiên";
+            this.CreateRandom_btn.UseVisualStyleBackColor = false;
+            this.CreateRandom_btn.Click += new System.EventHandler(this.CreateRandom_btn_Click);
             // 
             // AIPlay_btn
             // 
@@ -286,6 +280,80 @@
             this.Reload_btn.TabStop = false;
             this.Reload_btn.Click += new System.EventHandler(this.Reload_btn_Click);
             // 
+            // Opponentname_txt
+            // 
+            this.Opponentname_txt.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Opponentname_txt.Location = new System.Drawing.Point(133, 335);
+            this.Opponentname_txt.Name = "Opponentname_txt";
+            this.Opponentname_txt.ReadOnly = true;
+            this.Opponentname_txt.Size = new System.Drawing.Size(177, 25);
+            this.Opponentname_txt.TabIndex = 28;
+            this.Opponentname_txt.Visible = false;
+            // 
+            // OpponentName_lb
+            // 
+            this.OpponentName_lb.AutoSize = true;
+            this.OpponentName_lb.BackColor = System.Drawing.Color.Transparent;
+            this.OpponentName_lb.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OpponentName_lb.ForeColor = System.Drawing.Color.White;
+            this.OpponentName_lb.Location = new System.Drawing.Point(157, 295);
+            this.OpponentName_lb.Name = "OpponentName_lb";
+            this.OpponentName_lb.Size = new System.Drawing.Size(131, 21);
+            this.OpponentName_lb.TabIndex = 29;
+            this.OpponentName_lb.Text = "Tên Đối Thủ";
+            this.OpponentName_lb.Visible = false;
+            // 
+            // OpponenRating_lb
+            // 
+            this.OpponenRating_lb.AutoSize = true;
+            this.OpponenRating_lb.BackColor = System.Drawing.Color.Transparent;
+            this.OpponenRating_lb.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OpponenRating_lb.ForeColor = System.Drawing.Color.White;
+            this.OpponenRating_lb.Location = new System.Drawing.Point(417, 295);
+            this.OpponenRating_lb.Name = "OpponenRating_lb";
+            this.OpponenRating_lb.Size = new System.Drawing.Size(76, 21);
+            this.OpponenRating_lb.TabIndex = 30;
+            this.OpponenRating_lb.Text = "Rating";
+            this.OpponenRating_lb.Visible = false;
+            // 
+            // OpponentRating_txt
+            // 
+            this.OpponentRating_txt.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OpponentRating_txt.Location = new System.Drawing.Point(363, 335);
+            this.OpponentRating_txt.Name = "OpponentRating_txt";
+            this.OpponentRating_txt.ReadOnly = true;
+            this.OpponentRating_txt.Size = new System.Drawing.Size(177, 25);
+            this.OpponentRating_txt.TabIndex = 31;
+            this.OpponentRating_txt.Visible = false;
+            // 
+            // CreateRandom2_btn
+            // 
+            this.CreateRandom2_btn.BackColor = System.Drawing.Color.White;
+            this.CreateRandom2_btn.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CreateRandom2_btn.Location = new System.Drawing.Point(548, 89);
+            this.CreateRandom2_btn.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.CreateRandom2_btn.Name = "CreateRandom2_btn";
+            this.CreateRandom2_btn.Size = new System.Drawing.Size(136, 29);
+            this.CreateRandom2_btn.TabIndex = 32;
+            this.CreateRandom2_btn.Text = "Tạo Phòng";
+            this.CreateRandom2_btn.UseVisualStyleBackColor = false;
+            this.CreateRandom2_btn.Visible = false;
+            this.CreateRandom2_btn.Click += new System.EventHandler(this.CreateRandom2_btn_Click);
+            // 
+            // FindRandom_btn
+            // 
+            this.FindRandom_btn.BackColor = System.Drawing.Color.White;
+            this.FindRandom_btn.Font = new System.Drawing.Font("Courier New", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FindRandom_btn.Location = new System.Drawing.Point(547, 89);
+            this.FindRandom_btn.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.FindRandom_btn.Name = "FindRandom_btn";
+            this.FindRandom_btn.Size = new System.Drawing.Size(136, 29);
+            this.FindRandom_btn.TabIndex = 33;
+            this.FindRandom_btn.Text = "Ngẫu Nhiên";
+            this.FindRandom_btn.UseVisualStyleBackColor = false;
+            this.FindRandom_btn.Visible = false;
+            this.FindRandom_btn.Click += new System.EventHandler(this.FindRandom_btn_Click);
+            // 
             // MatchGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -293,6 +361,11 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(695, 458);
+            this.Controls.Add(this.FindRandom_btn);
+            this.Controls.Add(this.CreateRandom2_btn);
+            this.Controls.Add(this.OpponentRating_txt);
+            this.Controls.Add(this.OpponenRating_lb);
+            this.Controls.Add(this.OpponentName_lb);
             this.Controls.Add(this.Reload_btn);
             this.Controls.Add(this.Return_btn);
             this.Controls.Add(this.LogOut_btn);
@@ -305,13 +378,13 @@
             this.Controls.Add(this.Username_txt);
             this.Controls.Add(this.Email_txt);
             this.Controls.Add(this.AIPlay_btn);
-            this.Controls.Add(this.lblStatus);
-            this.Controls.Add(this.Find_btn);
+            this.Controls.Add(this.CreateRandom_btn);
             this.Controls.Add(this.CreateRoom2_btn);
             this.Controls.Add(this.TimeSelect_lb);
             this.Controls.Add(this.TimeList_cb);
             this.Controls.Add(this.PieceColorSelect_lb);
             this.Controls.Add(this.ColorList_cb);
+            this.Controls.Add(this.Opponentname_txt);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Name = "MatchGame";
@@ -324,8 +397,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button Find_btn;
-        private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.Button CreateRandom_btn;
         private System.Windows.Forms.Button AIPlay_btn;
         private System.Windows.Forms.TextBox Email_txt;
         private System.Windows.Forms.TextBox Username_txt;
@@ -343,5 +415,11 @@
         private System.Windows.Forms.Button LogOut_btn;
         private System.Windows.Forms.Button Return_btn;
         private System.Windows.Forms.PictureBox Reload_btn;
+        private System.Windows.Forms.TextBox Opponentname_txt;
+        private System.Windows.Forms.Label OpponentName_lb;
+        private System.Windows.Forms.Label OpponenRating_lb;
+        private System.Windows.Forms.TextBox OpponentRating_txt;
+        private System.Windows.Forms.Button CreateRandom2_btn;
+        private System.Windows.Forms.Button FindRandom_btn;
     }
 }

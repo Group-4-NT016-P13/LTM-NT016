@@ -13,7 +13,7 @@ namespace chess
     {
         private TCPClient client;
         private string playerColor; // Màu của người chơi ("WHITE" hoặc "BLACK")
-        private bool isRandom;
+        private string opponentname;
         private PieceColor currentPlayer;
         private PictureBox[,] pictureBoxes;
         private (int, int)? selectedCell = null;
@@ -26,13 +26,14 @@ namespace chess
         private Timer timer;
         private bool isGameOver = false;
        
-        public ChessBoardForm(TCPClient client, string playerColor,string time)
+        public ChessBoardForm(TCPClient client, string playerColor,string opponentname,string time)
         {
             InitializeComponent();
           
             Username_txt.Text = client.Username;
             RoomID_txt.Text = client.RoomID;
             this.client = client;
+            this.opponentname = opponentname;
             this.playerColor = playerColor.ToLower();
             this.currentPlayer = this.playerColor == "white" ? PieceColor.White : PieceColor.Black;
             this.isPlayerTurn = playerColor == "WHITE";
@@ -44,7 +45,7 @@ namespace chess
             }
             else if(this.playerColor == "black")
             {
-                lbl_luot.Text = "Lượt của đối thủ ";
+                lbl_luot.Text = $"Lượt của {opponentname}";
             }    
             pictureBoxes = new PictureBox[8, 8];
             chessBoard = new ChessBoard();
@@ -100,7 +101,7 @@ namespace chess
             }    
             else
             {
-                lbl_luot.Text = "Lượt của đối thủ";
+                lbl_luot.Text = $"Lượt của {opponentname}";
             }
         }
 
@@ -124,7 +125,7 @@ namespace chess
             if (timeLeft <= 0)
             {
                 timer.Stop();
-                MessageBox.Show("Hết thời gian! Đến lượt của đối thủ.");
+                MessageBox.Show($"Hết thời gian! Đến lượt của {opponentname}");
                 SwitchTurn(); // Chuyển lượt cho đối thủ
             }
         }
@@ -138,7 +139,7 @@ namespace chess
                 {
                     rtb_historychat.Invoke((MethodInvoker)delegate
                     {
-                        rtb_historychat.AppendText("Đối thủ: " + respone.Substring(5) + "\n");
+                        rtb_historychat.AppendText($"{opponentname}: " + respone.Substring(5) + "\n");
                     });
                 }    
             }
@@ -164,14 +165,14 @@ namespace chess
                         {
                             rtb_historychat.Invoke((MethodInvoker)delegate
                             {
-                                rtb_historychat.AppendText($"Bạn: {message}\n"); // Tin nhắn của bạn
+                                rtb_historychat.AppendText($"{client.Username}: {message}\n"); // Tin nhắn của bạn
                             });
                         }
                         else
                         {
                             rtb_historychat.Invoke((MethodInvoker)delegate
                             {
-                                rtb_historychat.AppendText($"Đối thủ: {message}\n"); // Tin nhắn của đối thủ
+                                rtb_historychat.AppendText($"{opponentname}: {message}\n"); // Tin nhắn của đối thủ
                             });
                         }
                     }
@@ -252,7 +253,7 @@ namespace chess
                     timeLeft = TimeSelected; // Đặt lại thời gian cho người chơi hiện tại
                     opponentTimeLeft = TimeSelected;
                     isPlayerTurn = false; // Chuyển lượt cho đối thủ
-                    lbl_luot.Text = "Lượt của đối thủ";
+                    lbl_luot.Text = $"Lượt của {opponentname}";
                 }
                 else
                 {

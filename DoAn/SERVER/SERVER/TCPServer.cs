@@ -20,8 +20,7 @@ namespace chess
         
         private TcpListener tcpListener;
         private const string connectionString = "Data Source=players.db;Version=3;";
-        private Queue<TcpClient> waitingPlayers = new Queue<TcpClient>();//dành cho tìm trận ngẫu nhiên
-        private List<GameRoom> gameRooms = new List<GameRoom>();
+        private List<GameRoom> randomRoom = new List<GameRoom>();
         private Dictionary<string, GameRoom> rooms = new Dictionary<string, GameRoom>();// tạo phòng bình thường
 
         public TCPServer(int localPort)
@@ -72,7 +71,6 @@ namespace chess
                 if (client.Connected)
                 {
                     client.Close();
-                    RemovePlayer(client);
                 }
                 Console.WriteLine("Client ngat ket noi.");
             }
@@ -92,24 +90,26 @@ namespace chess
                     return parts.Length >= 3 ? LoginPlayer(parts[1], parts[2]) : "ERROR: yêu cầu không rõ";
                 case "CHECK":
                     return parts.Length >= 2 ? CheckMail(parts[1]) : "ERROR: yêu cầu không rõ";
-                case "UPDATEPASSWORD":
+                case "UPDATE_PASSWORD":
                     return parts.Length >= 3 ? UpdatePassword(parts[1], parts[2]) : "ERROR: yêu cầu không rõ";
                 case "LOGOUT":
                     return parts.Length >=2 ? LogoutPlayer(parts[1]) : "ERROR: yêu cầu không rõ";
                 case "UPDATE":
                     return parts.Length >= 2 ? GetRating(parts[1]).ToString() : "ERROR: yêu cầu không rõ";
                 //xử lí liên quan đến game
-                case "FIND_MATCH":
-                    return FindMatch(client);
                 case "MOVE":
                     return parts.Length >= 3 ? HandleMove(parts[1], parts[2], client) : "ERROR: yêu cầu nước đi không rõ";
                 case "CHAT":
                     return parts.Length >= 2 ? HandleChat(string.Join(" ", parts.Skip(1)), client) : "ERROR: tin nhắn rỗng";
-                case "CREATEROOM":
-                    return parts.Length >= 3 ? CreateRoom(parts[1], parts[2],parts[3],client) : "ERROR: Không thể tạo";
-                case "FINDROOM":
-                    return parts.Length >= 2 ? JoinRoom(parts[1], client) : "ERROR: yêu cầu không rõ";
-               case "GAMEOVER":
+                case "CREATE_ROOM":
+                    return parts.Length >= 4 ? CreateRoom(parts[1], parts[2], parts[3], parts[4],client) : "ERROR: Không thể tạo";
+                case "FIND_ROOM":
+                    return parts.Length >= 2 ? JoinRoom(parts[1], parts[2] ,client) : "ERROR: yêu cầu không rõ";
+                case "CREATE_RANDOM_ROOM":
+                    return parts.Length >= 4 ? CreateRandomRoom(parts[1],parts[2], parts[3], parts[4], client) : "ERROR: yêu cầu không rõ";
+                case "FIND_RANDOM_ROOM":
+                    return parts.Length >= 2 ? JoinRandomRoom(parts[1], client) : "ERROR: yêu cầu không rõ";
+                case "GAME_OVER":
                     return parts.Length >=5 ? GameOver(parts[1], parts[2], parts[3], parts[4],client) : "ERROR: yêu cầu không rõ";
                 default:
                     return "ERROR: Không rõ lệnh";
@@ -344,9 +344,36 @@ namespace chess
             }
             return $"COMPLETE {rating}";
         }
+        private string GetRatingForRoom(string username)
+        {
+            int? rating;
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
 
+                // Truy vấn để lấy Rating theo username
+                string query = "SELECT Rating FROM players WHERE Username = @Username";
 
-        private string CreateRoom(string roomid,string piececolor,string time,TcpClient client)
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Username", username);
+
+                    object result = command.ExecuteScalar();
+
+                    if (result != null && result != DBNull.Value)
+                    {
+                        rating = Convert.ToInt32(result);
+                    }
+                    else
+                    {
+                        rating = null; // Username không tồn tại hoặc Rating không có giá trị
+                    }
+                }
+            }
+            return rating.ToString();
+        }
+
+        private string CreateRoom(string roomid,string piececolor,string time,string username,TcpClient client)
         {
             lock (rooms)
             {
@@ -358,12 +385,13 @@ namespace chess
                 var newRoom = new GameRoom(client);
                 newRoom.SetTime(time);
                 newRoom.SetP1Color(piececolor);
+                newRoom.SetP1Username(username);
                 rooms[roomid] = newRoom;
                 return $"SUCCESS: Room {roomid} đã tạo";
             }
         }
 
-        private string JoinRoom(string roomId, TcpClient client)
+        private string JoinRoom(string roomId,string username ,TcpClient client)
         {
             string RoomTime;
             lock (rooms)
@@ -389,45 +417,61 @@ namespace chess
                 RoomTime = existingRoom.GetTime();
                 // Thêm người chơi vào phòng
                 existingRoom.AddPlayer(client);
+                existingRoom.SetP2Username(username);
                 string P1_Color = existingRoom.P1Color();
                 string P2_Color = (P1_Color == "WHITE") ? "BLACK" : "WHITE";
+                string P1_Username = existingRoom.GetP1Username();
+                string P2_Username = existingRoom.GetP2Username();
+                string P1_Rating = GetRatingForRoom(P1_Username);
+                string P2_Rating = GetRatingForRoom(P2_Username);
                 existingRoom.SetP2Color(P2_Color);
                 existingRoom.SetIndexByColor();
-                SendMessage(existingRoom.GetLastPlayer(), $"START {P1_Color}");
-                return $"SUCCESS: {P2_Color} {roomId} {RoomTime}";
-
+                SendMessage(existingRoom.GetLastPlayer(), $"START {P1_Color} {P2_Username} {P2_Rating}");
+                return $"SUCCESS: {P2_Color} {P1_Username} {P1_Rating} {roomId} {RoomTime}";
             }
         }
-
-
-        private string FindMatch(TcpClient client)
+        private string CreateRandomRoom(string roomid,string piececolor, string time, string username, TcpClient client)
         {
-            lock (waitingPlayers)
+            lock (randomRoom)
             {
-                // Kiểm tra xem client đã có trong danh sách người chơi hay chưa
-                if (waitingPlayers.Contains(client))
+                var newRoom = new GameRoom(client);
+                newRoom.SetTime(time);
+                newRoom.SetP1Color(piececolor);
+                newRoom.SetP1Username(username);
+                newRoom.SetRoomId(roomid);
+                randomRoom.Add(newRoom);
+                return $"SUCCESS: Room {roomid} đã tạo";
+            }
+        }
+        private string JoinRandomRoom(string username, TcpClient client)
+        {
+            lock (randomRoom)
+            {
+                foreach( var room in randomRoom)
                 {
-                    return "ERROR: Already in a match";
+                    if(!room.IsFull())
+                    {
+                        if (room.HasPlayer(client))
+                        {
+                            return "ERROR: Bạn đang ở trong phòng này";
+                        }
+                        room.AddPlayer(client);
+                        room.SetP2Username(username);
+                        string RoomTime = room.GetTime();
+                        string P1_Color = room.P1Color();
+                        string RoomId = room.GetRoomId();
+                        string P2_Color = (P1_Color == "WHITE") ? "BLACK" : "WHITE";
+                        string P1_Username = room.GetP1Username();
+                        string P2_Username = room.GetP2Username();
+                        string P1_Rating = GetRatingForRoom(P1_Username);
+                        string P2_Rating = GetRatingForRoom(P2_Username);
+                        room.SetP2Color(P2_Color);
+                        room.SetIndexByColor();
+                        SendMessage(room.GetLastPlayer(), $"START {P1_Color} {P2_Username} {P2_Rating}");
+                        return $"SUCCESS: {P2_Color} {P1_Username} {P1_Rating} {RoomId} {RoomTime}";
+                    }    
                 }
-
-                waitingPlayers.Enqueue(client);
-                if (waitingPlayers.Count >= 2)
-                {
-                    TcpClient player1 = waitingPlayers.Dequeue();
-                    TcpClient player2 = waitingPlayers.Dequeue();
-                    GameRoom gameRoom = new GameRoom(player1, player2);
-                    gameRooms.Add(gameRoom);
-
-                    SendMessage(player1, "MATCH_FOUND WHITE");
-                    SendMessage(player2, "MATCH_FOUND BLACK");
-                    SendMessage(player1, "MATCH_FOUND WHITE");
-        
-                    return "SUCCESS: Trận bắt đầu";
-                }
-                else
-                {
-                    return "WAITING: đang tìm trận...";
-                }
+                return "ERROR: Không có phòng phù hợp để tham gia";
             }
         }
 
@@ -440,13 +484,11 @@ namespace chess
             {
                 existingRoom = rooms[roomid];
             }
-           
-            else if (gameRooms.Any(r => r.HasPlayer(client)))
+            else if(randomRoom.Any(r=>r.HasPlayer(client)))
             {
-                existingRoom = gameRooms.FirstOrDefault(r => r.HasPlayer(client));
-            }
-
-            
+                existingRoom = randomRoom.FirstOrDefault(r => r.HasPlayer(client));
+            }    
+      
             if (existingRoom == null)
             {
                 return "ERROR: Phòng không tìm thấy";
@@ -479,13 +521,12 @@ namespace chess
                 rooms.Remove(roomid);
                 Console.WriteLine("Xóa phòng  thành công");
             }
-
-            
-            if (gameRooms.Contains(existingRoom))
+            if (randomRoom.Contains(existingRoom))
             {
-                gameRooms.Remove(existingRoom);
+                randomRoom.Remove(existingRoom);
                 Console.WriteLine("Xóa phòng random thành công");
             }
+
 
             return message;
         }
@@ -502,9 +543,9 @@ namespace chess
 
             if (room == null)
             {
-                lock (gameRooms)
+                lock (randomRoom)
                 {
-                    room = gameRooms.FirstOrDefault(g => g.HasPlayer(client));
+                    room = randomRoom.FirstOrDefault(g => g.HasPlayer(client));
                 }
             }
 
@@ -531,9 +572,9 @@ namespace chess
 
             if (room == null)
             {
-                lock (gameRooms)
+                lock (randomRoom)
                 {
-                    room = gameRooms.FirstOrDefault(g => g.HasPlayer(client));
+                    room = randomRoom.FirstOrDefault(g => g.HasPlayer(client));
                 }
             }
 
@@ -544,24 +585,6 @@ namespace chess
 
             room.SendChatMessage(message, client);
             return "SUCCESS: Tin nhắn đã gửi";
-        }
-
-        private void RemovePlayer(TcpClient client)
-        {
-            lock (waitingPlayers)
-            {
-                if (waitingPlayers.Contains(client))
-                {
-                    waitingPlayers = new Queue<TcpClient>(waitingPlayers.Where(p => p != client));
-                }
-
-                var room = gameRooms.FirstOrDefault(g => g.HasPlayer(client));
-                if (room != null)
-                {
-                    room.RemovePlayer(client);
-                    gameRooms.Remove(room);
-                }
-            }
         }
 
         private async void SendMessage(TcpClient client, string message)
